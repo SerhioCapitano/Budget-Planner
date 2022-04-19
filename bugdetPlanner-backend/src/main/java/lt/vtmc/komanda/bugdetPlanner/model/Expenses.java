@@ -1,4 +1,4 @@
-package lt.vtmc.komanda.budgetPlanner.model;
+package lt.vtmc.komanda.bugdetPlanner.model;
 
 import java.math.BigDecimal;
 import java.time.LocalTime;

@@ -1,9 +1,9 @@
-package lt.vtmc.komanda.budgetPlanner.repository;
+package lt.vtmc.komanda.bugdetPlanner.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import lt.vtmc.komanda.budgetPlanner.model.Expenses;
+import lt.vtmc.komanda.bugdetPlanner.model.Expenses;
 
 
 @Repository
