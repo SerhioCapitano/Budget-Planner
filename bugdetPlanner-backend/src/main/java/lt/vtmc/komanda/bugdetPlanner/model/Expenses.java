@@ -20,11 +20,11 @@ public class Expenses {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long id;
-	@NotEmpty(message = "Suma yra privaloma!")
+//	@NotEmpty(message = "Suma yra privaloma!")
 	private BigDecimal ammount;
-	@NotEmpty(message = "Data yra privaloma!")
+//	@NotEmpty(message = "Data yra privaloma!")
 	private LocalDateTime date = LocalDateTime.now();
-	@NotEmpty(message = "Kategorija yra privaloma!")
+//	@NotEmpty(message = "Kategorija yra privaloma!")
 	private String category;
 	private String name;
 	private String comment;
