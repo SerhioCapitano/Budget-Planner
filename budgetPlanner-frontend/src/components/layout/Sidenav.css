@@ -1,0 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Days+One&display=swap');
+
+.brand{
+    margin-top: -10px;
+    font-size: 40px;
+    /* font-size: 72px; */
+  background: -webkit-linear-gradient(rgb(108, 69, 250), rgb(44, 18, 126));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-family: 'Days One', sans-serif;
+}

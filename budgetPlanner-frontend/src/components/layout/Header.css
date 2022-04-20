@@ -1,0 +1,7 @@
+.header-row{
+    padding: 20px;
+    background: rgb(137,73,189);
+    background: linear-gradient(37deg, rgba(137,73,189,1) 9%, rgba(53,53,231,1) 50%, rgba(0,212,255,1) 100%);
+   border-radius: 10px;
+    
+}
