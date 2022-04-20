@@ -5,17 +5,20 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import lt.vtmc.komanda.bugdetPlanner.exception.ResourceNotFoundException;
 import lt.vtmc.komanda.bugdetPlanner.model.Expenses;
 import lt.vtmc.komanda.bugdetPlanner.model.ExpensesDTO;
 import lt.vtmc.komanda.bugdetPlanner.repository.ExpensesRepository;
-
 
 @CrossOrigin("*")
 @RestController
@@ -35,10 +38,10 @@ public class ExpensesController {
 		return repo.findAll();
 	}
 
-//@GetMapping("/{id}")
-//public Expenses getFoodCategoryById(@PathVariable("id") long id) {
-//	return repo.findById(id).orElseThrow(() -> new FoodCategoryNotFoundException());
-//}
+	@GetMapping("/{id}")
+	public Expenses getExpensesById(@PathVariable("id") long id) {
+		return repo.findById(id).orElseThrow(() -> new ResourceNotFoundException("Expense was not found"));
+	}
 
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
@@ -52,6 +55,25 @@ public class ExpensesController {
 		expenses.setComment(expensesDTO.getComment());
 		expenses.setLimit(expensesDTO.getLimit());
 		return repo.save(expenses);
+	}
+
+	@PutMapping("/{id}")
+	public Expenses updateExpenses(@PathVariable("id") long id, @RequestBody ExpensesDTO expenseDTO) {
+		return repo.findById(id).map(expense -> {
+			expense.setAmmount(expenseDTO.getAmmount());
+			expense.setDate(expenseDTO.getDate());
+			expense.setCategory(expenseDTO.getCategory());
+			expense.setName(expenseDTO.getName());
+			expense.setComment(expenseDTO.getComment());
+			expense.setLimit(expenseDTO.getLimit());
+			return repo.save(expense);
+		}).orElseThrow(() -> new ResourceNotFoundException("Expense was not found"));
+	}
+
+	@DeleteMapping("/{id}")
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public void deleteExpense(@PathVariable("id") long id) {
+		repo.deleteById(id);
 	}
 
 }
