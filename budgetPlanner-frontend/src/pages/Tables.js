@@ -2,12 +2,14 @@ import React, { useState } from 'react';
 import { Table, Input, InputNumber, Popconfirm, Form, Typography } from 'antd';
 const originData = [];
 
-for (let i = 0; i < 100; i++) {
+for (let i = 0; i < 11; i++) {
   originData.push({
     key: i.toString(),
-    name: `Edrward ${i}`,
-    age: 32,
-    address: `London Park no. ${i}`,
+    id: `${i+1}`,
+    category: "Transportas",
+    description: "Kuras",
+    date: "2022-04-20",
+    income: "13,35"
   });
 }
 
@@ -90,26 +92,39 @@ const EditableTable = () => {
 
   const columns = [
     {
-      title: 'name',
-      dataIndex: 'name',
-      width: '25%',
+      title: 'Pajamų nr.',
+      dataIndex: 'id',
+      width: '10%',
       editable: true,
     },
     {
-      title: 'age',
-      dataIndex: 'age',
-      width: '15%',
+      title: 'Kategorija',
+      dataIndex: 'category',
+      width: '20%',
       editable: true,
     },
     {
-      title: 'address',
-      dataIndex: 'address',
-      width: '40%',
+      title: 'Aprašymas',
+      dataIndex: 'description',
+      width: '35%',
       editable: true,
     },
     {
-      title: 'operation',
+      title: 'Date',
+      dataIndex: 'date',
+      width: '10%',
+      editable: true,
+    },
+    {
+      title: 'Suma',
+      dataIndex: 'income',
+      width: '10%',
+      editable: true,
+    },
+    {
+      title: 'Veiksmai',
       dataIndex: 'operation',
+      width: '20%',
       render: (_, record) => {
         const editable = isEditing(record);
         return editable ? (

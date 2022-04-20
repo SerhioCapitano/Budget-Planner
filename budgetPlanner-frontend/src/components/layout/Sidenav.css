@@ -1,11 +1,12 @@
-@import url('https://fonts.googleapis.com/css2?family=Days+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Nanum+Gothic&display=swap');
 
-.brand{
+.brand-text{
     margin-top: -10px;
-    font-size: 40px;
-    /* font-size: 72px; */
-  background: -webkit-linear-gradient(rgb(108, 69, 250), rgb(44, 18, 126));
+    font-size: 45px;
+    
+   
+  background: -webkit-linear-gradient(rgb(18, 11, 43), rgb(207, 8, 118));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  font-family: 'Days One', sans-serif;
+  font-family: 'DM Serif Display', serif;
 }

@@ -155,7 +155,7 @@ function Sidenav({ color }) {
     <>
       <div className="brand">
         
-        <span>.budgeter</span>
+        <span className="brand-text">.budgeter</span>
       </div>
       <hr />
       <Menu theme="light" mode="inline">

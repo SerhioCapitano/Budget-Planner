@@ -1,6 +1,8 @@
 
 import { useState, useEffect } from "react";
 
+
+
 import {
   Row,
   Col,
@@ -276,7 +278,7 @@ function Header({
           <div className="ant-page-header-heading">
             <span
               className="ant-page-header-heading-title"
-              style={{ textTransform: "capitalize" }}
+              style={{ textTransform: "capitalize", fontSize: "25px", color:"white", paddingTop:"60px", paddingLeft:"20px", fontFamily: "Arial"}}
             >
               {subName.replace("/", "")}
             </span>

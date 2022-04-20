@@ -11,12 +11,12 @@ function Footer() {
       <Row className="just">
         <Col xs={24} md={12} lg={12}>
           <div className="copyright">
-            © 2021, made with
+            © 2022, made with
             {<HeartFilled />} by
             <a href="#pablo" className="font-weight-bold" target="_blank">
-              Creative Tim
+              DORELIAI
             </a>
-            for a better web.
+            for a happier wallet.
           </div>
         </Col>
         <Col xs={24} md={12} lg={12}>
