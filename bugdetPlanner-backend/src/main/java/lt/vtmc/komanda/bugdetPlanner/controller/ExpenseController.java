@@ -38,14 +38,14 @@ public class ExpenseController {
 		return repo.findAll();
 	}
 
-//	@GetMapping("/{category}")
-//	public Expense getFoodCategoryById(@PathVariable("category") String category) {
-//		if(!repo.existsByCategory(category)) {
-//			throw new ResourceNotFoundException("Category does not exists");
-//		}else {
-//		return repo.findByCategory(category);
-//		}
-//	}
+	@GetMapping("/{category}")
+	public Expense getExpenseByCategory(@PathVariable("category") String category) {
+		if(!repo.existsByCategory(category)) {
+			throw new ResourceNotFoundException();
+		}else {
+		return repo.findByCategory(category);
+		}
+	}
 	
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
@@ -68,16 +68,18 @@ public class ExpenseController {
 			expense.setCategory(expenseDTO.getCategory());
 			expense.setName(expenseDTO.getName());
 			expense.setComment(expenseDTO.getComment());
-		//	expense.setLimit(expenseDTO.getLimit());
 			return repo.save(expense);
-		}).orElseThrow(() -> new ResourceNotFoundException("Expense was not found"));
+		}).orElseThrow(() -> new ResourceNotFoundException());
 	}
 
-	@DeleteMapping("/{category}")
+	@DeleteMapping("/{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public void deleteExpense(@PathVariable("category") String category) {
-		getAllExpenses().removeIf(x -> x.getCategory().equals(category));
-		repo.deleteByCategory(category);
+	public void deleteExpense(@PathVariable("id") long id) {
+		if(!repo.existsById(id)) {
+			throw new ResourceNotFoundException();
+		}else {
+		
+		repo.deleteById(id);
 	}
-
+	}
 }
