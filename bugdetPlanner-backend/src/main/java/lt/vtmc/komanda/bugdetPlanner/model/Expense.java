@@ -18,11 +18,11 @@ public class Expense {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long id;
-	@NotNull
+	//@NotNull
 	private BigDecimal amount;
-	@NotNull
+	//@NotNull
 	private LocalDate date = LocalDate.now();
-	@NotNull
+	//@NotNull
 	private String category;
 	private String name;
 	private String comment;
