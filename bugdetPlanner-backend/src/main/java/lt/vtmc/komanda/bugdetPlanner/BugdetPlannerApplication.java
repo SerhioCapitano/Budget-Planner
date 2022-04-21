@@ -7,7 +7,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import lt.vtmc.komanda.bugdetPlanner.model.Incomes;
+import lt.vtmc.komanda.bugdetPlanner.model.Income;
 import lt.vtmc.komanda.bugdetPlanner.repository.IncomeRepository;
 
 @SpringBootApplication
@@ -21,12 +21,12 @@ public class BugdetPlannerApplication implements CommandLineRunner {
 	private IncomeRepository incomeRepository;
 
 	public void run(String[] args) throws Exception {
-		Incomes i1 = new Incomes();
+		Income i1 = new Income();
 		i1.setAmount(new BigDecimal(1000));
 		i1.setDescription("description");
 		incomeRepository.save(i1);
 
-		Incomes i2 = new Incomes();
+		Income i2 = new Income();
 		i2.setAmount(new BigDecimal(5000));
 		i2.setDescription("wtf");
 		incomeRepository.save(i2);

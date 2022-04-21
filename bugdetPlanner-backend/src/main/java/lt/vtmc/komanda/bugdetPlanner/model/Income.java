@@ -1,7 +1,8 @@
 package lt.vtmc.komanda.bugdetPlanner.model;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,7 +16,7 @@ import lombok.Data;
 @Data
 @Entity
 @Table(name = "incomes")
-public class Incomes {
+public class Income {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,8 +25,8 @@ public class Incomes {
 	@Column(name = "amount")
 	private BigDecimal amount;
 
-	@Column(columnDefinition = "DATE")
-	private LocalDateTime date = LocalDateTime.now();
+	@Column(name = "date")
+	private String timeStamp = new SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().getTime());
 
 	@Column(name = "description")
 	private String description;
