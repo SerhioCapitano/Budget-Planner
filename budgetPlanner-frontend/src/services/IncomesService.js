@@ -9,6 +9,14 @@ class IncomesService {
         return axios.get(INCOMES_BASE_REST_API_URL)
     }
 
+    createIncome(income) {
+        return axios.post(INCOMES_BASE_REST_API_URL, income)
+    }
+
+    deleteIncome(incomeId) {
+        return axios.delete(INCOMES_BASE_REST_API_URL + '/' + incomeId);
+    }
+
 
 
 
