@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,6 +19,7 @@ import lt.vtmc.komanda.bugdetPlanner.exception.ResourceNotFoundException;
 import lt.vtmc.komanda.bugdetPlanner.model.Income;
 import lt.vtmc.komanda.bugdetPlanner.repository.IncomeRepository;
 
+@CrossOrigin("*")
 @RestController
 @RequestMapping("/api/v1/incomes")
 public class IncomeController {
@@ -48,8 +50,7 @@ public class IncomeController {
 
 	@GetMapping("{id}")
 	public ResponseEntity<Income> getIncomeById(@PathVariable long id) {
-		Income income = incomeRepository.findById(id)
-				.orElseThrow(() -> new ResourceNotFoundException("Income not found with id: " + id));
+		Income income = incomeRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException());
 		return ResponseEntity.ok(income);
 	}
 
@@ -57,8 +58,7 @@ public class IncomeController {
 
 	@PutMapping("{id}")
 	public ResponseEntity<Income> updateEmployee(@PathVariable long id, @RequestBody Income incomeDetails) {
-		Income updateIncome = incomeRepository.findById(id)
-				.orElseThrow(() -> new ResourceNotFoundException("Employee not exist with id: " + id));
+		Income updateIncome = incomeRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException());
 
 		updateIncome.setAmount(incomeDetails.getAmount());
 		updateIncome.setDescription(incomeDetails.getDescription());
@@ -74,8 +74,7 @@ public class IncomeController {
 
 	@DeleteMapping("{id}")
 	public ResponseEntity<HttpStatus> deleteEmployee(@PathVariable long id) {
-		Income employee = incomeRepository.findById(id)
-				.orElseThrow(() -> new ResourceNotFoundException("Income not found with id: " + id));
+		Income employee = incomeRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException());
 
 		incomeRepository.delete(employee);
 
