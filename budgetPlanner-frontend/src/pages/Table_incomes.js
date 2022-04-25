@@ -1,26 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import IncomesService from '../services/IncomesService'
 import { Table, Input, InputNumber, Popconfirm, Form, Typography, Button, Popover } from 'antd';
+import { DeleteOutlined } from "@ant-design/icons";
  
 
 
 
-const originData = [
-  {
-    Suma: "Edward",
-    Data: 44,
-    Komentaras: "cats",
-  }, 
-  {
-    Suma: "Sam",
-    Data: 50,
-    Komentaras: "fly",
-  }
-];
 
 // for (let i = 0; i < 100; i++) {
 //   originData.push({ 
-//    key: i.toString(),
+//    id: i.toString(),
 //     Suma: `Edrward ${i}`,
 //     Data: 32,
 //     Kategorija: `London Park no. ${i}`,
@@ -32,6 +21,7 @@ const originData = [
 
 
 const EditableCell = ({
+  
   editing,
   dataIndex,
   title,
@@ -43,6 +33,7 @@ const EditableCell = ({
 }) => {
   const inputNode = inputType === 'number' ? <InputNumber /> : <Input />;
   return (
+    
     <td {...restProps}>
       {editing ? (
         <Form.Item
@@ -66,16 +57,26 @@ const EditableCell = ({
   );
 };
 
+
 const EditableTable = () => {
   const [form] = Form.useForm();
-  const [data, setData] = useState(originData);
+  const [incomes, setIncomes] = useState([]);
   const [editingKey, setEditingKey] = useState('');
 
-  const [incomes, setIncomes] = useState([]);
 
   useEffect(()=>getAllIncome(),[]);
+  
 
-  const isEditing = (record) => record.key === editingKey;
+
+
+
+
+ 
+    //Runs on every render
+
+  
+
+  const isEditing = (record) => record.id === editingKey;
 
   const edit = (record) => {
     form.setFieldsValue({
@@ -86,25 +87,32 @@ const EditableTable = () => {
       Komentaras: '',
       ...record,
     });
-    setEditingKey(record.key);
+    setEditingKey(record.id);
   };
 
   const cancel = () => {
     setEditingKey('');
   };
 
+  
 
-  const[items , setItems] = useState([]) 
-const[Suma, setSuma] = useState();
-const[Data, setDate] = useState();
-const[komentaras, setKomentara] = useState();
 
-const something = (e) => {
-  console.log(komentaras);
+
+
+
+
+const onDelete=(record) => {
+  IncomesService.deleteIncome(record.id).then((respone) => {
+    const newData = incomes.filter(obj => obj.id !==  record.id);
+    console.log(newData);
+    setIncomes(newData);
+  }).catch(error => {
+    console.log(error)
+  })
+ 
 }
 
-
-const getAllIncome = () => {
+const getAllIncome = () => { 
   IncomesService.getAllIncomes().then((response) => {
     console.log(response.data);
     setIncomes(response.data);
@@ -112,64 +120,112 @@ const getAllIncome = () => {
     console.log(error);
   })
 }
+  ///////////////////////////////////////////////////////////////////
+
+
+  const initialTutorialState = {
+    id: null,
+    amount: "",
+    date: "",
+    description: "",
+  };
+  const [item, setItem] = useState(initialTutorialState);
+  const handleInputChange = event => {
+    const { name, value } = event.target;
+    setItem({ ...item, [name]: value });
+  };
+  const saveItem = () => {
+    var data = {
+      amount: item.amount,
+      date: item.date,
+      description: item.description
+    };
+    IncomesService.createIncome(data)
+      .then(response => {
+        setItem({
+          amount: response.data.amount,
+          date: response.data.date,
+          description: response.data.description,
+        }); 
+        getAllIncome();
+        console.log(response.data);
+      })
+      .catch(e => {
+        console.log(e);
+      });
+  };
 
 
 
 
-const AddItem = (e) => {
-    e.preventDefault();
 
-    const item = {Suma,Data,komentaras}
-    console.log(item);
-    originData.push(item);
-    setData(originData);
-    console.log(originData);
-}
+
+
+
+
+
+
+
+
+    /////////////////////////////////////////////////////////////////////
+
+
+
+// const AddItem = (e) => {
+//   e.preventDefault();
+//   const item = {amount,date,description}
+//   incomes.push(item);
+//   setIncomes(incomes);
+// }
+
+
 
   const content = (
     <div>
    <Input type="text"
     placeholder="Suma"
-    name="Suma"
-    value={Suma}
-    onChange= {(e) => setSuma(e.target.value)}
+    name="amount"
+    value={item.amount}
+    onChange= {handleInputChange}
     />
 
      <Input type="text"
     placeholder="Data"
-    name="Data"
-    value={Data}
-    onChange= {(e) => setDate(e.target.value)}
+    name="date"
+    value={item.date}
+    onChange= {handleInputChange}
     />
 
    <Input type="text"
     placeholder="Komentaras"
-    name="komentaras"
-    value={komentaras}
-    onChange= {(e) => setKomentara(e.target.value)}
+    name="description"
+    value={item.description}
+    onChange= {handleInputChange}
     />
 
 
-   <Button type="primary" onClick={(e) => AddItem(e)}>Submit</Button>
-   <Button type="primary" onClick={getAllIncome}>Submit</Button>
+   <Button type="primary" onClick={saveItem}>Submit</Button>
+   {/* <Button type="primary" onClick={getAllIncome}>Submit</Button> */}
   
     </div>
+    
   );
 
-  const save = async (key) => {
+
+  const save = async (id) => {
     try {
       const row = await form.validateFields();
-      const newData = [...data];
-      const index = newData.findIndex((item) => key === item.key);
+      const newData = [...incomes];
+      const index = newData.findIndex((item) => id === item.id);
 
       if (index > -1) {
         const item = newData[index];
         newData.splice(index, 1, { ...item, ...row });
-        setData(newData);
+        setIncomes(newData);
         setEditingKey('');
       } else {
         newData.push(row);
-        setData(newData);
+        setIncomes(newData);
         setEditingKey('');
       }
     } catch (errInfo) {
@@ -180,19 +236,19 @@ const AddItem = (e) => {
   const columns = [
     {
       title: 'Suma',
-      dataIndex: 'Suma',
+      dataIndex: 'amount',
       width: '25%',
       editable: true,
     },
     {
       title: 'Data',
-      dataIndex: 'amount',
+      dataIndex: 'timeStamp',
       width: '15%',
       editable: true,
     },
     {
       title: 'Komentaras',
-      dataIndex: 'timeStamp',
+      dataIndex: 'description',
       width: '40%',
       editable: true,
     },
@@ -204,7 +260,7 @@ const AddItem = (e) => {
         return editable ? (
           <span>
             <Typography.Link
-              onClick={() => save(record.key)}
+              onClick={() => save(record.id)}
               style={{
                 marginRight: 8,
               }}
@@ -217,10 +273,17 @@ const AddItem = (e) => {
           </span>
           
         ) : (
+          <div>
           <Typography.Link disabled={editingKey !== ''} onClick={() => edit(record)}>
             Keisti
           </Typography.Link>
-          
+          <DeleteOutlined
+          onClick={() => {
+            onDelete(record);
+          }}
+          style={{ color: "red", marginLeft: 12 }}
+        />
+        </div>
         );
       },
     },
