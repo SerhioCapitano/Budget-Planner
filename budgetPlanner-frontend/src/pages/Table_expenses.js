@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Table, Input, InputNumber, Popconfirm, Form, Typography } from 'antd';
+import { DeleteOutlined } from "@ant-design/icons";
 const originData = [];
 
 for (let i = 0; i < 100; i++) {
@@ -67,6 +68,14 @@ const EditableTable = () => {
     setEditingKey('');
   };
 
+  const onDelete=(record) => {
+    console.log(record.key);
+    console.log(data);
+      const newData = data.filter(obj => obj.key !==  record.key);
+      console.log(newData);
+      setData(newData);
+  }
+
   const save = async (key) => {
     try {
       const row = await form.validateFields();
@@ -108,7 +117,7 @@ const EditableTable = () => {
       editable: true,
     },
     {
-      title: 'operation',
+      title: 'Actions',
       dataIndex: 'operation',
       render: (_, record) => {
         const editable = isEditing(record);
@@ -125,13 +134,24 @@ const EditableTable = () => {
             <Popconfirm title="Sure to cancel?" onConfirm={cancel}>
               <a>Cancel</a>
             </Popconfirm>
-          </span>
+          </span>     
         ) : (
+          <div>  
+
           <Typography.Link disabled={editingKey !== ''} onClick={() => edit(record)}>
             Edit
           </Typography.Link>
-        );
-      },
+          <DeleteOutlined
+          onClick={() => {
+            onDelete(record);
+          }}
+          style={{ color: "red", marginLeft: 12 }}
+        />
+        
+
+            </div>             
+        )
+      },   
     },
   ];
   const mergedColumns = columns.map((col) => {
