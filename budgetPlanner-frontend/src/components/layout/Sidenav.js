@@ -192,7 +192,7 @@ function Sidenav({ color }) {
             >
               {tablesIncomes}
             </span>
-            <span className="label">Pajamos(Tables)</span>
+            <span className="label">Pajamos</span>
           </NavLink>
         </Menu.Item>
 

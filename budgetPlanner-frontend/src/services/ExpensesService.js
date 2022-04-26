@@ -17,6 +17,13 @@ class ExpensesService {
         return axios.delete(EXPENSES_BASE_REST_API_URL + '/' + expenseId);
     }
 
+    updateExpense(expenseId, expense) {
+        return axios.put(EXPENSES_BASE_REST_API_URL + '/' + expenseId, expense);
+    }
+
+    getExpenseById(expenseId) {
+        return axios.get(EXPENSES_BASE_REST_API_URL + '/' + expenseId);
+    }
 
 
 
