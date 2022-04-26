@@ -1,16 +1,8 @@
-import React, { useState } from 'react';
-import { Table, Input, InputNumber, Popconfirm, Form, Typography } from 'antd';
+import React, { useState, useEffect } from 'react';
+import { Table, Input, InputNumber, Popconfirm, Form, Typography, Button, Popover } from 'antd';
 import { DeleteOutlined } from "@ant-design/icons";
-const originData = [];
+import ExpensesService from '../services/ExpensesService'
 
-for (let i = 0; i < 100; i++) {
-  originData.push({
-    key: i.toString(),
-    name: `Edrward ${i}`,
-    age: 32,
-    address: `London Park no. ${i}`,
-  });
-}
 
 const EditableCell = ({
   editing,
@@ -49,16 +41,20 @@ const EditableCell = ({
 
 const EditableTable = () => {
   const [form] = Form.useForm();
-  const [data, setData] = useState(originData);
+  const [expenses, setExpenses] = useState([]);
   const [editingKey, setEditingKey] = useState('');
+
+  useEffect(()=>getAllExpenses(),[]);
 
   const isEditing = (record) => record.key === editingKey;
 
   const edit = (record) => {
     form.setFieldsValue({
-      name: '',
-      age: '',
-      address: '',
+      Suma: '',
+      Data: '',
+      Kategorija: '',
+      Pavadinimas: '',
+      Komentaras: '',
       ...record,
     });
     setEditingKey(record.key);
@@ -68,28 +64,127 @@ const EditableTable = () => {
     setEditingKey('');
   };
 
+
+
   const onDelete=(record) => {
-    console.log(record.key);
-    console.log(data);
-      const newData = data.filter(obj => obj.key !==  record.key);
+    ExpensesService.deleteExpense(record.id).then((response)=>{
+      const newData = expenses.filter(obj => obj.id !==  record.id);
       console.log(newData);
-      setData(newData);
+      setExpenses(newData);
+    }).catch(error => {
+      console.log(error)
+    })
   }
 
-  const save = async (key) => {
+
+  const getAllExpenses = () => { 
+    ExpensesService.getAllExpenses().then((response) => {
+      console.log(response.data);
+      setExpenses(response.data);
+    }).catch(error => {
+      console.log(error);
+    })
+  }
+
+
+  const initialTutorialState = {
+    id: null,
+    amount: "",
+    date: "",
+    category: "",
+    name:"",
+    comment: "",
+  };
+  const [item, setItem] = useState(initialTutorialState);
+  const handleInputChange = event => {
+    const { name, value } = event.target;
+    setItem({ ...item, [name]: value });
+  };
+  const saveItem = () => {
+    var data = {
+      amount: item.amount,
+      date: item.date,
+      category: item.category,
+      name: item.name,
+      comment: item.comment
+    };
+    ExpensesService.createExpense(data)
+      .then(response => {
+        setItem({
+          amount: response.data.amount,
+          date: response.data.date,
+          category: response.data.category,
+          name: response.data.name,
+          comment: response.data.comment,
+        }); 
+        getAllExpenses();
+        console.log(response.data);
+      })
+      .catch(e => {
+        console.log(e);
+      });
+  };
+
+  
+
+  const content = (
+    <div>
+   <Input type="number"
+    placeholder="Suma"
+    name="amount"
+    value={item.amount}
+    onChange= {handleInputChange}
+    />
+
+     <Input type="date"
+    placeholder="Data"
+    name="date"
+    value={item.date}
+    onChange= {handleInputChange}
+    />
+
+   <Input type="text"
+    placeholder="Kategorija"
+    name="category"
+    value={item.category}
+    onChange= {handleInputChange}
+    />
+
+<Input type="text"
+    placeholder="Pavadinimas"
+    name="name"
+    value={item.name}
+    onChange= {handleInputChange}
+    />
+
+<Input type="text"
+    placeholder="Komentaras"
+    name="comment"
+    value={item.comment}
+    onChange= {handleInputChange}
+    />
+
+
+   <Button type="primary" onClick={saveItem}>Išsaugoti</Button>
+  
+    </div>
+    
+  );
+
+  const save = async (id) => {
     try {
       const row = await form.validateFields();
-      const newData = [...data];
-      const index = newData.findIndex((item) => key === item.key);
+      const newData = [...expenses];
+      const index = newData.findIndex((item) => id === item.id);
 
       if (index > -1) {
         const item = newData[index];
         newData.splice(index, 1, { ...item, ...row });
-        setData(newData);
+        setExpenses(newData);
         setEditingKey('');
       } else {
         newData.push(row);
-        setData(newData);
+        setExpenses(newData);
         setEditingKey('');
       }
     } catch (errInfo) {
@@ -99,47 +194,59 @@ const EditableTable = () => {
 
   const columns = [
     {
-      title: 'name',
-      dataIndex: 'name',
+      title: 'Suma',
+      dataIndex: 'amount',
       width: '25%',
       editable: true,
     },
     {
-      title: 'age',
-      dataIndex: 'age',
+      title: 'Data',
+      dataIndex: 'date',
       width: '15%',
       editable: true,
     },
     {
-      title: 'address',
-      dataIndex: 'address',
+      title: 'Kategorija',
+      dataIndex: 'category',
       width: '40%',
       editable: true,
     },
     {
-      title: 'Actions',
-      dataIndex: 'operation',
+      title: 'Pavadinimas',
+      dataIndex: 'name',
+      width: '40%',
+      editable: true,
+    },
+    {
+      title: 'Komentaras',
+      dataIndex: 'comment',
+      width: '40%',
+      editable: true,
+    },
+    {
+      title: 'Veiksmas',
+      dataIndex: 'Veiksmas',
       render: (_, record) => {
         const editable = isEditing(record);
         return editable ? (
           <span>
             <Typography.Link
-              onClick={() => save(record.key)}
+              onClick={() => save(record.id)}
               style={{
                 marginRight: 8,
               }}
             >
-              Save
+              Saugoti
             </Typography.Link>
-            <Popconfirm title="Sure to cancel?" onConfirm={cancel}>
-              <a>Cancel</a>
+            <Popconfirm title="Keisti?" onConfirm={cancel}>
+              <a>Atšaukti</a>
             </Popconfirm>
-          </span>     
+          </span>
+          
         ) : (
-          <div>  
-
+          <div>
           <Typography.Link disabled={editingKey !== ''} onClick={() => edit(record)}>
-            Edit
+            Keisti
           </Typography.Link>
           <DeleteOutlined
           onClick={() => {
@@ -147,11 +254,9 @@ const EditableTable = () => {
           }}
           style={{ color: "red", marginLeft: 12 }}
         />
-        
-
-            </div>             
-        )
-      },   
+        </div>
+        );
+      },
     },
   ];
   const mergedColumns = columns.map((col) => {
@@ -160,10 +265,11 @@ const EditableTable = () => {
     }
 
     return {
+      
       ...col,
       onCell: (record) => ({
         record,
-        inputType: col.dataIndex === 'age' ? 'number' : 'text',
+        inputType: col.dataIndex === 'Data' ? 'number' : 'text',
         dataIndex: col.dataIndex,
         title: col.title,
         editing: isEditing(record),
@@ -171,7 +277,12 @@ const EditableTable = () => {
     };
   });
   return (
-    <Form form={form} component={false}>
+<Form form={form} component={false}>
+<div>
+<Popover content={content} title="Title">
+    <Button type="primary">Prideti Išlaidas</Button>
+  </Popover>
+      </div>
       <Table
         components={{
           body: {
@@ -179,14 +290,17 @@ const EditableTable = () => {
           },
         }}
         bordered
-        dataSource={data}
+        dataSource={expenses}
         columns={mergedColumns}
         rowClassName="editable-row"
         pagination={{
           onChange: cancel,
         }}
+        
       />
+     
     </Form>
+    
   );
 };
 
