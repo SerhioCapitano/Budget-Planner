@@ -96,13 +96,6 @@ const EditableTable = () => {
     setEditingKey('');
   };
 
-  
-
-
-
-
-
-
 const onDelete=(record) => {
   IncomesService.deleteIncome(record.id).then((respone) => {
     const newData = incomes.filter(obj => obj.id !==  record.id);
@@ -185,14 +178,14 @@ const getAllIncome = () => {
 
   const content = (
     <div>
-   <Input type="text"
+   <Input type="number"
     placeholder="Suma"
     name="amount"
     value={item.amount}
     onChange= {handleInputChange}
     />
 
-     <Input type="text"
+     <Input type="date"
     placeholder="Data"
     name="date"
     value={item.date}
@@ -207,7 +200,7 @@ const getAllIncome = () => {
     />
 
 
-   <Button type="primary" onClick={saveItem}>Submit</Button>
+   <Button type="primary" onClick={saveItem}>Išsaugoti</Button>
    {/* <Button type="primary" onClick={getAllIncome}>Submit</Button> */}
   
     </div>
@@ -247,13 +240,13 @@ const getAllIncome = () => {
     {
       title: 'Suma',
       dataIndex: 'amount',
-      width: '25%',
+      width: '20%',
       editable: true,
     },
     {
       title: 'Data',
       dataIndex: 'timeStamp',
-      width: '15%',
+      width: '20%',
       editable: true,
     },
     {
@@ -277,12 +270,13 @@ const getAllIncome = () => {
             >
               Saugoti
             </Typography.Link>
-            <Popconfirm title="Keisti?" onConfirm={cancel}>
+            <Popconfirm title="Norite atšaukti?" onConfirm={cancel}>
               <a>Atšaukti</a>
             </Popconfirm>
           </span>
           
-        ) : (
+        ) : 
+        (
           <div>
           <Typography.Link disabled={editingKey !== ''} onClick={() => edit(record)}>
             Keisti
@@ -294,15 +288,14 @@ const getAllIncome = () => {
           style={{ color: "red", marginLeft: 12 }}
         />
         </div>
-        );
-      },
-    },
+         ); 
+     },
+   },
   ];
-  const mergedColumns = columns.map((col) => {
-    if (!col.editable) {
-      return col;
-    }
-
+ const mergedColumns = columns.map((col) => {
+   if (!col.editable) {
+       return col;
+     } 
     return {
       
       ...col,
@@ -319,7 +312,7 @@ const getAllIncome = () => {
 <Form form={form} component={false}>
 <div>
 <Popover content={content} title="Title">
-    <Button type="primary">Prideti Pajamos</Button>
+    <Button type="primary">Pridėti pajamas</Button>
   </Popover>
       </div>
       <Table

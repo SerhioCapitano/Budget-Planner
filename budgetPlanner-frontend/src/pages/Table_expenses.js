@@ -46,7 +46,7 @@ const EditableTable = () => {
 
   useEffect(()=>getAllExpenses(),[]);
 
-  const isEditing = (record) => record.key === editingKey;
+  const isEditing = (record) => record.id === editingKey;
 
   const edit = (record) => {
     form.setFieldsValue({
@@ -57,7 +57,7 @@ const EditableTable = () => {
       Komentaras: '',
       ...record,
     });
-    setEditingKey(record.key);
+    setEditingKey(record.id);
   };
 
   const cancel = () => {
@@ -69,7 +69,6 @@ const EditableTable = () => {
   const onDelete=(record) => {
     ExpensesService.deleteExpense(record.id).then((response)=>{
       const newData = expenses.filter(obj => obj.id !==  record.id);
-      console.log(newData);
       setExpenses(newData);
     }).catch(error => {
       console.log(error)
@@ -95,6 +94,8 @@ const EditableTable = () => {
     name:"",
     comment: "",
   };
+
+  // const [currentItem, setCurrentItem] = useState(initialTutorialState);
   const [item, setItem] = useState(initialTutorialState);
   const handleInputChange = event => {
     const { name, value } = event.target;
@@ -118,55 +119,52 @@ const EditableTable = () => {
           comment: response.data.comment,
         }); 
         getAllExpenses();
-        console.log(response.data);
       })
       .catch(e => {
         console.log(e);
       });
   };
 
-  
-
   const content = (
-    <div>
-   <Input type="number"
+  
+    <div style={{textAlign: "left"}} >
+   <input style={{margin: "10px", borderRadius: '4px'}} type="number"
     placeholder="Suma"
     name="amount"
     value={item.amount}
     onChange= {handleInputChange}
     />
 
-     <Input type="date"
+     <input style={{margin: "10px", borderRadius: '4px'}} type="date"
     placeholder="Data"
     name="date"
     value={item.date}
     onChange= {handleInputChange}
     />
 
-   <Input type="text"
+   <input style={{margin: "10px", borderRadius: '4px'}} type="text"
     placeholder="Kategorija"
     name="category"
     value={item.category}
     onChange= {handleInputChange}
     />
 
-<Input type="text"
+<input style={{margin: "10px", borderRadius: '4px'}} type="text"
     placeholder="Pavadinimas"
     name="name"
     value={item.name}
     onChange= {handleInputChange}
     />
 
-<Input type="text"
+<input style={{margin: "10px", borderRadius: '4px'}} type="text"
     placeholder="Komentaras"
     name="comment"
     value={item.comment}
     onChange= {handleInputChange}
     />
-
-
-   <Button type="primary" onClick={saveItem}>Išsaugoti</Button>
-  
+    <div>
+   <Button style={{marginBottom: "30px", marginLeft: "10px"}} type="primary" onClick={saveItem}>Pridėti išlaidas</Button>
+   </div>
     </div>
     
   );
@@ -176,12 +174,16 @@ const EditableTable = () => {
       const row = await form.validateFields();
       const newData = [...expenses];
       const index = newData.findIndex((item) => id === item.id);
-
       if (index > -1) {
         const item = newData[index];
         newData.splice(index, 1, { ...item, ...row });
+        const obj = newData.find(expense => expense.id === id);
         setExpenses(newData);
-        setEditingKey('');
+        ExpensesService.updateExpense(id, obj).then((response) => {
+        }).catch(error => { 
+          console.log(error);
+        }); 
+          setEditingKey('');
       } else {
         newData.push(row);
         setExpenses(newData);
@@ -196,7 +198,7 @@ const EditableTable = () => {
     {
       title: 'Suma',
       dataIndex: 'amount',
-      width: '25%',
+      width: '15%',
       editable: true,
     },
     {
@@ -208,19 +210,19 @@ const EditableTable = () => {
     {
       title: 'Kategorija',
       dataIndex: 'category',
-      width: '40%',
+      width: '15%',
       editable: true,
     },
     {
       title: 'Pavadinimas',
       dataIndex: 'name',
-      width: '40%',
+      width: '15%',
       editable: true,
     },
     {
       title: 'Komentaras',
       dataIndex: 'comment',
-      width: '40%',
+      width: '27%',
       editable: true,
     },
     {
@@ -238,7 +240,7 @@ const EditableTable = () => {
             >
               Saugoti
             </Typography.Link>
-            <Popconfirm title="Keisti?" onConfirm={cancel}>
+            <Popconfirm title="Norite atšaukti?" onConfirm={cancel}>
               <a>Atšaukti</a>
             </Popconfirm>
           </span>
@@ -277,12 +279,9 @@ const EditableTable = () => {
     };
   });
   return (
-<Form form={form} component={false}>
-<div>
-<Popover content={content} title="Title">
-    <Button type="primary">Prideti Išlaidas</Button>
-  </Popover>
-      </div>
+<Form form={form}>
+{content} 
+
       <Table
         components={{
           body: {
