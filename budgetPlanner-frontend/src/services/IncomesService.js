@@ -18,6 +18,15 @@ class IncomesService {
     }
 
 
+    updateIncome(incomeId,income) {
+        return axios.put(INCOMES_BASE_REST_API_URL + '/' + incomeId,income);
+    }
+
+    getIncomeById(incomeId) {
+        return axios.get(INCOMES_BASE_REST_API_URL + '/' + incomeId);
+    }
+
+
 
 
 

@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect} from 'react';
+import {useParams} from 'react-router-dom';
 import IncomesService from '../services/IncomesService'
 import { Table, Input, InputNumber, Popconfirm, Form, Typography, Button, Popover } from 'antd';
 import { DeleteOutlined } from "@ant-design/icons";
@@ -79,15 +80,16 @@ const EditableTable = () => {
   const isEditing = (record) => record.id === editingKey;
 
   const edit = (record) => {
+    
     form.setFieldsValue({
-      Suma: '',
-      Data: '',
-      Kategorija: '',
-      Pavadinimas: '',
-      Komentaras: '',
+      amount: '',
+      date: '',
+      description: '',
       ...record,
     });
     setEditingKey(record.id);
+
+
   };
 
   const cancel = () => {
@@ -104,7 +106,6 @@ const EditableTable = () => {
 const onDelete=(record) => {
   IncomesService.deleteIncome(record.id).then((respone) => {
     const newData = incomes.filter(obj => obj.id !==  record.id);
-    console.log(newData);
     setIncomes(newData);
   }).catch(error => {
     console.log(error)
@@ -114,7 +115,6 @@ const onDelete=(record) => {
 
 const getAllIncome = () => { 
   IncomesService.getAllIncomes().then((response) => {
-    console.log(response.data);
     setIncomes(response.data);
   }).catch(error => {
     console.log(error);
@@ -129,6 +129,7 @@ const getAllIncome = () => {
     date: "",
     description: "",
   };
+  const [currentItem, setCurrentItem] = useState(initialTutorialState);
   const [item, setItem] = useState(initialTutorialState);
   const handleInputChange = event => {
     const { name, value } = event.target;
@@ -148,7 +149,7 @@ const getAllIncome = () => {
           description: response.data.description,
         }); 
         getAllIncome();
-        console.log(response.data);
+
       })
       .catch(e => {
         console.log(e);
@@ -157,6 +158,8 @@ const getAllIncome = () => {
 
 
 
+
+             
 
 
 
@@ -217,16 +220,23 @@ const getAllIncome = () => {
       const row = await form.validateFields();
       const newData = [...incomes];
       const index = newData.findIndex((item) => id === item.id);
-
       if (index > -1) {
         const item = newData[index];
         newData.splice(index, 1, { ...item, ...row });
+        const obj = newData.find(income => income.id === id);
         setIncomes(newData);
-        setEditingKey('');
+        IncomesService.updateIncome(id,obj).then((response) => {
+        }).catch(error => { 
+          console.log(error);
+        }); 
+         setEditingKey('');
+        
       } else {
         newData.push(row);
         setIncomes(newData);
+ 
         setEditingKey('');
+        
       }
     } catch (errInfo) {
       console.log('Validate Failed:', errInfo);

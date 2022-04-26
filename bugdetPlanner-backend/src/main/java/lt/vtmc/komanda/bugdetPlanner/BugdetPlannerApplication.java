@@ -21,25 +21,7 @@ public class BugdetPlannerApplication implements CommandLineRunner {
 	private IncomeRepository incomeRepository;
 
 	public void run(String[] args) throws Exception {
-		Income i1 = new Income();
-		i1.setAmount(new BigDecimal(1000));
-		i1.setDescription("description");
-		incomeRepository.save(i1);
-
-		Income i2 = new Income();
-		i2.setAmount(new BigDecimal(5000));
-		i2.setDescription("wtf");
-		incomeRepository.save(i2);
-
-		Income i3 = new Income();
-		i3.setAmount(new BigDecimal(500));
-		i3.setDescription("Lorem ");
-		incomeRepository.save(i3);
-
-		Income i4 = new Income();
-		i4.setAmount(new BigDecimal(6000));
-		i4.setDescription("NEW");
-		incomeRepository.save(i4);
+	
 	}
 
 }
