@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Table, Input, InputNumber, Popconfirm, Form, Typography, Button, Popover } from 'antd';
 import { DeleteOutlined } from "@ant-design/icons";
 import ExpensesService from '../services/ExpensesService'
+import PropTypes from 'prop-types';
+import { Content } from 'antd/lib/layout/layout';
 
 
 const EditableCell = ({
@@ -26,7 +28,7 @@ const EditableCell = ({
           rules={[
             {
               required: true,
-              message: `Please Input ${title}!`,
+              message: `Privaloma įvesti ${title} !`,
             },
           ]}
         >
@@ -126,9 +128,7 @@ const EditableTable = () => {
   const content = (
   
     <div style={{textAlign: "left"}} >
-   <input style={{margin: "10px", borderRadius: '4px'}} type="number"
-    placeholder="Suma"
-    name="amount"
+   <input style={{margin: "10px", borderRadius: '4px'}} type="number" 
     value={item.amount}
     onChange= {handleInputChange}
     />
