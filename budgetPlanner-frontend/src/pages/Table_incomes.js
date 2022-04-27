@@ -178,31 +178,31 @@ const getAllIncome = () => {
 
   const content = (
     <div>
-   <Input type="number"
+   <input style={{margin: "10px", borderRadius: '4px'}}  type="number"
     placeholder="Suma"
     name="amount"
     value={item.amount}
     onChange= {handleInputChange}
     />
 
-     <Input type="date"
+     <input style={{margin: "10px", borderRadius: '4px'}}  type="date"
     placeholder="Data"
     name="date"
     value={item.date}
     onChange= {handleInputChange}
     />
 
-   <Input type="text"
+   <input style={{margin: "10px", borderRadius: '4px'}} type="text"
     placeholder="Komentaras"
     name="description"
     value={item.description}
     onChange= {handleInputChange}
     />
 
-
-   <Button type="primary" onClick={saveItem}>Išsaugoti</Button>
+<div>
+   <Button style={{marginBottom: "30px", marginLeft: "10px"}} type="primary" onClick={saveItem}>Išsaugoti</Button>
    {/* <Button type="primary" onClick={getAllIncome}>Submit</Button> */}
-  
+   </div>
     </div>
     
   );
@@ -309,12 +309,8 @@ const getAllIncome = () => {
     };
   });
   return (
-<Form form={form} component={false}>
-<div>
-<Popover content={content} title="Title">
-    <Button type="primary">Pridėti pajamas</Button>
-  </Popover>
-      </div>
+<Form form={form} >
+{content} 
       <Table
         components={{
           body: {
