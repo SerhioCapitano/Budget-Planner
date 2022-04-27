@@ -9,6 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 @Entity
@@ -18,7 +20,7 @@ public class Expense {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long id;
-	//@NotNull
+	//@NotEmpty(message = "Suma privaloma!")
 	private BigDecimal amount;
 	//@NotNull
 	private LocalDate date = LocalDate.now();
