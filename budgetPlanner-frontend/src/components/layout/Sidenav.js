@@ -183,7 +183,7 @@ function Sidenav({ color }) {
       <Menu theme="light" mode="inline">
        
         <Menu.Item key="3">
-          <NavLink to="/tablesIncomes">
+          <NavLink to="/pajamos">
             <span
               className="icon"
               style={{
@@ -198,7 +198,7 @@ function Sidenav({ color }) {
 
 
         <Menu.Item key="2">
-          <NavLink to="/tablesExpenses">
+          <NavLink to="/išlaidos">
             <span
               className="icon"
               style={{
@@ -212,7 +212,7 @@ function Sidenav({ color }) {
         </Menu.Item> 
 
 
-        <Menu.Item key="1">
+        {/* <Menu.Item key="1">
           <NavLink to="/dashboard">
             <span
               className="icon"
@@ -222,11 +222,11 @@ function Sidenav({ color }) {
             >
               {dashboard}
             </span>
-            <span className="label">Suvestinė(dashboard)</span>
+            <span className="label">Suvestinė</span>
           </NavLink>
-        </Menu.Item>
+        </Menu.Item> */}
 
-
+              {/* /////////////// GAL BUT NEREIKIA  */} {/* /////////////// GAL BUT NEREIKIA  */} {/* /////////////// GAL BUT NEREIKIA  */}
         {/* <Menu.Item key="3">
           <NavLink to="/billing">
             <span
@@ -253,7 +253,7 @@ function Sidenav({ color }) {
             <span className="label">RTL</span>
           </NavLink>
         </Menu.Item> */}
-        <Menu.Item className="menu-item-header" key="5">
+        {/* <Menu.Item className="menu-item-header" key="5">
           Account Pages
         </Menu.Item>
         <Menu.Item key="6">
@@ -268,8 +268,8 @@ function Sidenav({ color }) {
             </span>
             <span className="label">Profile</span>
           </NavLink>
-        </Menu.Item>
-        <Menu.Item key="7">
+        </Menu.Item> */}
+        {/* <Menu.Item key="7">
           <NavLink to="/sign-in">
             <span className="icon">{signin}</span>
             <span className="label">Sign In</span>
@@ -280,9 +280,9 @@ function Sidenav({ color }) {
             <span className="icon">{signup}</span>
             <span className="label">Sign Up</span>
           </NavLink>
-        </Menu.Item>
+        </Menu.Item> */}
       </Menu>
-      <div className="aside-footer">
+      {/* <div className="aside-footer">
         <div
           className="footer-box"
           style={{
@@ -298,7 +298,7 @@ function Sidenav({ color }) {
             DOCUMENTATION
           </Button>
         </div>
-      </div>
+      </div> */}
     </>
   );
 }

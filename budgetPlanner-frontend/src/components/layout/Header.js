@@ -283,7 +283,7 @@ function Header({
           </div>
         </Col>
         <Col span={24} md={18} className="header-control">
-          <Badge size="small" count={4}>
+          {/* <Badge size="small" count={4}>
             <Dropdown overlay={menu} trigger={["click"]}>
               <a
                 href="#pablo"
@@ -293,7 +293,8 @@ function Header({
                 {bell}
               </a>
             </Dropdown>
-          </Badge>
+          </Badge> */}
+          {/* //////////////////////////////// NEREIKIA ///////////////////////////////////// */}
           {/* <Button type="link" onClick={showDrawer}>
             {logsetting}
           </Button> */}
@@ -411,10 +412,12 @@ function Header({
               </div>
             </div>
           </Drawer> */}
-          <Link to="/sign-in" className="btn-sign-in">
+
+           {/* //////////////////////////////// NEREIKIA ///////////////////////////////////// */}
+          {/* <Link to="/sign-in" className="btn-sign-in">
             {profile}
             <span>Sign in</span>
-          </Link>
+          </Link> */}
           {/* <Input
             className="header-search"
             placeholder="Type here..."

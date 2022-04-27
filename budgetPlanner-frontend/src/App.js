@@ -21,13 +21,13 @@ function App() {
         <Route path="/sign-up" exact component={SignUp} />
         <Route path="/sign-in" exact component={SignIn} />
         <Main>
-          <Route exact path="/dashboard" component={Home} />
-          <Route exact path="/tablesIncomes" component={Table_incomes} />
-          <Route exact path="/tablesExpenses" component={Table_expenses} />
+          <Route exact path="/suvestinė" component={Home} />
+          <Route exact path="/pajamos" component={Table_incomes} />
+          <Route exact path="/išlaidos" component={Table_expenses} />
           <Route exact path="/billing" component={Billing} />
           <Route exact path="/rtl" component={Rtl} />
           <Route exact path="/profile" component={Profile} />
-          <Redirect from="*" to="/dashboard" />
+          <Redirect from="*" to="/suvestinė" />
         </Main>
       </Switch>
     </div>
