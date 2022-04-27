@@ -298,14 +298,14 @@ function Header({
           {/* <Button type="link" onClick={showDrawer}>
             {logsetting}
           </Button> */}
-          {/* <Button
+          <Button
             type="link"
             className="sidebar-toggler"
             onClick={() => onPress()}
           >
             {toggler}
-          </Button> */}
-          {/* <Drawer
+          </Button>
+          <Drawer
             className="settings-drawer"
             mask={true}
             width={360}
@@ -411,7 +411,7 @@ function Header({
                 </div>
               </div>
             </div>
-          </Drawer> */}
+          </Drawer>
 
            {/* //////////////////////////////// NEREIKIA ///////////////////////////////////// */}
           {/* <Link to="/sign-in" className="btn-sign-in">

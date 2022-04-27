@@ -38,8 +38,9 @@ public class ExpenseController {
 		return repo.findAll();
 	}
 
+	
 	@GetMapping("/{category}")
-	public Expense getExpenseByCategory(@PathVariable("category") String category) {
+	public List<Expense> getExpenseByCategory(@PathVariable("category") String category) {
 		if(!repo.existsByCategory(category)) {
 			throw new ResourceNotFoundException();
 		}else {

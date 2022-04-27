@@ -32,7 +32,7 @@ const EditableCell = ({
   children,
   ...restProps
 }) => {
-  // const inputNode = inputType === 'number' ? <InputNumber /> : <Input />; 
+  
   const inputNode = (inputType === 'number') ? <InputNumber /> :(inputType==='date')?<Input type='date'/>: <Input />;
 
   return (
@@ -68,17 +68,7 @@ const EditableTable = () => {
 
 
   useEffect(()=>getAllIncome(),[]);
-  
-
-
-
-
-
  
-    //Runs on every render
-
-  
-
   const isEditing = (record) => record.id === editingKey;
 
   const edit = (record) => {
@@ -124,7 +114,7 @@ const getAllIncome = () => {
     date: "",
     description: "",
   };
-  const [currentItem, setCurrentItem] = useState(initialTutorialState);
+
   const [item, setItem] = useState(initialTutorialState);
   const handleInputChange = event => {
     const { name, value } = event.target;
@@ -152,19 +142,6 @@ const getAllIncome = () => {
   };
 
 
-
-
-             
-
-
-
-
-
-
-
-
-
-
     /////////////////////////////////////////////////////////////////////
 
 
@@ -179,7 +156,7 @@ const getAllIncome = () => {
 
 
   const content = (
-    <div>
+    <div style={{textAlign: "left"}}>
    <input style={{margin: "10px", borderRadius: '4px'}}  type="number"
     placeholder="Suma"
     name="amount"
@@ -202,7 +179,7 @@ const getAllIncome = () => {
     />
 
 <div>
-   <Button style={{marginBottom: "30px", marginLeft: "10px"}} type="primary" onClick={saveItem}>Išsaugoti</Button>
+   <Button style={{marginBottom: "30px", marginLeft: "10px"}} type="primary" onClick={saveItem}>Pridėti pajamas</Button>
    {/* <Button type="primary" onClick={getAllIncome}>Submit</Button> */}
    </div>
     </div>

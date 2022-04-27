@@ -94,8 +94,6 @@ const EditableTable = () => {
     name:"",
     comment: "",
   };
-
-  // const [currentItem, setCurrentItem] = useState(initialTutorialState);
   const [item, setItem] = useState(initialTutorialState);
   const handleInputChange = event => {
     const { name, value } = event.target;
@@ -222,7 +220,7 @@ const EditableTable = () => {
     {
       title: 'Komentaras',
       dataIndex: 'comment',
-      width: '27%',
+      width: '20%',
       editable: true,
     },
     {
@@ -281,7 +279,6 @@ const EditableTable = () => {
   return (
 <Form form={form}>
 {content} 
-
       <Table
         components={{
           body: {
