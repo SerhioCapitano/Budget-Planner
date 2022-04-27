@@ -54,6 +54,7 @@ function Main({ children }) {
             pathname === "rtl" ? "layout-dashboard-rtl" : ""
           }`}
         >
+          
           <Sider
             trigger={null}
             width={250}
@@ -68,7 +69,7 @@ function Main({ children }) {
         </Layout>
       </Drawer>
       <Sider
-        breakpoint="lg"
+       breakpoint="lg"
         collapsedWidth="0"
         onCollapse={(collapsed, type) => {
           console.log(collapsed, type);
