@@ -32,7 +32,9 @@ const EditableCell = ({
   children,
   ...restProps
 }) => {
-  const inputNode = inputType === 'number' ? <InputNumber /> : <Input />;
+  // const inputNode = inputType === 'number' ? <InputNumber /> : <Input />; 
+  const inputNode = (inputType === 'number') ? <InputNumber /> :(inputType==='date')?<Input type='date'/>: <Input />;
+
   return (
     
     <td {...restProps}>
@@ -301,7 +303,7 @@ const getAllIncome = () => {
       ...col,
       onCell: (record) => ({
         record,
-        inputType: col.dataIndex === 'Data' ? 'number' : 'text',
+        inputType: col.dataIndex === 'amount' ? 'number' : (col.dataIndex === 'timeStamp') ?'date' :'text',
         dataIndex: col.dataIndex,
         title: col.title,
         editing: isEditing(record),
