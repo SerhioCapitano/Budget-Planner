@@ -1,10 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Table, Input, InputNumber, Popconfirm, Form, Typography, Button, Popover } from 'antd';
+import { Table, Input, InputNumber, Popconfirm, Form, Typography, Button} from 'antd';
 import { DeleteOutlined } from "@ant-design/icons";
 import ExpensesService from '../services/ExpensesService'
-
-import PropTypes from 'prop-types';
-import { Content } from 'antd/lib/layout/layout';
 import Swal from 'sweetalert2'
 
 
@@ -113,10 +110,16 @@ const EditableTable = () => {
     if(item.amount === "" ||   !regExp.test(item.category) || !regExp.test(item.name) || !regExp.test(item.comment)) {
       Swal.fire({
         icon: 'error',
-        title: 'Dude',
-        text: 'just fill the form',
+        title: 'Klaida!',
+        text: 'Nepalykit tuscius laukus!',
       })
-    } else {
+    } else if(item.amount <= 0) {
+      Swal.fire({
+        icon: "error",
+        title: "Klaida",
+        text: "Suma negali but neigiama arba nuli!"
+      }) 
+     } else {
     var data = {
       amount: item.amount,
       date1: item.date,
