@@ -55,21 +55,28 @@ public class ExpenseController {
 	
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public Expense createExpenses(@Valid @RequestBody Expense expense) {
-		return repo.save(expense);
+
+	public Expense createExpenses(@RequestBody ExpenseDTO expensesDTO) {
+		Expense expenses = new Expense();
+
+		expenses.setAmount(expensesDTO.getAmount());
+		expenses.setDate1(expensesDTO.getDate1());
+		expenses.setCategory(expensesDTO.getCategory());
+		expenses.setName(expensesDTO.getName());
+		expenses.setComment(expensesDTO.getComment());
+		return repo.save(expenses);
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<Expense> updateExpenses(@PathVariable("id") long id, @RequestBody Expense expenseDetails) {
-	  Expense updateExpense = repo.findById(id).orElseThrow(() -> new ResourceNotFoundException());
-	  	updateExpense.setAmount(expenseDetails.getAmount());
-	  	updateExpense.setCategory(expenseDetails.getCategory());
-	  	updateExpense.setComment(expenseDetails.getComment());
-	  	updateExpense.setName(expenseDetails.getName());
-	  	updateExpense.setTimeStamp(expenseDetails.getTimeStamp());
-	  	repo.save(updateExpense);
-		return ResponseEntity.ok(updateExpense);
-	  	
+	public Expense updateExpenses(@PathVariable("id") long id, @RequestBody ExpenseDTO expenseDTO) {
+		return repo.findById(id).map(expense -> {
+			expense.setAmount(expenseDTO.getAmount());
+			expense.setDate1(expenseDTO.getDate1());
+			expense.setCategory(expenseDTO.getCategory());
+			expense.setName(expenseDTO.getName());
+			expense.setComment(expenseDTO.getComment());
+			return repo.save(expense);
+		}).orElseThrow(() -> new ResourceNotFoundException());
 	}
 
 	@DeleteMapping("/{id}")

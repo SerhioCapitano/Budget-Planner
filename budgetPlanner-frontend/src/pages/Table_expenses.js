@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Table, Input, InputNumber, Popconfirm, Form, Typography, Button, Popover } from 'antd';
 import { DeleteOutlined } from "@ant-design/icons";
 import ExpensesService from '../services/ExpensesService'
+
 import PropTypes from 'prop-types';
 import { Content } from 'antd/lib/layout/layout';
 import Swal from 'sweetalert2'
@@ -81,7 +82,6 @@ const EditableTable = () => {
 
   const getAllExpenses = () => { 
     ExpensesService.getAllExpenses().then((response) => {
-      console.log(response.data);
       setExpenses(response.data);
     }).catch(error => {
       console.log(error);
@@ -92,7 +92,7 @@ const EditableTable = () => {
   const initialTutorialState = {
     id: null,
     amount: "",
-    date: "",
+    date1: "",
     category: "",
     name:"",
     comment: "",
@@ -119,7 +119,7 @@ const EditableTable = () => {
     } else {
     var data = {
       amount: item.amount,
-      date: item.date,
+      date1: item.date,
       category: item.category,
       name: item.name,
       comment: item.comment
@@ -128,7 +128,7 @@ const EditableTable = () => {
       .then(response => {
         setItem({
           amount: response.data.amount,
-          date: response.data.date,
+          date1: response.data.date,
           category: response.data.category,
           name: response.data.name,
           comment: response.data.comment,
@@ -219,7 +219,7 @@ const EditableTable = () => {
     },
     {
       title: 'Data',
-      dataIndex: 'date',
+      dataIndex: 'date1',
       width: '15%',
       editable: true,
     },
@@ -287,7 +287,7 @@ const EditableTable = () => {
       ...col,
       onCell: (record) => ({
         record,
-        inputType: col.dataIndex === 'amount' ? 'number' : (col.dataIndex === 'date') ?'date' :'text',
+        inputType: col.dataIndex === 'amount' ? 'number' : (col.dataIndex === 'date1') ?'date' :'text',
         dataIndex: col.dataIndex,
         title: col.title,
         editing: isEditing(record),

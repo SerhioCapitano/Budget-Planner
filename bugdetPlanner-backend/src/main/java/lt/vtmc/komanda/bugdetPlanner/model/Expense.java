@@ -20,7 +20,7 @@ public class Expense {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long id;
 	private BigDecimal amount;
-	private LocalDate date = LocalDate.now();
+	private LocalDate date1 = LocalDate.now();
 	private String category;
 	private String name;
 	private String comment;

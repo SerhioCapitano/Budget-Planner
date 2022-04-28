@@ -76,7 +76,7 @@ const EditableTable = () => {
     
     form.setFieldsValue({
       amount: '',
-      timeStamp: '',
+      date: '',
       description: '',
       ...record,
     });
@@ -143,7 +143,7 @@ const getAllIncome = () => {
       .then(response => {
         setItem({
           amount: response.data.amount,
-          date: response.data.date,
+          timeStamp: response.data.date,
           description: response.data.description,
         }); 
         getAllIncome();
