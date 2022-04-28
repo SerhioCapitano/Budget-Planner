@@ -2,6 +2,8 @@ package lt.vtmc.komanda.bugdetPlanner.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -50,7 +52,7 @@ public class ExpenseController {
 	
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public Expense createExpenses(@RequestBody ExpenseDTO expensesDTO) {
+	public Expense createExpenses(@Valid @RequestBody ExpenseDTO expensesDTO) {
 		Expense expenses = new Expense();
 
 		expenses.setAmount(expensesDTO.getAmount());

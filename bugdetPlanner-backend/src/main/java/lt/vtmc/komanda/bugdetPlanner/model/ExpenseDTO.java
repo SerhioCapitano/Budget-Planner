@@ -2,6 +2,9 @@ package lt.vtmc.komanda.bugdetPlanner.model;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+
+import javax.validation.constraints.NotBlank;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 

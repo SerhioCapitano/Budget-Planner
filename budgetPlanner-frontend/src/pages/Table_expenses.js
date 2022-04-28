@@ -52,11 +52,11 @@ const EditableTable = () => {
 
   const edit = (record) => {
     form.setFieldsValue({
-      Suma: '',
-      Data: '',
-      Kategorija: '',
-      Pavadinimas: '',
-      Komentaras: '',
+      amount: '',
+      date: '',
+      category: '',
+      name: '',
+      comment: '',
       ...record,
     });
     setEditingKey(record.id);
@@ -96,6 +96,7 @@ const EditableTable = () => {
     name:"",
     comment: "",
   };
+
   const [item, setItem] = useState(initialTutorialState);
   const handleInputChange = event => {
     const { name, value } = event.target;
@@ -129,6 +130,8 @@ const EditableTable = () => {
   
     <div style={{textAlign: "left"}} >
    <input style={{margin: "10px", borderRadius: '4px'}} type="number" 
+    placeholder="Suma"
+    name="amount"
     value={item.amount}
     onChange= {handleInputChange}
     />

@@ -2,6 +2,7 @@ package lt.vtmc.komanda.bugdetPlanner.model;
 
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Calendar;
 
 import javax.persistence.Column;
@@ -26,7 +27,7 @@ public class Income {
 	private BigDecimal amount;
 
 	@Column(name = "date")
-	private String timeStamp = new SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().getTime());
+	private LocalDate timeStamp =LocalDate.now();
 
 	@Column(name = "description")
 	private String description;
