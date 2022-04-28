@@ -1,26 +1,9 @@
 import React, { useState, useEffect} from 'react';
-import {useParams} from 'react-router-dom';
 import IncomesService from '../services/IncomesService'
-import { Table, Input, InputNumber, Popconfirm, Form, Typography, Button, Popover } from 'antd';
+import { Table, Input, InputNumber, Popconfirm, Form, Typography, Button} from 'antd';
 import { DeleteOutlined } from "@ant-design/icons";
 import Swal from 'sweetalert2'
  
-
-
-
-
-// for (let i = 0; i < 100; i++) {
-//   originData.push({ 
-//    id: i.toString(),
-//     Suma: `Edrward ${i}`,
-//     Data: 32,
-//     Kategorija: `London Park no. ${i}`,
-//     Pavadinimas: `London Park no. ${i}`,
-//     Komentaras: `London Park no. ${i}`,
-//   });
-// }
-
-
 
 const EditableCell = ({
   
@@ -106,7 +89,7 @@ const getAllIncome = () => {
     console.log(error);
   })
 }
-  ///////////////////////////////////////////////////////////////////
+
 
 
   const initialTutorialState = {
@@ -129,11 +112,16 @@ const getAllIncome = () => {
     if(item.amount === "" || !regExp.test(item.description)) {
       Swal.fire({
         icon: 'error',
-        title: 'Dude',
-        text: 'just fill the form',
+        title: 'Klaida!',
+        text: 'Nepalykit tuscius laukus!',
+      })
+    } else if(item.amount <= 0) {
+      Swal.fire({
+        icon: "error",
+        title: "Klaida",
+        text: "Suma negali but neigiama arba nuli!"
       })
     } else {
-
     var data = {
       amount: item.amount,
       timeStamp: item.date,
@@ -156,19 +144,7 @@ const getAllIncome = () => {
   }
 
 
-    /////////////////////////////////////////////////////////////////////
-
-
-
-// const AddItem = (e) => {
-//   e.preventDefault();
-//   const item = {amount,date,description}
-//   incomes.push(item);
-//   setIncomes(incomes);
-// }
-
-
-
+  
   const content = (
     <div style={{textAlign: "left"}}>
    <input style={{margin: "10px", borderRadius: '4px'}}  type="number"
