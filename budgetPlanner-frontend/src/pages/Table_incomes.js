@@ -75,7 +75,7 @@ const EditableTable = () => {
     
     form.setFieldsValue({
       amount: '',
-      date: '',
+      timeStamp: '',
       description: '',
       ...record,
     });
@@ -111,7 +111,7 @@ const getAllIncome = () => {
   const initialTutorialState = {
     id: null,
     amount: "",
-    date: "",
+  timeStamp: "",
     description: "",
   };
 
@@ -123,7 +123,7 @@ const getAllIncome = () => {
   const saveItem = () => {
     var data = {
       amount: item.amount,
-      date: item.date,
+      timeStamp: item.date,
       description: item.description
     };
     IncomesService.createIncome(data)
