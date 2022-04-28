@@ -3,6 +3,7 @@ import {useParams} from 'react-router-dom';
 import IncomesService from '../services/IncomesService'
 import { Table, Input, InputNumber, Popconfirm, Form, Typography, Button, Popover } from 'antd';
 import { DeleteOutlined } from "@ant-design/icons";
+import Swal from 'sweetalert2'
  
 
 
@@ -120,7 +121,19 @@ const getAllIncome = () => {
     const { name, value } = event.target;
     setItem({ ...item, [name]: value });
   };
+
+
+  var regExp = /[a-zA-Z]/g;
+
   const saveItem = () => {
+    if(item.amount === "" || !regExp.test(item.description)) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Dude',
+        text: 'just fill the form',
+      })
+    } else {
+
     var data = {
       amount: item.amount,
       timeStamp: item.date,
@@ -140,6 +153,7 @@ const getAllIncome = () => {
         console.log(e);
       });
   };
+  }
 
 
     /////////////////////////////////////////////////////////////////////
@@ -175,8 +189,10 @@ const getAllIncome = () => {
     placeholder="Komentaras"
     name="description"
     value={item.description}
+    minLength="4"
     onChange= {handleInputChange}
     />
+
 
 <div>
    <Button style={{marginBottom: "30px", marginLeft: "10px"}} type="primary" onClick={saveItem}>Pridėti pajamas</Button>

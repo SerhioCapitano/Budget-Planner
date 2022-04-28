@@ -27,7 +27,7 @@ public class Income {
 	private BigDecimal amount;
 
 	@Column(name = "date")
-	private LocalDate timeStamp =LocalDate.now();
+	private LocalDate timeStamp = LocalDate.now();
 
 	@Column(name = "description")
 	private String description;

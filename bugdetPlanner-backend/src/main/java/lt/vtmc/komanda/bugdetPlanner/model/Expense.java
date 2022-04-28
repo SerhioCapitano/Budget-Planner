@@ -11,8 +11,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 
 
-@Entity
+
 @Data
+@Entity
 @AllArgsConstructor
 public class Expense {
 	@Id
@@ -23,6 +24,7 @@ public class Expense {
 	private String category;
 	private String name;
 	private String comment;
+	
 	
 	public Expense() {
 		

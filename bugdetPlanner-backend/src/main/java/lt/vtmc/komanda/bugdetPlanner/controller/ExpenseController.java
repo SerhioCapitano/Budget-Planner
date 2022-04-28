@@ -6,6 +6,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.sun.research.ws.wadl.Resource;
 
 import lt.vtmc.komanda.bugdetPlanner.exception.ResourceNotFoundException;
 import lt.vtmc.komanda.bugdetPlanner.model.Expense;
@@ -52,27 +55,21 @@ public class ExpenseController {
 	
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public Expense createExpenses(@Valid @RequestBody ExpenseDTO expensesDTO) {
-		Expense expenses = new Expense();
-
-		expenses.setAmount(expensesDTO.getAmount());
-		expenses.setDate(expensesDTO.getDate());
-		expenses.setCategory(expensesDTO.getCategory());
-		expenses.setName(expensesDTO.getName());
-		expenses.setComment(expensesDTO.getComment());
-		return repo.save(expenses);
+	public Expense createExpenses(@Valid @RequestBody Expense expense) {
+		return repo.save(expense);
 	}
 
 	@PutMapping("/{id}")
-	public Expense updateExpenses(@PathVariable("id") long id, @RequestBody ExpenseDTO expenseDTO) {
-		return repo.findById(id).map(expense -> {
-			expense.setAmount(expenseDTO.getAmount());
-			expense.setDate(expenseDTO.getDate());
-			expense.setCategory(expenseDTO.getCategory());
-			expense.setName(expenseDTO.getName());
-			expense.setComment(expenseDTO.getComment());
-			return repo.save(expense);
-		}).orElseThrow(() -> new ResourceNotFoundException());
+	public ResponseEntity<Expense> updateExpenses(@PathVariable("id") long id, @RequestBody Expense expenseDetails) {
+	  Expense updateExpense = repo.findById(id).orElseThrow(() -> new ResourceNotFoundException());
+	  	updateExpense.setAmount(expenseDetails.getAmount());
+	  	updateExpense.setCategory(expenseDetails.getCategory());
+	  	updateExpense.setComment(expenseDetails.getComment());
+	  	updateExpense.setName(expenseDetails.getName());
+	  	updateExpense.setTimeStamp(expenseDetails.getTimeStamp());
+	  	repo.save(updateExpense);
+		return ResponseEntity.ok(updateExpense);
+	  	
 	}
 
 	@DeleteMapping("/{id}")
