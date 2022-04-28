@@ -52,11 +52,11 @@ public class ExpenseController {
 	
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public Expense createExpenses(@Valid @RequestBody ExpenseDTO expensesDTO) {
+	public Expense createExpenses(@RequestBody ExpenseDTO expensesDTO) {
 		Expense expenses = new Expense();
 
 		expenses.setAmount(expensesDTO.getAmount());
-		expenses.setDate(expensesDTO.getDate());
+		expenses.setDate1(expensesDTO.getDate1());
 		expenses.setCategory(expensesDTO.getCategory());
 		expenses.setName(expensesDTO.getName());
 		expenses.setComment(expensesDTO.getComment());
@@ -67,7 +67,7 @@ public class ExpenseController {
 	public Expense updateExpenses(@PathVariable("id") long id, @RequestBody ExpenseDTO expenseDTO) {
 		return repo.findById(id).map(expense -> {
 			expense.setAmount(expenseDTO.getAmount());
-			expense.setDate(expenseDTO.getDate());
+			expense.setDate1(expenseDTO.getDate1());
 			expense.setCategory(expenseDTO.getCategory());
 			expense.setName(expenseDTO.getName());
 			expense.setComment(expenseDTO.getComment());
