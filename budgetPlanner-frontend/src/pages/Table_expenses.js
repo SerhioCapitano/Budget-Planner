@@ -3,6 +3,9 @@ import { Table, Input, InputNumber, Popconfirm, Form, Typography, Button, Popove
 import { DeleteOutlined } from "@ant-design/icons";
 import ExpensesService from '../services/ExpensesService'
 
+import PropTypes from 'prop-types';
+import { Content } from 'antd/lib/layout/layout';
+import Swal from 'sweetalert2'
 
 
 const EditableCell = ({
@@ -100,7 +103,20 @@ const EditableTable = () => {
     const { name, value } = event.target;
     setItem({ ...item, [name]: value });
   };
+
+
+
+  var regExp = /[a-zA-Z]/g;
+
+
   const saveItem = () => {
+    if(item.amount === "" ||   !regExp.test(item.category) || !regExp.test(item.name) || !regExp.test(item.comment)) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Dude',
+        text: 'just fill the form',
+      })
+    } else {
     var data = {
       amount: item.amount,
       date1: item.date,
@@ -123,6 +139,7 @@ const EditableTable = () => {
         console.log(e);
       });
   };
+}
 
   const content = (
   
