@@ -3,8 +3,9 @@ package lt.vtmc.komanda.bugdetPlanner;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
 
-
+//@ConfigurationPropertiesScan
 @SpringBootApplication
 public class BugdetPlannerApplication implements CommandLineRunner {
 
