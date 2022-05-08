@@ -1,5 +1,7 @@
 package lt.vtmc.komanda.bugdetPlanner.security;
+import org.h2.server.web.WebServlet;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -45,14 +47,32 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
-	@Override
-	protected void configure(HttpSecurity http) throws Exception {
-		http.cors().and().csrf().disable()
+	
+//	@Override
+//	protected void configure(HttpSecurity http) throws Exception {
+//		http.cors().and().csrf().disable()
+//			.exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
+//			.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
+//			.authorizeRequests().antMatchers("/api/auth/**").permitAll()
+//			.antMatchers("/api/test/**").permitAll()
+//			.anyRequest().authenticated();
+//		http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
+//	}
+		
+		@Override
+	    protected void configure(HttpSecurity http) throws Exception {
+			http.cors().and().csrf().ignoringAntMatchers("/h2-console/**")
+			.and().headers().frameOptions().sameOrigin().and()
 			.exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
 			.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-			.authorizeRequests().antMatchers("/api/auth/**").permitAll()
-			.antMatchers("/api/test/**").permitAll()
-			.anyRequest().authenticated();
+	        .authorizeRequests().antMatchers("/").permitAll()
+	       .antMatchers("/api/auth/**").permitAll()
+	        .antMatchers("/api/test/**").permitAll()
+	        .antMatchers("/h2-console/**").permitAll()
+	        .anyRequest().authenticated();
+
 		http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
 	}
+	
+
 }
