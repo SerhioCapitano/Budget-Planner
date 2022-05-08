@@ -10,7 +10,7 @@ import lt.vtmc.komanda.bugdetPlanner.model.User;
 @Repository
 public interface UserRepository extends JpaRepository<User, Long>{
 	
-	boolean existsByUsername(String username);
-	boolean existsByEmail(String email);
 	Optional<User> findByUsername(String username);
+	Boolean existsByUsername(String username);
+	Boolean existsByEmail(String email);
 }

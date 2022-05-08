@@ -60,13 +60,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //	}
 		
 		@Override
-	    protected void configure(HttpSecurity httpSecurity) throws Exception {
-	        httpSecurity.authorizeRequests().antMatchers("/").permitAll().and()
-	                .authorizeRequests().antMatchers("/h-2console/**").permitAll();
-	        httpSecurity.csrf().ignoringAntMatchers("/h2-console/**")
-	        .and().headers().frameOptions().sameOrigin();
-	    
-		httpSecurity.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
+	    protected void configure(HttpSecurity http) throws Exception {
+			http.cors().and().csrf().ignoringAntMatchers("/h2-console/**")
+			.and().headers().frameOptions().sameOrigin().and()
+			.exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
+			.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
+	        .authorizeRequests().antMatchers("/").permitAll()
+	       .antMatchers("/api/auth/**").permitAll()
+	        .antMatchers("/api/test/**").permitAll()
+	        .antMatchers("/h2-console/**").permitAll()
+	        .anyRequest().authenticated();
+
+		http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
 	}
 	
 
