@@ -117,40 +117,41 @@ export default class SignIn extends Component {
       <>
         <Layout className="layout-default layout-signin">
           <Header>
-            <div className="header-col header-brand">
-              <h5>Muse Dashboard</h5>
-            </div>
+          <div className="brand">
+        
+        <span>.budgeter</span>
+      </div>
             <div className="header-col header-nav">
               <Menu mode="horizontal" defaultSelectedKeys={["1"]}>
                 <Menu.Item key="1">
                   <Link to="/dashboard">
                     {template}
-                    <span> Dashboard</span>
+                    <span> Suvestinė</span>
                   </Link>
                 </Menu.Item>
                 <Menu.Item key="2">
                   <Link to="/profile">
                     {profile}
-                    <span>Profile</span>
+                    <span>Profilis</span>
                   </Link>
                 </Menu.Item>
-                <Menu.Item key="3">
+                {/* <Menu.Item key="3">
                   <Link to="/sign-up">
                     {signup}
-                    <span> Sign Up</span>
+                    <span> Registracija</span>
                   </Link>
-                </Menu.Item>
-                <Menu.Item key="4">
+                </Menu.Item> */}
+                {/* <Menu.Item key="4">
                   <Link to="/sign-in">
                     {signin}
                     <span> Sign In</span>
                   </Link>
-                </Menu.Item>
+                </Menu.Item> */}
               </Menu>
             </div>
-            <div className="header-col header-btn">
+            {/* <div className="header-col header-btn">
               <Button type="primary">FREE DOWNLOAD</Button>
-            </div>
+            </div> */}
           </Header>
           <Content className="signin">
             <Row gutter={[24, 0]} justify="space-around">
@@ -159,9 +160,9 @@ export default class SignIn extends Component {
                 lg={{ span: 6, offset: 2 }}
                 md={{ span: 12 }}
               >
-                <Title className="mb-15">Sign In</Title>
+                <Title className="mb-15">Prisijungimas</Title>
                 <Title className="font-regular text-muted" level={5}>
-                  Enter your email and password to sign in
+                  Įveskite el. paštą ir slaptažodį
                 </Title>
                 <Form
                   onFinish={onFinish}
@@ -171,30 +172,30 @@ export default class SignIn extends Component {
                 >
                   <Form.Item
                     className="username"
-                    label="Email"
+                    label="El. paštas"
                     name="email"
                     rules={[
                       {
                         required: true,
-                        message: "Please input your email!",
+                        message: "Įveskite el. paštą!",
                       },
                     ]}
                   >
-                    <Input placeholder="Email" />
+                    <Input placeholder="El. paštas" />
                   </Form.Item>
 
                   <Form.Item
                     className="username"
-                    label="Password"
+                    label="Slaptažodis"
                     name="password"
                     rules={[
                       {
                         required: true,
-                        message: "Please input your password!",
+                        message: "Įveskite slaptažodį!",
                       },
                     ]}
                   >
-                    <Input placeholder="Password" />
+                    <Input placeholder="Slaptažodis" />
                   </Form.Item>
 
                   <Form.Item
@@ -203,7 +204,7 @@ export default class SignIn extends Component {
                     valuePropName="checked"
                   >
                     <Switch defaultChecked onChange={onChange} />
-                    Remember me
+                    Prisiminti
                   </Form.Item>
 
                   <Form.Item>
@@ -212,15 +213,15 @@ export default class SignIn extends Component {
                       htmlType="submit"
                       style={{ width: "100%" }}
                     >
-                      SIGN IN
+                      PRISIJUNGTI
                     </Button>
                   </Form.Item>
-                  <p className="font-semibold text-muted">
-                    Don't have an account?{" "}
+                  {/* <p className="font-semibold text-muted">
+                    Neturi paskyros?{" "}
                     <Link to="/sign-up" className="text-dark font-bold">
-                      Sign Up
+                      Užsiregistruok!
                     </Link>
-                  </p>
+                  </p> */}
                 </Form>
               </Col>
               <Col
@@ -234,7 +235,7 @@ export default class SignIn extends Component {
               </Col>
             </Row>
           </Content>
-          <Footer>
+          {/* <Footer>
             <Menu mode="horizontal">
               <Menu.Item>Company</Menu.Item>
               <Menu.Item>About Us</Menu.Item>
@@ -273,7 +274,7 @@ export default class SignIn extends Component {
               {" "}
               Copyright © 2021 Muse by <a href="#pablo">Creative Tim</a>.{" "}
             </p>
-          </Footer>
+          </Footer> */}
         </Layout>
       </>
     );

@@ -117,59 +117,60 @@ export default class SignUp extends Component {
       <>
         <div className="layout-default ant-layout layout-sign-up">
           <Header>
-            <div className="header-col header-brand">
-              <h5>Muse Dashboard</h5>
-            </div>
+          <div className="brand">
+        
+        <span>.budgeter</span>
+      </div>
             <div className="header-col header-nav">
               <Menu mode="horizontal" defaultSelectedKeys={["1"]}>
                 <Menu.Item key="1">
                   <Link to="/dashboard">
                     {template}
-                    <span> Dashboard</span>
+                    <span> Suvestinė</span>
                   </Link>
                 </Menu.Item>
-                <Menu.Item key="2">
+                {/* <Menu.Item key="2">
                   <Link to="/profile">
                     {profile}
                     <span>Profile</span>
                   </Link>
-                </Menu.Item>
-                <Menu.Item key="3">
+                </Menu.Item> */}
+                {/* <Menu.Item key="3">
                   <Link to="/sign-up">
                     {signup}
                     <span> Sign Up</span>
                   </Link>
-                </Menu.Item>
+                </Menu.Item> */}
                 <Menu.Item key="4">
                   <Link to="/sign-in">
                     {signin}
-                    <span> Sign In</span>
+                    <span> Prisijungti</span>
                   </Link>
                 </Menu.Item>
               </Menu>
             </div>
-            <div className="header-col header-btn">
+            {/* <div className="header-col header-btn">
               <Button type="false">FREE DOWNLOAD</Button>
-            </div>
+            </div> */}
           </Header>
 
           <Content className="p-0">
             <div className="sign-up-header">
               <div className="content">
-                <Title>Sign Up</Title>
-                <p className="text-lg">
+                <Title>Registracija</Title>
+                {/* <p className="text-lg">
                   Use these awesome forms to login or create new account in your
                   project for free.
-                </p>
+                </p> */}
               </div>
             </div>
 
             <Card
               className="card-signup header-solid h-full ant-card pt-0"
-              title={<h5>Register With</h5>}
+              title={<h5>Registracija</h5>}
               bordered="false"
             >
-              <div className="sign-up-gateways">
+              {/* <div className="sign-up-gateways">
                 <Button type="false">
                   <img src={logo1} alt="logo 1" />
                 </Button>
@@ -180,7 +181,7 @@ export default class SignUp extends Component {
                   <img src={logo3} alt="logo 3" />
                 </Button>
               </div>
-              <p className="text-center my-25 font-semibold text-muted">Or</p>
+              <p className="text-center my-25 font-semibold text-muted">Or</p> */}
               <Form
                 name="basic"
                 initialValues={{ remember: true }}
@@ -191,36 +192,36 @@ export default class SignUp extends Component {
                 <Form.Item
                   name="Name"
                   rules={[
-                    { required: true, message: "Please input your username!" },
+                    { required: true, message: "Įveskite vartotojo vardą!" },
                   ]}
                 >
-                  <Input placeholder="Name" />
+                  <Input placeholder="Vartotojo vardas" />
                 </Form.Item>
                 <Form.Item
                   name="email"
                   rules={[
-                    { required: true, message: "Please input your email!" },
+                    { required: true, message: "Įveskite el. paštą!" },
                   ]}
                 >
-                  <Input placeholder="email" />
+                  <Input placeholder="El. paštas" />
                 </Form.Item>
                 <Form.Item
                   name="password"
                   rules={[
-                    { required: true, message: "Please input your password!" },
+                    { required: true, message: "Įveskite slaptažodį!" },
                   ]}
                 >
-                  <Input placeholder="Passwoed" />
+                  <Input placeholder="Slaptažodis" />
                 </Form.Item>
 
-                <Form.Item name="remember" valuePropName="checked">
+                {/* <Form.Item name="remember" valuePropName="checked">
                   <Checkbox>
                     I agree the{" "}
                     <a href="#pablo" className="font-bold text-dark">
                       Terms and Conditions
                     </a>
                   </Checkbox>
-                </Form.Item>
+                </Form.Item> */}
 
                 <Form.Item>
                   <Button
@@ -228,19 +229,19 @@ export default class SignUp extends Component {
                     type="primary"
                     htmlType="submit"
                   >
-                    SIGN UP
+                    REGISTRUOTIS
                   </Button>
                 </Form.Item>
               </Form>
               <p className="font-semibold text-muted text-center">
-                Already have an account?{" "}
+                Esi užsiregistravęs?{" "}
                 <Link to="/sign-in" className="font-bold text-dark">
-                  Sign In
+                  Prisijunk!
                 </Link>
               </p>
             </Card>
           </Content>
-          <Footer>
+          {/* <Footer>
             <Menu mode="horizontal">
               <Menu.Item>Company</Menu.Item>
               <Menu.Item>About Us</Menu.Item>
@@ -279,7 +280,7 @@ export default class SignUp extends Component {
               {" "}
               Copyright © 2021 Muse by <a href="#pablo">Creative Tim</a>.{" "}
             </p>
-          </Footer>
+          </Footer> */}
         </div>
       </>
     );
