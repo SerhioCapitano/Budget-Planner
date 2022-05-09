@@ -414,15 +414,15 @@ function Header({
           </Drawer>
 
            {/* //////////////////////////////// NEREIKIA ///////////////////////////////////// */}
-          {/* <Link to="/sign-in" className="btn-sign-in">
+          <Link to="/sign-in" className="btn-sign-in">
             {profile}
-            <span>Sign in</span>
-          </Link> */}
+            <span>Prisijungti</span>
+          </Link>
           {/* <Input
             className="header-search"
             placeholder="Type here..."
-            prefix={<SearchOutlined />} */}
-          {/* /> */}
+            prefix={<SearchOutlined />}
+           />  */}
         </Col>
       </Row>
     </>
