@@ -13,12 +13,13 @@ import {
   Switch,
 } from "antd";
 import signinbg from "../assets/images/img-signin.jpg";
-import {
-  DribbbleOutlined,
-  TwitterOutlined,
-  InstagramOutlined,
-  GithubOutlined,
-} from "@ant-design/icons";
+// import {
+//   DribbbleOutlined,
+//   TwitterOutlined,
+//   InstagramOutlined,
+//   GithubOutlined,
+// } from "@ant-design/icons";
+
 function onChange(checked) {
   console.log(`switch to ${checked}`);
 }
@@ -135,12 +136,12 @@ export default class SignIn extends Component {
                     <span>Profilis</span>
                   </Link>
                 </Menu.Item>
-                {/* <Menu.Item key="3">
+                <Menu.Item key="3">
                   <Link to="/sign-up">
                     {signup}
                     <span> Registracija</span>
                   </Link>
-                </Menu.Item> */}
+                </Menu.Item>
                 {/* <Menu.Item key="4">
                   <Link to="/sign-in">
                     {signin}
