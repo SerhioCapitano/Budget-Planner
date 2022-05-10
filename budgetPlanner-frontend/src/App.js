@@ -1,5 +1,5 @@
 
-import { Switch, Route, Redirect } from "react-router-dom";
+import {Routes, Route, Navigate } from "react-router-dom";
 import Home from "./pages/Home";
 import Table_incomes from "./pages/Table_incomes";
 import Billing from "./pages/Billing";
@@ -17,19 +17,18 @@ import Table_expenses from "./pages/Table_expenses";
 function App() {
   return (
     <div className="App">
-      <Switch>
-        <Route path="/sign-up" exact component={SignUp} />
-        <Route path="/sign-in" exact component={SignIn} />
-        <Main>
-          <Route exact path="/suvestinė" component={Home} />
-          <Route exact path="/pajamos" component={Table_incomes} />
-          <Route exact path="/išlaidos" component={Table_expenses} />
-          <Route exact path="/billing" component={Billing} />
-          <Route exact path="/rtl" component={Rtl} />
-          <Route exact path="/profile" component={Profile} />
-          <Redirect from="*" to="/suvestinė" />
-        </Main>
-      </Switch>
+      <Routes>
+        <Route  exact path="/sign-up" element={<SignUp/>} />
+        <Route  path="/sign-in" element={<SignIn/>} />
+          <Route  path="/suvestinė" element={<Home/>} />
+          <Route  path="/pajamos" element={<Table_incomes/>} />
+          <Route  path="/išlaidos" element={<Table_expenses/>} />
+          <Route  path="/billing" element={<Billing/>} />
+          <Route   path="/rtl" element={<Rtl/>} />
+          <Route   path="/profile" element={<Profile/>} />
+          {/* <Navigate from="/*" to="/suvestinė" /> */}
+
+      </Routes>
     </div>
   );
 }
