@@ -22,6 +22,7 @@ import {
   InstagramOutlined,
   GithubOutlined,
 } from "@ant-design/icons";
+import AuthService from "../services/auth.service";
 
 function onChange(checked) {
   console.log(`switch to ${checked}`);
@@ -112,6 +113,8 @@ export default class SignIn extends Component {
   render() {
     const onFinish = (values) => {
       console.log("Success:", values);
+      AuthService.login(values.email, values.password).then((r)=>{console.log("Gavosi", r);
+    });
     };
 
     const onFinishFailed = (errorInfo) => {
