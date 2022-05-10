@@ -13,21 +13,24 @@ import 'antd/dist/antd.min.css';
 import "./assets/styles/main.css";
 import "./assets/styles/responsive.css";
 import Table_expenses from "./pages/Table_expenses";
+import { Header } from "antd/lib/layout/layout";
+import Sidenav from "./components/layout/Sidenav";
 
 function App() {
   return (
     <div className="App">
       <Routes>
-        <Route  exact path="/sign-up" element={<SignUp/>} />
-        <Route  path="/sign-in" element={<SignIn/>} />
-          <Route  path="/suvestinė" element={<Home/>} />
+      <Route  path="/" element={<Main/>} />
+          <Route  path="/santrauka" element={<Main/>} />
           <Route  path="/pajamos" element={<Table_incomes/>} />
-          <Route  path="/išlaidos" element={<Table_expenses/>} />
+          <Route  path="/islaidos" element={<Table_expenses/>} />
           <Route  path="/billing" element={<Billing/>} />
           <Route   path="/rtl" element={<Rtl/>} />
           <Route   path="/profile" element={<Profile/>} />
+          <Route  exact path="/sign-up" element={<SignUp/>} />
+        <Route  path="/sign-in" element={<SignIn/>} />
+          <Route path="/" element={<Navigate replace to="/santrauka" />} />
           {/* <Navigate from="/*" to="/suvestinė" /> */}
-
       </Routes>
     </div>
   );

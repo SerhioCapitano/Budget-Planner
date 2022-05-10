@@ -5,6 +5,8 @@ import ExpensesService from '../services/ExpensesService'
 import Swal from 'sweetalert2'
 
 
+
+
 const EditableCell = ({
   editing,
   dataIndex,
@@ -111,13 +113,13 @@ const EditableTable = () => {
       Swal.fire({
         icon: 'error',
         title: 'Klaida!',
-        text: 'Nepalykit tuscius laukus!',
+        text: 'Nepalikite tuščių laukelių!',
       })
     } else if(item.amount <= 0) {
       Swal.fire({
         icon: "error",
         title: "Klaida",
-        text: "Suma negali but neigiama arba nuli!"
+        text: "Suma negali but neigiama arba nulis!"
       }) 
      } else {
     var data = {

@@ -198,7 +198,7 @@ function Sidenav({ color }) {
 
 
         <Menu.Item key="2">
-          <NavLink to="/išlaidos">
+          <NavLink to="/islaidos">
             <span
               className="icon"
               style={{
@@ -207,13 +207,13 @@ function Sidenav({ color }) {
             >
               {tablesExpenses}
             </span>
-            <span className="label">Išlaidos</span>
+            <span className="label">Islaidos</span>
           </NavLink>
         </Menu.Item> 
 
 
-        {/* <Menu.Item key="1">
-          <NavLink to="/dashboard">
+        <Menu.Item key="1">
+          <NavLink to="/santrauka">
             <span
               className="icon"
               style={{
@@ -222,9 +222,9 @@ function Sidenav({ color }) {
             >
               {dashboard}
             </span>
-            <span className="label">Suvestinė</span>
+            <span className="label">Santrauka</span>
           </NavLink>
-        </Menu.Item> */}
+        </Menu.Item>
 
               {/* /////////////// GAL BUT NEREIKIA  */} {/* /////////////// GAL BUT NEREIKIA  */} {/* /////////////// GAL BUT NEREIKIA  */}
         {/* <Menu.Item key="3">

@@ -1,6 +1,9 @@
 
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+
+
+
 import {
   Layout,
   Menu,
@@ -13,12 +16,12 @@ import {
   Switch,
 } from "antd";
 import signinbg from "../assets/images/img-signin.jpg";
-// import {
-//   DribbbleOutlined,
-//   TwitterOutlined,
-//   InstagramOutlined,
-//   GithubOutlined,
-// } from "@ant-design/icons";
+import {
+  DribbbleOutlined,
+  TwitterOutlined,
+  InstagramOutlined,
+  GithubOutlined,
+} from "@ant-design/icons";
 
 function onChange(checked) {
   console.log(`switch to ${checked}`);
@@ -112,7 +115,7 @@ export default class SignIn extends Component {
     };
 
     const onFinishFailed = (errorInfo) => {
-      console.log("Failed:", errorInfo);
+       console.log("Failed:", errorInfo);
     };
     return (
       <>
@@ -125,15 +128,16 @@ export default class SignIn extends Component {
             <div className="header-col header-nav">
               <Menu mode="horizontal" defaultSelectedKeys={["1"]}>
                 <Menu.Item key="1">
-                  <Link to="/dashboard">
-                    {template}
-                    <span> Suvestinė</span>
+                  <Link to="/santrauka">
+                    
+                    <span> Santrauka</span>
                   </Link>
                 </Menu.Item>
                 <Menu.Item key="2">
                   <Link to="/profile">
                     {profile}
                     <span>Profilis</span>
+                    {onFinishFailed}
                   </Link>
                 </Menu.Item>
                 <Menu.Item key="3">
