@@ -182,9 +182,9 @@ export default class SignUp extends Component {
             <div className="header-col header-nav">
               <Menu mode="horizontal" defaultSelectedKeys={["1"]}>
                 <Menu.Item key="1">
-                  <Link to="/santrauka">
+                  <Link to="/suvestinė">
                     {template}
-                    <span> Santrauka</span>
+                    <span> Suvestinė</span>
                   </Link>
                 </Menu.Item>
                 {/* <Menu.Item key="2">

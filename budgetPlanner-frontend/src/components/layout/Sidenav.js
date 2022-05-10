@@ -198,7 +198,7 @@ function Sidenav({ color }) {
 
 
         <Menu.Item key="2">
-          <NavLink to="/islaidos">
+          <NavLink to="/išlaidos">
             <span
               className="icon"
               style={{
@@ -207,13 +207,13 @@ function Sidenav({ color }) {
             >
               {tablesExpenses}
             </span>
-            <span className="label">Islaidos</span>
+            <span className="label">Išlaidos</span>
           </NavLink>
         </Menu.Item> 
 
 
         <Menu.Item key="1">
-          <NavLink to="/santrauka">
+          <NavLink to="/suvestinė">
             <span
               className="icon"
               style={{
@@ -222,7 +222,7 @@ function Sidenav({ color }) {
             >
               {dashboard}
             </span>
-            <span className="label">Santrauka</span>
+            <span className="label">Suvestinė</span>
           </NavLink>
         </Menu.Item>
 
