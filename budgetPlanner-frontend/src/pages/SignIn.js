@@ -1,7 +1,7 @@
 
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-
+import AuthService from "../services/auth.service";
 
 
 import {
@@ -22,7 +22,6 @@ import {
   InstagramOutlined,
   GithubOutlined,
 } from "@ant-design/icons";
-import AuthService from "../services/auth.service";
 
 function onChange(checked) {
   console.log(`switch to ${checked}`);
@@ -113,8 +112,11 @@ export default class SignIn extends Component {
   render() {
     const onFinish = (values) => {
       console.log("Success:", values);
-      AuthService.login(values.email, values.password).then((r)=>{console.log("Gavosi", r);
-    });
+      AuthService.login(values.email, values.password).then(
+        (r) => {
+          console.log("Gavom:", r);      
+        }
+      );
     };
 
     const onFinishFailed = (errorInfo) => {
@@ -131,9 +133,9 @@ export default class SignIn extends Component {
             <div className="header-col header-nav">
               <Menu mode="horizontal" defaultSelectedKeys={["1"]}>
                 <Menu.Item key="1">
-                  <Link to="/suvestinė">
+                  <Link to="/santrauka">
                     
-                    <span> Suvestinė</span>
+                    <span> Santrauka</span>
                   </Link>
                 </Menu.Item>
                 <Menu.Item key="2">

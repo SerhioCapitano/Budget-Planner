@@ -1,8 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Component } from 'react';
 import { Table, Input, InputNumber, Popconfirm, Form, Typography, Button} from 'antd';
 import { DeleteOutlined } from "@ant-design/icons";
 import ExpensesService from '../services/ExpensesService'
+import Header from "../components/layout/Header";
+import Sidenav from "../components/layout/Sidenav";
 import Swal from 'sweetalert2'
+
 
 
 
@@ -19,6 +22,8 @@ const EditableCell = ({
 }) => {
   const inputNode = (inputType === 'number') ? <InputNumber /> :(inputType==='date')?<Input type='date'/>: <Input />;
   return (
+
+    
     <td {...restProps}>
       {editing ? (
         <Form.Item
@@ -300,6 +305,7 @@ const EditableTable = () => {
     };
   });
   return (
+
 <Form form={form}>
 {content} 
       <Table

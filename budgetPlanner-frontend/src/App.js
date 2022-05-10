@@ -1,5 +1,5 @@
 
-import {Switch, Route} from "react-router-dom";
+import {Routes, Route, Navigate } from "react-router-dom";
 import Home from "./pages/Home";
 import Table_incomes from "./pages/Table_incomes";
 import Billing from "./pages/Billing";
@@ -13,23 +13,29 @@ import 'antd/dist/antd.min.css';
 import "./assets/styles/main.css";
 import "./assets/styles/responsive.css";
 import Table_expenses from "./pages/Table_expenses";
+import { Header } from "antd/lib/layout/layout";
+import Sidenav from "./components/layout/Sidenav";
 
 function App() {
   return (
     <div className="App">
-      <Switch>
-        <Route  path="/sign-up" exact component={SignUp} />
-        <Route  path="/sign-in" exact component={SignIn} />
-        <Main>
-        <Route  path="/santrauka" exact component={Home} />
-        <Route  path="/pajamos" exact component={Table_incomes} />
-        <Route  path="/išlaidos" exact component={Table_expenses} />
-        <Route  path="/billing" exact component={Billing} />
-        <Route  path="/rtl" exact component={Rtl} />
-        <Route  path="/profile" exact component={Profile} />
-          {/* <Navigate from="/*" to="/santrauka" /> */}
-          </Main>
-      </Switch>
+      <Routes>
+
+      <Route  path="/" element={<Main>Pradinis puslapis</Main>} />
+          <Route  path="/santrauka" element={<Main>Komponentas santrauka</Main>} />
+          <Route  path="/pajamos" element={<Main><Table_incomes/></Main>} />
+          <Route  path="/islaidos" element={<Main><Table_expenses/></Main>} />
+          <Route  path="/billing" element={<Billing/>} />
+          <Route   path="/rtl" element={<Rtl/>} />
+          <Route   path="/profile" element={<Profile/>} />
+
+          <Route  exact path="/sign-up" element={<SignUp/>} />
+        <Route  path="/sign-in" element={<SignIn/>} />
+
+        <Route  path="*" element={<Main/>} />
+          {/* <Navigate from="/*" to="/suvestinė" /> */}
+       
+      </Routes>
     </div>
   );
 }
