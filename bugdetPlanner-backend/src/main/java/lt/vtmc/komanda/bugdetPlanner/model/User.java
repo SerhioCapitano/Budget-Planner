@@ -37,13 +37,16 @@ public class User {
 	@Email
 	private String email;
 	@NotBlank
-	@Size(max = 120)
+	@Size(min=6, max = 120)
 	private String password;
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(	name = "user_roles", 
 				joinColumns = @JoinColumn(name = "user_id"), 
 				inverseJoinColumns = @JoinColumn(name = "role_id"))
+
 	private Set<Role> roles = new HashSet<>();
+	
+	
 	public User() {
 	}
 	public User(String username, String email, String password) {
@@ -81,4 +84,6 @@ public class User {
 	public void setRoles(Set<Role> roles) {
 		this.roles = roles;
 	}
+
+	
 }

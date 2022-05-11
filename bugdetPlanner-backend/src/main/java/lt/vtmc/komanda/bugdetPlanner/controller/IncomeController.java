@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,7 +19,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import lt.vtmc.komanda.bugdetPlanner.exception.ResourceNotFoundException;
 import lt.vtmc.komanda.bugdetPlanner.model.Income;
+import lt.vtmc.komanda.bugdetPlanner.model.IncomeDTO;
+import lt.vtmc.komanda.bugdetPlanner.model.User;
 import lt.vtmc.komanda.bugdetPlanner.repository.IncomeRepository;
+import lt.vtmc.komanda.bugdetPlanner.repository.UserRepository;
 
 @CrossOrigin("*")
 @RestController
@@ -26,28 +31,44 @@ public class IncomeController {
 
 	@Autowired
 	private IncomeRepository incomeRepository;
+	private UserRepository userRepo;
 
 	public IncomeController(IncomeRepository incomeRepository) {
 		this.incomeRepository = incomeRepository;
 	}
 
-	// GET ALL INCOMES IN LIST
+	// GET USER'S INCOMES IN LIST 
 
-	@GetMapping
-	public List<Income> getAllIncomes() {
-		return incomeRepository.findAll();
-	}
+//	@Secured({"ROLE_USER" })
+//	@GetMapping
+//	public List<Income> getUserIncomes() {
+//		
+//		String username = SecurityContextHolder.getContext().getAuthentication().getName();
+//		
+//		return incomeRepository.findByUsername(username);
+//	}
 
 	// CREATE INCOME
-
+	@Secured({"ROLE_USER" })
 	@PostMapping
-	public Income createIncome(@RequestBody Income income) {
-		return incomeRepository.save(income);
+	public Income createIncome(@RequestBody IncomeDTO incomeDTO) {
+		Income income = new Income();
 
+		income.setAmount(incomeDTO.getAmount());
+		income.setTimeStamp(incomeDTO.getTimeStamp());
+		income.setDescription(incomeDTO.getDescription());
+		
+		String currentUsername = SecurityContextHolder.getContext().getAuthentication().getName();
+		User user = userRepo.findByUsername(currentUsername);
+		
+		income.setUser(user);
+		return incomeRepository.save(income);
 	}
 
-	// GET INCOME BY ID
+	
 
+	// GET INCOME BY ID
+	@Secured({"ROLE_USER" })
 	@GetMapping("{id}")
 	public ResponseEntity<Income> getIncomeById(@PathVariable long id) {
 		Income income = incomeRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException());
@@ -55,9 +76,9 @@ public class IncomeController {
 	}
 
 	// UPDATE INCOME BY ID
-
+	@Secured({"ROLE_USER" })
 	@PutMapping("{id}")
-	public ResponseEntity<Income> updateEmployee(@PathVariable long id, @RequestBody Income incomeDetails) {
+	public ResponseEntity<Income> updateIncome(@PathVariable long id, @RequestBody Income incomeDetails) {
 		Income updateIncome = incomeRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException());
 
 		updateIncome.setAmount(incomeDetails.getAmount());
@@ -71,9 +92,9 @@ public class IncomeController {
 	}
 
 	// DELETE INCOME BY ID
-
+	@Secured({ "ROLE_USER" })
 	@DeleteMapping("{id}")
-	public ResponseEntity<HttpStatus> deleteEmployee(@PathVariable long id) {
+	public ResponseEntity<HttpStatus> deleteIncome(@PathVariable long id) {
 		Income employee = incomeRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException());
 
 		incomeRepository.delete(employee);
