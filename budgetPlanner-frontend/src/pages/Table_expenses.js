@@ -118,7 +118,7 @@ const EditableTable = () => {
       Swal.fire({
         icon: 'error',
         title: 'Klaida!',
-        text: 'Nepalikite tuščių laukelių!',
+        text: 'Nepalikite tuščių laukų!',
       })
     } else if(item.amount <= 0) {
       Swal.fire({

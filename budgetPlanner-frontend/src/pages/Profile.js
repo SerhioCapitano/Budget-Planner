@@ -1,5 +1,7 @@
 
-import { useState } from "react";
+import { useState} from "react";
+import { Link, useNavigate, Redirect  } from "react-router-dom";
+import AuthService from "../services/auth.service";
 
 import {
   Row,
@@ -67,6 +69,19 @@ function Profile() {
       });
     }
   };
+
+ 
+  const navigate = useNavigate();
+
+    const logout = () => {
+      console.log("Success:");
+      AuthService.logout();
+        };
+
+  const switchToUsers=()=>{
+    navigate("/vartotojai");
+  }
+  
 
   const pencil = [
     <svg
@@ -165,7 +180,7 @@ function Profile() {
 
                 <div className="avatar-info">
                   <h4 className="font-semibold m-0">Sarah Jacob</h4>
-                  <p>CEO / Co-Founder</p>
+                  <p>admin</p>
                 </div>
               </Avatar.Group>
             </Col>
@@ -178,11 +193,12 @@ function Profile() {
                 justifyContent: "flex-end",
               }}
             >
-              <Radio.Group defaultValue="a">
-                <Radio.Button value="a">OVERVIEW</Radio.Button>
-                <Radio.Button value="b">TEAMS</Radio.Button>
-                <Radio.Button value="c">PROJECTS</Radio.Button>
-              </Radio.Group>
+             
+                <a  href="/sign-in" onClick={logout} >ATSIJUNGTI</a>
+
+                {/* <Radio.Button value="b">TEAMS</Radio.Button>
+                <Radio.Button value="c">PROJECTS</Radio.Button> */}
+             
             </Col>
           </Row>
         }
@@ -193,9 +209,12 @@ function Profile() {
           <Card
             bordered={false}
             className="header-solid h-full"
-            title={<h6 className="font-semibold m-0">Platform Settings</h6>}
+            title={<h6 className="font-semibold m-0">Nustatymai</h6>}
           >
-            <ul className="list settings-list">
+
+
+<Radio.Button value="b" href="/vartotojai" onClick={switchToUsers}>VARTOTOJAI</Radio.Button>
+            {/* <ul className="list settings-list">
               <li>
                 <h6 className="list-header text-sm text-muted">ACCOUNT</h6>
               </li>
@@ -229,10 +248,10 @@ function Profile() {
                 <Switch defaultChecked />
                 <span>Subscribe to newsletter</span>
               </li>
-            </ul>
+            </ul> */}
           </Card>
         </Col>
-        <Col span={24} md={8} className="mb-24">
+        {/* <Col span={24} md={8} className="mb-24">
           <Card
             bordered={false}
             title={<h6 className="font-semibold m-0">Profile Information</h6>}
@@ -311,8 +330,8 @@ function Profile() {
             <p>Architects design houses</p>
           </>
         }
-      >
-        <Row gutter={[24, 24]}>
+      > */}
+        {/* <Row gutter={[24, 24]}>
           {project.map((p, index) => (
             <Col span={24} md={12} xl={6} key={index}>
               <Card
@@ -355,9 +374,9 @@ function Profile() {
                 uploadButton
               )}
             </Upload>
-          </Col>
+          </Col>*/}
         </Row>
-      </Card>
+      {/* </Card>  */}
     </>
   );
 }

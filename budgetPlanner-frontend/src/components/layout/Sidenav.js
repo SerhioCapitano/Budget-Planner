@@ -226,6 +226,20 @@ function Sidenav({ color }) {
           </NavLink>
         </Menu.Item>
 
+        {/* <Menu.Item key="1">
+          <NavLink to="/vartotojai">
+            <span
+              className="icon"
+              style={{
+                background: page === "dashboard" ? color : "",
+              }}
+            >
+              {dashboard}
+            </span>
+            <span className="label">Vartotojai</span>
+          </NavLink>
+        </Menu.Item> */}
+
               {/* /////////////// GAL BUT NEREIKIA  */} {/* /////////////// GAL BUT NEREIKIA  */} {/* /////////////// GAL BUT NEREIKIA  */}
         {/* <Menu.Item key="3">
           <NavLink to="/billing">
