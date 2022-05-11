@@ -1,6 +1,6 @@
 
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, Redirect  } from "react-router-dom";
 import AuthService from "../services/auth.service";
 
 
@@ -26,6 +26,7 @@ import {
 function onChange(checked) {
   console.log(`switch to ${checked}`);
 }
+
 const { Title } = Typography;
 const { Header, Footer, Content } = Layout;
 const template = [
@@ -108,20 +109,25 @@ const signin = [
     />
   </svg>,
 ];
-export default class SignIn extends Component {
-  render() {
+export default function SignIn()  {
+  const navigate = useNavigate();
     const onFinish = (values) => {
       console.log("Success:", values);
       AuthService.login(values.email, values.password).then(
         (r) => {
-          console.log("Gavom:", r);      
+          navigate("/profile")
+          console.log("Gavom:", r);
+
         }
       );
     };
+   
 
     const onFinishFailed = (errorInfo) => {
        console.log("Failed:", errorInfo);
     };
+
+ 
     return (
       <>
         <Layout className="layout-default layout-signin">
@@ -289,4 +295,4 @@ export default class SignIn extends Component {
       </>
     );
   }
-}
+
