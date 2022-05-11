@@ -12,7 +12,8 @@ import {
 } from "antd";
 
 
-
+import {useNavigate} from "react-router-dom";
+import Swal from 'sweetalert2'
 
 // import Form from "react-validation/build/form";
 // import Input from "react-validation/build/input";
@@ -162,11 +163,24 @@ const signin = [
     />
   </svg>,
 ];
-export default class SignUp extends Component {
-  render() {
+export default function SignUp()  {
+  const navigate = useNavigate();
     const onFinish = (values) => {
-      AuthService.register(values.username, values.email, values.password);
-      console.log("Success:", values);
+      AuthService.register(values.username, values.email, values.password).then(
+        (response) => {
+          console.log("Success:", values);
+          navigate("/sign-in");
+          Swal.fire({
+            icon: 'success',
+            title: values.username,
+            text: "Buvo Sukurtas",
+          },
+          (error) => {
+            console.log(error)
+          })
+        }
+      )
+     
       
     };
 
@@ -348,4 +362,4 @@ export default class SignUp extends Component {
       </>
     );
   }
-}
+
