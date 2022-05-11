@@ -165,7 +165,9 @@ const signin = [
 export default class SignUp extends Component {
   render() {
     const onFinish = (values) => {
+      AuthService.register(values.username, values.email, values.password);
       console.log("Success:", values);
+      
     };
 
     const onFinishFailed = (errorInfo) => {
@@ -248,7 +250,7 @@ export default class SignUp extends Component {
                 className="row-col"
               >
                 <Form.Item
-                  name="Name"
+                  name="username"
                   rules={[
                     { required: true, message: "Įveskite vartotojo vardą!" },
                   ]}
