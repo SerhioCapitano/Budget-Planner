@@ -111,7 +111,7 @@ const signin = [
 ];
 export default function SignIn()  {
   const checkIfExist = () => {
-    AuthService.getCurrentUser
+    AuthService.getCurrentUser()
   }
   const navigate = useNavigate();
     const onFinish = (values) => {

@@ -1,8 +1,10 @@
 import React, { useState, useEffect} from 'react';
-import IncomesService from '../services/IncomesService'
+import UserService from '../services/UserService'
 import { Table, Input, InputNumber, Popconfirm, Form, Typography, Button} from 'antd';
-import { DeleteOutlined } from "@ant-design/icons";
-import Swal from 'sweetalert2'
+import { AntDesignOutlined, DeleteOutlined } from "@ant-design/icons";
+import Swal from 'sweetalert2';
+import { Link, useNavigate, Redirect  } from "react-router-dom";
+import { Row, Col, Space} from "antd";
  
 
 const EditableCell = ({
@@ -17,9 +19,11 @@ const EditableCell = ({
   ...restProps
 }) => {
   
-  const inputNode = (inputType === 'number') ? <InputNumber /> :(inputType==='date')?<Input type='date'/>: <Input />;
+  const inputNode = (inputType === 'text') ? <InputNumber /> :(inputType==='text')?<Input type='text'/>: <Input />;
 
   return (
+
+    
     
     <td {...restProps}>
       {editing ? (
@@ -47,20 +51,20 @@ const EditableCell = ({
 
 const EditableTable = () => {
   const [form] = Form.useForm();
-  const [incomes, setIncomes] = useState([]);
+  const [users, setUsers] = useState([]);
   const [editingKey, setEditingKey] = useState('');
 
 
-  useEffect(()=>getAllIncome(),[]);
+  useEffect(()=>getAllUsers(),[]);
  
   const isEditing = (record) => record.id === editingKey;
 
   const edit = (record) => {
     
     form.setFieldsValue({
-      amount: '',
-      date: '',
-      description: '',
+      username: '',
+      email: '',
+      password: '',
       ...record,
     });
     setEditingKey(record.id);
@@ -73,18 +77,18 @@ const EditableTable = () => {
   };
 
 const onDelete=(record) => {
-  IncomesService.deleteIncome(record.id).then((respone) => {
-    const newData = incomes.filter(obj => obj.id !==  record.id);
-    setIncomes(newData);
+  UserService.deleteUser(record.id).then((respone) => {
+    const newData = users.filter(obj => obj.id !==  record.id);
+    setUsers(newData);
   }).catch(error => {
     console.log(error)
   })
  
 }
 
-const getAllIncome = () => { 
-  IncomesService.getAllIncomes().then((response) => {
-    setIncomes(response.data);
+const getAllUsers = () => { 
+  UserService.getAllUsers().then((response) => {
+    setUsers(response.data);
   }).catch(error => {
     console.log(error);
   })
@@ -94,9 +98,9 @@ const getAllIncome = () => {
 
   const initialTutorialState = {
     id: null,
-    amount: "",
-  timeStamp: "",
-    description: "",
+    username: "",
+  email: "",
+    password: "",
   };
 
   const [item, setItem] = useState(initialTutorialState);
@@ -109,32 +113,26 @@ const getAllIncome = () => {
   var regExp = /[a-zA-Z]/g;
 
   const saveItem = () => {
-    if(item.amount === "" || !regExp.test(item.description)) {
+    if(item.username === "" ) {
       Swal.fire({
         icon: 'error',
         title: 'Klaida!',
         text: 'Nepalikite tuščių laukų!',
       })
-    } else if(item.amount <= 0) {
-      Swal.fire({
-        icon: "error",
-        title: "Klaida",
-        text: "Suma negali but neigiama arba nulis!"
-      })
-    } else {
+    }  else {
     var data = {
-      amount: item.amount,
-      timeStamp: item.date,
-      description: item.description
+      username: item.username,
+      email: item.email,
+      password: item.password
     };
-    IncomesService.createIncome(data)
+    UserService.createUser(data)
       .then(response => {
         setItem({
-          amount: response.data.amount,
-          timeStamp: response.data.date,
-          description: response.data.description,
+          username: response.data.username,
+          email: response.data.email,
+          password: response.data.password,
         }); 
-        getAllIncome();
+        getAllUsers();
 
       })
       .catch(e => {
@@ -143,36 +141,42 @@ const getAllIncome = () => {
   };
   }
 
+  const navigate = useNavigate();
+
+  const switchBack=()=>{
+    navigate("../");
+  }
+
 
   
   const content = (
     <div style={{textAlign: "left"}}>
-   <input style={{margin: "10px", borderRadius: '4px'}}  type="number"
-    placeholder="Suma"
-    name="amount"
-    value={item.amount}
+   <input style={{margin: "10px", borderRadius: '4px'}}  type="text"
+    placeholder="Vartotojo vardas"
+    name="username"
+    value={item.username}
     onChange= {handleInputChange}
     />
 
-     <input style={{margin: "10px", borderRadius: '4px'}}  type="date"
-    placeholder="Data"
-    name="date"
-    value={item.date}
+     <input style={{margin: "10px", borderRadius: '4px'}}  type="email"
+    placeholder="El. paštas"
+    name="email"
+    value={item.email}
     onChange= {handleInputChange}
     />
 
-   <input style={{margin: "10px", borderRadius: '4px'}} type="text"
-    placeholder="Komentaras"
-    name="description"
-    value={item.description}
+   <input style={{margin: "10px", borderRadius: '4px'}} type="password"
+    placeholder="Slaptažodis"
+    name="password"
+    value={item.password}
     minLength="4"
     onChange= {handleInputChange}
     />
 
 
 <div>
-   <Button style={{marginBottom: "30px", marginLeft: "10px"}} type="primary" onClick={saveItem}>Pridėti pajamas</Button>
-   {/* <Button type="primary" onClick={getAllIncome}>Submit</Button> */}
+   <Button style={{marginBottom: "30px", marginLeft: "10px"}} type="primary" onClick={saveItem}>Pridėti vartotoją</Button>
+   {/* <Button type="primary" onClick={getAllUser}>Submit</Button> */}
    </div>
     </div>
     
@@ -182,14 +186,14 @@ const getAllIncome = () => {
   const save = async (id) => {
     try {
       const row = await form.validateFields();
-      const newData = [...incomes];
+      const newData = [...users];
       const index = newData.findIndex((item) => id === item.id);
       if (index > -1) {
         const item = newData[index];
         newData.splice(index, 1, { ...item, ...row });
-        const obj = newData.find(income => income.id === id);
-        setIncomes(newData);
-        IncomesService.updateIncome(id,obj).then((response) => {
+        const obj = newData.find(user => user.id === id);
+        setUsers(newData);
+        UserService.updateUser(id,obj).then((response) => {
         }).catch(error => { 
           console.log(error);
         }); 
@@ -197,7 +201,7 @@ const getAllIncome = () => {
         
       } else {
         newData.push(row);
-        setIncomes(newData);
+        setUsers(newData);
  
         setEditingKey('');
         
@@ -209,20 +213,20 @@ const getAllIncome = () => {
 
   const columns = [
     {
-      title: 'Suma',
-      dataIndex: 'amount',
+      title: 'Vartotojo vardas',
+      dataIndex: 'username',
       width: '20%',
       editable: true,
     },
     {
-      title: 'Data',
-      dataIndex: 'timeStamp',
+      title: 'El. paštas',
+      dataIndex: 'email',
       width: '20%',
       editable: true,
     },
     {
-      title: 'Komentaras',
-      dataIndex: 'description',
+      title: 'Slaptažodis',
+      dataIndex: 'password',
       width: '40%',
       editable: true,
     },
@@ -272,7 +276,7 @@ const getAllIncome = () => {
       ...col,
       onCell: (record) => ({
         record,
-        inputType: col.dataIndex === 'amount' ? 'number' : (col.dataIndex === 'timeStamp') ?'date' :'text',
+        inputType: col.dataIndex === 'username' ? 'text' : (col.dataIndex === 'email') ?'email' :'text',
         dataIndex: col.dataIndex,
         title: col.title,
         editing: isEditing(record),
@@ -280,7 +284,28 @@ const getAllIncome = () => {
     };
   });
   return (
+
+            
+             
+              
+                
+
 <Form form={form} >
+<Row  align="center" gutter={[24, 0]}>
+
+<Col
+              span={24}
+              md={23}
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "flex-end",
+              }}
+            >
+              <a align='end' href="/profile" onClick={switchBack} >Grįžti</a>
+               </Col>
+          </Row>
+
 {content} 
       <Table
         components={{
@@ -289,7 +314,7 @@ const getAllIncome = () => {
           },
         }}
         bordered
-        dataSource={incomes}
+        dataSource={users}
         columns={mergedColumns}
         rowClassName="editable-row"
         pagination={{
@@ -299,6 +324,8 @@ const getAllIncome = () => {
       />
      
     </Form>
+
+    
     
   );
 };

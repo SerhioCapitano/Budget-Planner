@@ -8,13 +8,12 @@ import Profile from "./pages/Profile";
 import SignUp from "./pages/SignUp";
 import SignIn from "./pages/SignIn";
 import Main from "./components/layout/Main";
-// import "antd/dist/antd.css";
 import 'antd/dist/antd.min.css';
 import "./assets/styles/main.css";
 import "./assets/styles/responsive.css";
 import Table_expenses from "./pages/Table_expenses";
 import { Header } from "antd/lib/layout/layout";
-import Sidenav from "./components/layout/Sidenav";
+import UsersTable from "./pages/UsersTable";
 
 function App() {
   return (
@@ -28,6 +27,7 @@ function App() {
           <Route  path="/billing" element={<Billing/>} />
           <Route   path="/rtl" element={<Rtl/>} />
           <Route   path="/profile" element={<Profile/>} />
+          <Route  path="/vartotojai" element={<UsersTable/>} />
 
           <Route  exact path="/sign-up" element={<SignUp/>} />
         <Route  path="/sign-in" element={<SignIn/>} />
