@@ -110,6 +110,9 @@ const signin = [
   </svg>,
 ];
 export default function SignIn()  {
+  const checkIfExist = () => {
+    AuthService.getCurrentUser
+  }
   const navigate = useNavigate();
     const onFinish = (values) => {
       console.log("Success:", values);
