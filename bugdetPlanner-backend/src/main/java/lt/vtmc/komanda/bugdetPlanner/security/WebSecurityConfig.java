@@ -48,16 +48,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		return new BCryptPasswordEncoder();
 	}
 	
-//	@Override
-//	protected void configure(HttpSecurity http) throws Exception {
-//		http.cors().and().csrf().disable()
-//			.exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
-//			.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-//			.authorizeRequests().antMatchers("/api/auth/**").permitAll()
-//			.antMatchers("/api/test/**").permitAll()
-//			.anyRequest().authenticated();
-//		http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
-//	}
 		
 		@Override
   protected void configure(HttpSecurity http) throws Exception {
@@ -71,29 +61,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			.anyRequest().authenticated()
 			.and().headers().frameOptions().sameOrigin();
 		http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
-	}
-// 	    protected void configure(HttpSecurity http) throws Exception {
-// 			http.cors().and().csrf().ignoringAntMatchers("/h2-console/**")
-// 			.and().headers().frameOptions().sameOrigin().and()
-// 			.exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
-// 			.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-// <<<<<<< something
-// 			.authorizeRequests().antMatchers("/api/auth/**").permitAll()
-// 				.and()
-// 				.authorizeRequests().antMatchers("/h2-console/**").permitAll()
-// 			.antMatchers("/api/test/**").permitAll()
-// 			.anyRequest().authenticated()
-// 			.and().headers().frameOptions().sameOrigin();
-// =======
-// 	        .authorizeRequests().antMatchers("/").permitAll()
-// 	       .antMatchers("/api/auth/**").permitAll()
-// 	        .antMatchers("/api/test/**").permitAll()
-// 	        .antMatchers("/h2-console/**").permitAll()
-// 	        .anyRequest().authenticated();
-
-// >>>>>>> main
-// 		http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
-// 	}
-	
+	}	
 
 }

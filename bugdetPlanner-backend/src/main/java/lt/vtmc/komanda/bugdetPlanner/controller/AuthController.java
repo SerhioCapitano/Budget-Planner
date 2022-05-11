@@ -34,16 +34,22 @@ import lt.vtmc.komanda.bugdetPlanner.model.ERole;
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
+	
 	@Autowired
 	AuthenticationManager authenticationManager;
+	
 	@Autowired
 	UserRepository userRepository;
+	
 	@Autowired
 	RoleRepository roleRepository;
+	
 	@Autowired
 	PasswordEncoder encoder;
+	
 	@Autowired
 	JwtUtils jwtUtils;
+	
 	@PostMapping("/signin")
 	public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
 		Authentication authentication = authenticationManager.authenticate(
@@ -61,6 +67,7 @@ public class AuthController {
 												 userDetails.getEmail(), 
 												 roles));
 	}
+	
 	@PostMapping("/signup")
 	public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
 		if (userRepository.existsByUsername(signUpRequest.getUsername())) {
@@ -68,16 +75,20 @@ public class AuthController {
 					.badRequest()
 					.body(new MessageResponse("Error: Username is already taken!"));
 		}
+		
 		if (userRepository.existsByEmail(signUpRequest.getEmail())) {
 			return ResponseEntity
 					.badRequest()
 					.body(new MessageResponse("Error: Email is already in use!"));
 		}
+		
 		// Create new user's account
 		User user = new User(signUpRequest.getUsername(), 
 							 signUpRequest.getEmail(),
 							 encoder.encode(signUpRequest.getPassword()));
+		
 		Set<String> strRoles = signUpRequest.getRole();
+		
 		Set<Role> roles = new HashSet<>();
 		if (strRoles == null) {
 			Role userRole = roleRepository.findByName(ERole.ROLE_USER)
@@ -103,8 +114,11 @@ public class AuthController {
 				}
 			});
 		}
+		
 		user.setRoles(roles);
+		
 		userRepository.save(user);
+		
 		return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
 	}
 }

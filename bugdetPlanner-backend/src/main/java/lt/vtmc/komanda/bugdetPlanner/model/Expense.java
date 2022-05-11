@@ -7,6 +7,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -25,17 +28,13 @@ public class Expense {
 	private String name;
 	private String comment;
 	
+	@ManyToOne
+	@JoinColumn(name = "user_id", nullable = false)
+	User user;
+	
 	
 	public Expense() {
 		
 	}
-	
-//	public BigDecimal countBalance(LocalDate dateFrom, LocalDate dateTo, BigDecimal amount) {
-//		BigDecimal balance = new BigDecimal(0);
-//		if(date.isAfter(dateFrom) && date.isBefore(dateTo)) {
-//			balance=balance.subtract(amount);
-//		}
-//		return balance;
-//		
-//	}
+
 }
