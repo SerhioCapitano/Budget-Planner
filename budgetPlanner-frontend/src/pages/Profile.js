@@ -110,6 +110,8 @@ function Profile() {
     </div>
   );
 
+  var user = JSON.parse(localStorage.getItem('user'));
+
   const data = [
     {
       title: "Sophie B.",
@@ -179,8 +181,8 @@ function Profile() {
                 <Avatar size={74} shape="square" src={profilavatar} />
 
                 <div className="avatar-info">
-                  <h4 className="font-semibold m-0">Sarah Jacob</h4>
-                  <p>admin</p>
+                  <h4 className="font-semibold m-0">{user.username}</h4>
+                  <p>{user.email}</p>
                 </div>
               </Avatar.Group>
             </Col>
