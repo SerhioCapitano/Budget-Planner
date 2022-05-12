@@ -116,7 +116,7 @@ export default function SignIn()  {
   const navigate = useNavigate();
     const onFinish = (values) => {
       console.log("Success:", values);
-      AuthService.login(values.email, values.password).then(
+      AuthService.login(values.username, values.password).then(
         (r) => {
           navigate("/profile")
           console.log("Gavom:", r);

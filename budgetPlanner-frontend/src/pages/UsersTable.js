@@ -77,7 +77,7 @@ const EditableTable = () => {
   };
 
   const onDelete=(record) => {
-    UserService.deleteUsers(record.id).then((response)=>{
+    UserService.deleteUsers(record.username).then((response)=>{
       const newData = users.filter(obj => obj.id !==  record.id);
       setUsers(newData);
     }).catch(error => {
@@ -133,6 +133,7 @@ const getAllUsers = () => {
           password: response.data.password,
         }); 
         getAllUsers();
+        setItem(initialTutorialState);
 
       })
       .catch(e => {

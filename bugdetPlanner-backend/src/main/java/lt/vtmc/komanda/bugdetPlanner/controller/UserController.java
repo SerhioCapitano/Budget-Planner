@@ -2,6 +2,8 @@ package lt.vtmc.komanda.bugdetPlanner.controller;
 
 import java.util.List;
 
+ import org.springframework.transaction.annotation.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.annotation.Secured;
@@ -75,7 +77,8 @@ public class UserController {
 	}
 
 	@Secured({ "ROLE_ADMIN" })
-	@DeleteMapping("/{username}")
+	@DeleteMapping("{username}")
+	@Transactional
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void deleteUser(@PathVariable("username") String username) {
 		if(!userRepo.existsByUsername(username)) {
@@ -83,6 +86,6 @@ public class UserController {
 		}else {
 		
 		userRepo.deleteByUsername(username);
-	}
+		}
 	}
 }
