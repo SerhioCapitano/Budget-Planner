@@ -1,5 +1,6 @@
 package lt.vtmc.komanda.bugdetPlanner.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import lt.vtmc.komanda.bugdetPlanner.exception.ResourceNotFoundException;
+import lt.vtmc.komanda.bugdetPlanner.model.Expense;
 import lt.vtmc.komanda.bugdetPlanner.model.Income;
 import lt.vtmc.komanda.bugdetPlanner.model.IncomeDTO;
 import lt.vtmc.komanda.bugdetPlanner.model.User;
@@ -31,25 +33,31 @@ public class IncomeController {
 
 	@Autowired
 	private IncomeRepository incomeRepository;
+	@Autowired
 	private UserRepository userRepo;
 
 	public IncomeController(IncomeRepository incomeRepository) {
 		this.incomeRepository = incomeRepository;
 	}
 
-	// GET USER'S INCOMES IN LIST 
-
-//	@Secured({"ROLE_USER" })
-//	@GetMapping
-//	public List<Income> getUserIncomes() {
-//		
-//		String username = SecurityContextHolder.getContext().getAuthentication().getName();
-//		
-//		return incomeRepository.findByUsername(username);
-//	}
-
-	// CREATE INCOME
 	@Secured({"ROLE_USER" })
+	@GetMapping
+	public List<Income> getIncomesByUser() {
+		String currentUsername = SecurityContextHolder.getContext().getAuthentication().getName();
+		User user = userRepo.findByUsername(currentUsername);
+		List<Income> allIncomes = incomeRepository.findAll();
+		List<Income> incomes = new ArrayList<>();
+		for (Income income : allIncomes) {
+			if(income.getUser().getUsername().equals(user.getUsername())) {
+					incomes.add(income);
+			}
+		}
+		return incomes;
+	}
+	
+	
+	// CREATE INCOME
+//	@Secured({"ROLE_USER" })
 	@PostMapping
 	public Income createIncome(@RequestBody IncomeDTO incomeDTO) {
 		Income income = new Income();

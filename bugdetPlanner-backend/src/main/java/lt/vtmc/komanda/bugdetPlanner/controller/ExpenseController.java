@@ -1,5 +1,6 @@
 package lt.vtmc.komanda.bugdetPlanner.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-
 
 import lt.vtmc.komanda.bugdetPlanner.exception.ResourceNotFoundException;
 import lt.vtmc.komanda.bugdetPlanner.model.Expense;
@@ -39,12 +39,24 @@ public class ExpenseController {
 		super();
 		this.repo = repo;
 	}
+	
 
-//	@Secured({"ROLE_USER" })
-//	@GetMapping
-//	public List<Expense> getExpensesByUserId() {
-//		return repo.findByUserId(id);
-//	}
+
+	@Secured({"ROLE_USER" })
+	@GetMapping
+	public List<Expense> getExpensesByUser() {
+		String currentUsername = SecurityContextHolder.getContext().getAuthentication().getName();
+		User user = userRepo.findByUsername(currentUsername);
+		List<Expense> allExpenses = repo.findAll();
+		List<Expense> expenses = new ArrayList<>();
+		for (Expense expense : allExpenses) {
+			if(expense.getUser().getUsername().equals(user.getUsername())) {
+					expenses.add(expense);
+			}
+		}
+		
+		return expenses;
+	}
 
 	@Secured({"ROLE_USER" })
 	@GetMapping("/{category}")
