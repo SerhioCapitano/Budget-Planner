@@ -135,6 +135,7 @@ const getAllIncome = () => {
           description: response.data.description,
         }); 
         getAllIncome();
+        setItem(initialTutorialState)
 
       })
       .catch(e => {

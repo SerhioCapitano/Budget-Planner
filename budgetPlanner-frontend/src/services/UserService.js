@@ -18,8 +18,8 @@ class UserService {
         return axios.delete(USERS_BASE_REST_API_URL + '/' + userId,  { headers: authHeader() });
     }
 
-    updateUsers(userId, user) {
-        return axios.put(USERS_BASE_REST_API_URL + '/' + userId, user,  { headers: authHeader() });
+    updateUsers(username, user) {
+        return axios.put(USERS_BASE_REST_API_URL + '/' + username,user,  { headers: authHeader() });
     }
 
     getUsersById(userId) {

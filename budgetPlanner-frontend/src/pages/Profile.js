@@ -110,6 +110,8 @@ function Profile() {
     </div>
   );
 
+  var user = JSON.parse(localStorage.getItem('user'));
+
   const data = [
     {
       title: "Sophie B.",
@@ -162,6 +164,8 @@ function Profile() {
     },
   ];
 
+  let result = user.username == "admin" ?  <Radio.Button value="b" href="/vartotojai" onClick={switchToUsers}>VARTOTOJAI</Radio.Button>: <p></p>;
+
   return (
     <>
       <div
@@ -179,8 +183,8 @@ function Profile() {
                 <Avatar size={74} shape="square" src={profilavatar} />
 
                 <div className="avatar-info">
-                  <h4 className="font-semibold m-0">Sarah Jacob</h4>
-                  <p>admin</p>
+                  <h4 className="font-semibold m-0">{user.username}</h4>
+                  <p>{user.email}</p>
                 </div>
               </Avatar.Group>
             </Col>
@@ -213,7 +217,7 @@ function Profile() {
           >
 
 
-<Radio.Button value="b" href="/vartotojai" onClick={switchToUsers}>VARTOTOJAI</Radio.Button>
+            {result}
             {/* <ul className="list settings-list">
               <li>
                 <h6 className="list-header text-sm text-muted">ACCOUNT</h6>

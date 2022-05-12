@@ -144,6 +144,7 @@ const EditableTable = () => {
           comment: response.data.comment,
         }); 
         getAllExpenses();
+        setItem(initialTutorialState);
       })
       .catch(e => {
         console.log(e);

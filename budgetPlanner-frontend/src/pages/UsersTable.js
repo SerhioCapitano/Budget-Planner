@@ -77,7 +77,7 @@ const EditableTable = () => {
   };
 
   const onDelete=(record) => {
-    UserService.deleteUsers(record.id).then((response)=>{
+    UserService.deleteUsers(record.username).then((response)=>{
       const newData = users.filter(obj => obj.id !==  record.id);
       setUsers(newData);
     }).catch(error => {
@@ -133,6 +133,7 @@ const getAllUsers = () => {
           password: response.data.password,
         }); 
         getAllUsers();
+        setItem(initialTutorialState);
 
       })
       .catch(e => {
@@ -186,16 +187,20 @@ const getAllUsers = () => {
   const save = async (id) => {
     try {
       const row = await form.validateFields();
-      const newData = [...users];
+      const newData = [...users]; 
       const index = newData.findIndex((item) => id === item.id);
       if (index > -1) {
         const item = newData[index];
         newData.splice(index, 1, { ...item, ...row });
         const obj = newData.find(user => user.id === id);
         setUsers(newData);
-        UserService.updateUsers(id, obj).then((response) => {
+        UserService.updateUsers(item.username, obj).then((response) => {
+          console.log(obj);
+          console.log(obj.username);
         }).catch(error => { 
           console.log(error);
+          console.log(obj);
+          console.log(obj.username);
         }); 
           setEditingKey('');
       } else {
