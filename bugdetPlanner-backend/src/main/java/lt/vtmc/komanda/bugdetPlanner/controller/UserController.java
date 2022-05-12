@@ -1,12 +1,15 @@
 package lt.vtmc.komanda.bugdetPlanner.controller;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
- import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,7 +23,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import lt.vtmc.komanda.bugdetPlanner.exception.ResourceExistsException;
 import lt.vtmc.komanda.bugdetPlanner.exception.ResourceNotFoundException;
+import lt.vtmc.komanda.bugdetPlanner.model.ERole;
+import lt.vtmc.komanda.bugdetPlanner.model.Role;
 import lt.vtmc.komanda.bugdetPlanner.model.User;
+import lt.vtmc.komanda.bugdetPlanner.repository.RoleRepository;
 import lt.vtmc.komanda.bugdetPlanner.repository.UserRepository;
 
 @CrossOrigin("*")
@@ -30,10 +36,14 @@ public class UserController {
 	
 	@Autowired
 	UserRepository userRepo;
+	RoleRepository roleRepository;
+	PasswordEncoder encoder;
 
-	public UserController(UserRepository userRepo) {
+	public UserController(UserRepository userRepo, RoleRepository roleRepository, PasswordEncoder encoder) {
 		super();
 		this.userRepo = userRepo;
+		this.roleRepository = roleRepository;
+		this.encoder = encoder;
 	}
 	
 	@Secured({ "ROLE_ADMIN" })
@@ -56,16 +66,27 @@ public class UserController {
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	public User createUser(@RequestBody User user) {
+		  User newUser = new User();
+			Set<Role> roles = new HashSet<>();
+			Role userRole = roleRepository.findByName(ERole.ROLE_USER)
+					.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+			roles.add(userRole);
+			newUser.setRoles(roles);
+				newUser.setPassword(encoder.encode(user.getPassword()));
+				newUser.setUsername(user.getUsername());
+				newUser.setEmail(user.getEmail());
 		if(userRepo.existsByUsername(user.getUsername())) {
 			throw new ResourceExistsException();
-		}
-		return userRepo.save(user);
+		}	
+		
+			return userRepo.save(newUser);
 	}
+	
 
 	@Secured({ "ROLE_ADMIN" })
 	@PutMapping("/{username}")
 	public User updateUser(@PathVariable("username") String username, @RequestBody User userDTO) {
-		
+
 		User user = userRepo.findByUsername(username);
 		if(!userRepo.existsByUsername(username)) {
 			throw new ResourceNotFoundException();
