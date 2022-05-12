@@ -187,16 +187,20 @@ const getAllUsers = () => {
   const save = async (id) => {
     try {
       const row = await form.validateFields();
-      const newData = [...users];
+      const newData = [...users]; 
       const index = newData.findIndex((item) => id === item.id);
       if (index > -1) {
         const item = newData[index];
         newData.splice(index, 1, { ...item, ...row });
         const obj = newData.find(user => user.id === id);
         setUsers(newData);
-        UserService.updateUsers(id, obj).then((response) => {
+        UserService.updateUsers(item.username, obj).then((response) => {
+          console.log(obj);
+          console.log(obj.username);
         }).catch(error => { 
           console.log(error);
+          console.log(obj);
+          console.log(obj.username);
         }); 
           setEditingKey('');
       } else {

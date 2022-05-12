@@ -189,7 +189,7 @@ export default function SignIn()  {
               >
                 <Title className="mb-15">Prisijungimas</Title>
                 <Title className="font-regular text-muted" level={5}>
-                  Įveskite el. paštą ir slaptažodį
+                  Įveskite username ir slaptažodį
                 </Title>
                 <Form
                   onFinish={onFinish}
@@ -212,7 +212,7 @@ export default function SignIn()  {
                   </Form.Item>
 
                   <Form.Item
-                    className="username"
+                    className="password"
                     label="Slaptažodis"
                     name="password"
                     rules={[
