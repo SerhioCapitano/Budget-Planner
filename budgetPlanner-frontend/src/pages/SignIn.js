@@ -191,16 +191,16 @@ export default function SignIn()  {
                 >
                   <Form.Item
                     className="username"
-                    label="El. paštas"
-                    name="email"
+                    label="Vartotojo vardas"
+                    name="username"
                     rules={[
                       {
                         required: true,
-                        message: "Įveskite el. paštą!",
+                        message: "Įveskite vartotojo vardą!",
                       },
                     ]}
                   >
-                    <Input placeholder="El. paštas" />
+                    <Input placeholder="Vartotojo vardas" />
                   </Form.Item>
 
                   <Form.Item

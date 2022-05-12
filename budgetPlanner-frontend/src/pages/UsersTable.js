@@ -1,7 +1,7 @@
 import React, { useState, useEffect} from 'react';
 import UserService from '../services/UserService'
-import { Table, Input, InputNumber, Popconfirm, Form, Typography, Button} from 'antd';
-import { AntDesignOutlined, DeleteOutlined } from "@ant-design/icons";
+import { Table, Input, Popconfirm, Form, Typography, Button} from 'antd';
+import { DeleteOutlined } from "@ant-design/icons";
 import Swal from 'sweetalert2';
 import { Link, useNavigate, Redirect  } from "react-router-dom";
 import { Row, Col, Space} from "antd";
@@ -19,7 +19,7 @@ const EditableCell = ({
   ...restProps
 }) => {
   
-  const inputNode = (inputType === 'text') ? <InputNumber /> :(inputType==='text')?<Input type='text'/>: <Input />;
+  const inputNode = (inputType === 'text') ? <Input /> :(inputType==='text')?<Input type='text'/>: <Input />;
 
   return (
 
@@ -35,7 +35,7 @@ const EditableCell = ({
           rules={[
             {
               required: true,
-              message: `Please Input ${title}!`,
+              message: `Privaloma įvesti ${title}!`,
             },
           ]}
         >
@@ -76,15 +76,15 @@ const EditableTable = () => {
     setEditingKey('');
   };
 
-const onDelete=(record) => {
-  UserService.deleteUser(record.id).then((respone) => {
-    const newData = users.filter(obj => obj.id !==  record.id);
-    setUsers(newData);
-  }).catch(error => {
-    console.log(error)
-  })
- 
-}
+  const onDelete=(record) => {
+    UserService.deleteUsers(record.id).then((response)=>{
+      const newData = users.filter(obj => obj.id !==  record.id);
+      setUsers(newData);
+    }).catch(error => {
+      console.log(error)
+    })
+  }
+
 
 const getAllUsers = () => { 
   UserService.getAllUsers().then((response) => {
@@ -125,7 +125,7 @@ const getAllUsers = () => {
       email: item.email,
       password: item.password
     };
-    UserService.createUser(data)
+   UserService.createUsers(data)
       .then(response => {
         setItem({
           username: response.data.username,
@@ -144,7 +144,7 @@ const getAllUsers = () => {
   const navigate = useNavigate();
 
   const switchBack=()=>{
-    navigate("../");
+    navigate("/profile");
   }
 
 
@@ -169,7 +169,7 @@ const getAllUsers = () => {
     placeholder="Slaptažodis"
     name="password"
     value={item.password}
-    minLength="4"
+    // minLength="4"
     onChange= {handleInputChange}
     />
 
@@ -193,18 +193,15 @@ const getAllUsers = () => {
         newData.splice(index, 1, { ...item, ...row });
         const obj = newData.find(user => user.id === id);
         setUsers(newData);
-        UserService.updateUser(id,obj).then((response) => {
+        UserService.updateUsers(id, obj).then((response) => {
         }).catch(error => { 
           console.log(error);
         }); 
-         setEditingKey('');
-        
+          setEditingKey('');
       } else {
         newData.push(row);
         setUsers(newData);
- 
         setEditingKey('');
-        
       }
     } catch (errInfo) {
       console.log('Validate Failed:', errInfo);
