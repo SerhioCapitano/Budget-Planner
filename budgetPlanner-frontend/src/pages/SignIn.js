@@ -26,6 +26,10 @@ import {
 function onChange(checked) {
   console.log(`switch to ${checked}`);
 }
+var user = JSON.parse(localStorage.getItem('user'));
+
+
+
 
 const { Title } = Typography;
 const { Header, Footer, Content } = Layout;
@@ -108,7 +112,15 @@ const signin = [
       d="M12.25,14H1.75A1.752,1.752,0,0,1,0,12.25V3.5A1.752,1.752,0,0,1,1.75,1.75h.876V.875a.875.875,0,0,1,1.75,0V1.75h5.25V.875a.875.875,0,0,1,1.75,0V1.75h.875A1.752,1.752,0,0,1,14,3.5v8.75A1.752,1.752,0,0,1,12.25,14ZM3.5,4.375a.875.875,0,0,0,0,1.75h7a.875.875,0,0,0,0-1.75Z"
     />
   </svg>,
+  
 ];
+
+let element = user === null ?  <p></p> : <Link to="/profile">
+{profile}
+<span>Profilis</span>
+</Link> ;
+
+
 export default function SignIn()  {
   const checkIfExist = () => {
     AuthService.getCurrentUser()
@@ -148,11 +160,7 @@ export default function SignIn()  {
                   </Link>
                 </Menu.Item>
                 <Menu.Item key="2">
-                  <Link to="/profile">
-                    {profile}
-                    <span>Profilis</span>
-                    {onFinishFailed}
-                  </Link>
+                  {element} 
                 </Menu.Item>
                 <Menu.Item key="3">
                   <Link to="/sign-up">
