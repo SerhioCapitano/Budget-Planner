@@ -164,6 +164,8 @@ function Profile() {
     },
   ];
 
+  let result = user.username == "admin" ?  <Radio.Button value="b" href="/vartotojai" onClick={switchToUsers}>VARTOTOJAI</Radio.Button>: <p></p>;
+
   return (
     <>
       <div
@@ -215,7 +217,7 @@ function Profile() {
           >
 
 
-<Radio.Button value="b" href="/vartotojai" onClick={switchToUsers}>VARTOTOJAI</Radio.Button>
+            {result}
             {/* <ul className="list settings-list">
               <li>
                 <h6 className="list-header text-sm text-muted">ACCOUNT</h6>

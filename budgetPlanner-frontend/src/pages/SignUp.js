@@ -31,6 +31,7 @@ import AuthService from "../services/auth.service";
 // import logo3 from "../assets/images/Google__G__Logo.svg.png";
 
 import { Link } from "react-router-dom";
+import UserService from "../services/UserService";
 // import {
 //   DribbbleOutlined,
 //   TwitterOutlined,
@@ -112,6 +113,10 @@ const template = [
     ></path>
   </svg>,
 ];
+const users = [UserService.getAllUsers()];
+function checkEmail(email) {
+  users.includes(email);
+}
 // const profile = [
 //   <svg
 //     data-v-4ebdc598=""
@@ -166,6 +171,13 @@ const signin = [
 export default function SignUp()  {
   const navigate = useNavigate();
     const onFinish = (values) => {
+      if(users.includes(values.email) == false ) {
+        Swal.fire({
+          icon : 'error',
+          title: "Neteisingas email",
+          text: "Vartotojas su tokiu email buvo sukurtas"
+        })
+      } 
       AuthService.register(values.username, values.email, values.password).then(
         (response) => {
           console.log("Success:", values);

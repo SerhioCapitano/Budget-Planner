@@ -212,7 +212,7 @@ export default function SignIn()  {
                   </Form.Item>
 
                   <Form.Item
-                    className="username"
+                    className="password"
                     label="Slaptažodis"
                     name="password"    
                     rules={[
