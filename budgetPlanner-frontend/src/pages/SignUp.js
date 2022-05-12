@@ -209,12 +209,12 @@ export default function SignUp()  {
       </div>
             <div className="header-col header-nav">
               <Menu mode="horizontal" defaultSelectedKeys={["1"]}>
-                <Menu.Item key="1">
+                {/* <Menu.Item key="1">
                   <Link to="/santrauka">
                     {template}
                     <span> Santrauka</span>
                   </Link>
-                </Menu.Item>
+                </Menu.Item> */}
                 {/* <Menu.Item key="2">
                   <Link to="/profile">
                     {profile}
@@ -227,12 +227,12 @@ export default function SignUp()  {
                     <span> Sign Up</span>
                   </Link>
                 </Menu.Item> */}
-                <Menu.Item key="4">
+                {/* <Menu.Item key="4">
                   <Link to="/sign-in">
                     {signin}
                     <span> Prisijungti</span>
                   </Link>
-                </Menu.Item>
+                </Menu.Item> */}
               </Menu>
             </div>
             {/* <div className="header-col header-btn">
@@ -243,7 +243,7 @@ export default function SignUp()  {
           <Content className="p-0">
             <div className="sign-up-header">
               <div className="content">
-                <Title>Registracija</Title>
+                {/* <Title>Registracija</Title> */}
                 {/* <p className="text-lg">
                   Use these awesome forms to login or create new account in your
                   project for free.
@@ -282,7 +282,7 @@ export default function SignUp()  {
                   ]}
                   validations={[required, validEmail]}
                 >
-                  <Input placeholder="Vartotojo vardas" />
+                  <Input  tipe="text" placeholder="Vartotojo vardas" minLength="5" required />
                 </Form.Item>
                 <Form.Item
                   name="email"
@@ -291,7 +291,7 @@ export default function SignUp()  {
                   ]}
                   validations={[required, validEmail]}
                 >
-                  <Input placeholder="El. paštas" />
+                  <Input type="email" placeholder="El. paštas" size="30" />
                 </Form.Item>
                 <Form.Item
                   name="password"
@@ -300,7 +300,7 @@ export default function SignUp()  {
                   ]}
                   validations={[required, validEmail]}
                 >
-                  <Input placeholder="Slaptažodis" />
+                  <Input type="password" placeholder="Slaptažodis" minLength="6" required />
                 </Form.Item>
 
                 {/* <Form.Item name="remember" valuePropName="checked">

@@ -154,10 +154,10 @@ export default function SignIn()  {
             <div className="header-col header-nav">
               <Menu mode="horizontal" defaultSelectedKeys={["1"]}>
                 <Menu.Item key="1">
-                  <Link to="/santrauka">
+                  {/* <Link to="/santrauka">
                     
                     <span> Santrauka</span>
-                  </Link>
+                  </Link> */}
                 </Menu.Item>
                 <Menu.Item key="2">
                   {element} 
@@ -189,7 +189,7 @@ export default function SignIn()  {
               >
                 <Title className="mb-15">Prisijungimas</Title>
                 <Title className="font-regular text-muted" level={5}>
-                  Įveskite username ir slaptažodį
+                  Įveskite Vartotojo ir slaptažodį
                 </Title>
                 <Form
                   onFinish={onFinish}
@@ -208,13 +208,13 @@ export default function SignIn()  {
                       },
                     ]}
                   >
-                    <Input placeholder="Vartotojo vardas" />
+                    <Input type="text" placeholder="Vartotojo vardas" minLength="5" required  />
                   </Form.Item>
 
                   <Form.Item
                     className="password"
                     label="Slaptažodis"
-                    name="password"
+                    name="password"    
                     rules={[
                       {
                         required: true,
@@ -222,7 +222,8 @@ export default function SignIn()  {
                       },
                     ]}
                   >
-                    <Input placeholder="Slaptažodis" />
+                    
+                    <Input type="password" placeholder="Slaptažodis" minLength="6" required  />
                   </Form.Item>
 
                   <Form.Item
