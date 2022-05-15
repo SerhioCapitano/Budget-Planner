@@ -58,6 +58,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.and()
 				.authorizeRequests().antMatchers("/h2-console/**").permitAll()
 			.antMatchers("/api/test/**").permitAll()
+			.antMatchers("/**").permitAll() // permit all the routers after swagger-ui.html
 			.anyRequest().authenticated()
 			.and().headers().frameOptions().sameOrigin();
 		http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
