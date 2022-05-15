@@ -58,9 +58,8 @@ public class BugdetPlannerApplication implements CommandLineRunner {
     public Docket swaggerConfiguration() {
         return new Docket(DocumentationType.SWAGGER_2)
         		.select()
-        		.paths(PathSelectors.ant("/api/*"))
                 .apis(RequestHandlerSelectors
-                        .basePackage("lt.vtmc.komanda"))
+                        .basePackage("lt.vtmc.komanda.bugdetPlanner"))
                 .build()
                 .apiInfo(apiDetails());
     }
@@ -71,9 +70,9 @@ public class BugdetPlannerApplication implements CommandLineRunner {
 				"Sample API for BudgetPlanner",
 				"1.0",
 				"Free to use",
-				new springfox.documentation.service.Contact("Budget Planner creators", "http://budgetPlanner.io", "a@b.com"),
+				new springfox.documentation.service.Contact("Budget Planner creators", "http://budgetPlanner.com", "a@b.com"),
 				"API License",
-				"http://budgetPlanner.io",
+				"http://budgetPlanner.com",
 				Collections.emptyList());
 	}
 
