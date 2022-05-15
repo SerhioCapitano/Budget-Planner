@@ -1,5 +1,6 @@
 package lt.vtmc.komanda.bugdetPlanner;
 
+import java.util.Collections;
 import java.util.Set;
 
 import org.springframework.boot.CommandLineRunner;
@@ -15,6 +16,7 @@ import lt.vtmc.komanda.bugdetPlanner.repository.RoleRepository;
 import lt.vtmc.komanda.bugdetPlanner.repository.UserRepository;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
+import springfox.documentation.service.ApiInfo;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
@@ -52,13 +54,27 @@ public class BugdetPlannerApplication implements CommandLineRunner {
         };
     }
 	
-//	@Bean
-//    public Docket api() {
-//        return new Docket(DocumentationType.SWAGGER_2).select()
-//                .apis(RequestHandlerSelectors
-//                        .basePackage("lt.vtmc.komanda.bugdetPlanner"))
-//                .paths(PathSelectors.any())
-//                .build();
-//    }
+	@Bean
+    public Docket swaggerConfiguration() {
+        return new Docket(DocumentationType.SWAGGER_2)
+        		.select()
+        		.paths(PathSelectors.ant("/api/*"))
+                .apis(RequestHandlerSelectors
+                        .basePackage("lt.vtmc.komanda"))
+                .build()
+                .apiInfo(apiDetails());
+    }
+	
+	private ApiInfo apiDetails() {
+		return new ApiInfo(
+				"Budget Planner API",
+				"Sample API for BudgetPlanner",
+				"1.0",
+				"Free to use",
+				new springfox.documentation.service.Contact("Budget Planner creators", "http://budgetPlanner.io", "a@b.com"),
+				"API License",
+				"http://budgetPlanner.io",
+				Collections.emptyList());
+	}
 
 }
