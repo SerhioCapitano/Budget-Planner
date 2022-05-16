@@ -30,6 +30,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	UserDetailsServiceImpl userDetailsService;
 	@Autowired
 	private AuthEntryPointJwt unauthorizedHandler;
+	
+	private static final String[] PUBLIC_URLS = {
+			"/v2/api-docs",
+			"/configuration/ui",
+			"/swagger-resources/**",
+			"/configuration/security",
+			"/swagger-ui.html",
+			"/swagger-ui/**",
+			"webjars/**"
+	};
+	
 	@Bean
 	public AuthTokenFilter authenticationJwtTokenFilter() {
 		return new AuthTokenFilter();
@@ -57,7 +68,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			.authorizeRequests().antMatchers("/api/auth/**").permitAll()
 				.and()
 				.authorizeRequests().antMatchers("/h2-console/**").permitAll()
-			.antMatchers("/api/test/**").permitAll()
+			.antMatchers(PUBLIC_URLS).permitAll()
 			.anyRequest().authenticated()
 			.and().headers().frameOptions().sameOrigin();
 		http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);

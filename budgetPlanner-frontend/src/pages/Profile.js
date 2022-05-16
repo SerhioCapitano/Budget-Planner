@@ -81,6 +81,10 @@ function Profile() {
   const switchToUsers=()=>{
     navigate("/vartotojai");
   }
+
+  const switchToTable=()=> {
+    navigate("/santrauka");
+  }
   
 
   const pencil = [
@@ -164,7 +168,7 @@ function Profile() {
     },
   ];
 
-  let result = user.username == "admin" ?  <Radio.Button value="b" href="/vartotojai" onClick={switchToUsers}>VARTOTOJAI</Radio.Button>: <p></p>;
+  let result = user.username == "admin" ?  <Radio.Button value="b" href="/vartotojai" onClick={switchToUsers}>VARTOTOJAI</Radio.Button>: <Radio.Button value="b" href="/santrauka" onClick={switchToTable}>SUVESTINE</Radio.Button>;
 
   return (
     <>

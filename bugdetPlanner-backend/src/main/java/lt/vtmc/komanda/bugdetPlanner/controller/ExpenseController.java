@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.swagger.annotations.ApiOperation;
 import lt.vtmc.komanda.bugdetPlanner.exception.ResourceNotFoundException;
 import lt.vtmc.komanda.bugdetPlanner.model.Expense;
 import lt.vtmc.komanda.bugdetPlanner.model.ExpenseDTO;
@@ -44,6 +45,7 @@ public class ExpenseController {
 
 	@Secured({"ROLE_USER" })
 	@GetMapping
+	@ApiOperation(value="Gets User's Expenses")
 	public List<Expense> getExpensesByUser() {
 		String currentUsername = SecurityContextHolder.getContext().getAuthentication().getName();
 		User user = userRepo.findByUsername(currentUsername);
@@ -60,6 +62,7 @@ public class ExpenseController {
 
 	@Secured({"ROLE_USER" })
 	@GetMapping("/{category}")
+	@ApiOperation(value="Gets User's Expenses by Category")
 	public List<Expense> getExpenseByCategory(@PathVariable("category") String category) {
 		if(!repo.existsByCategory(category)) {
 			throw new ResourceNotFoundException();

@@ -189,7 +189,7 @@ export default function SignIn()  {
               >
                 <Title className="mb-15">Prisijungimas</Title>
                 <Title className="font-regular text-muted" level={5}>
-                  Įveskite Vartotojo ir slaptažodį
+                  Įveskite Vartotojo vardą ir slaptažodį
                 </Title>
                 <Form
                   onFinish={onFinish}

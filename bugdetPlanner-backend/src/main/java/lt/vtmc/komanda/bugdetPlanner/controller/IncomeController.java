@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.swagger.annotations.ApiOperation;
 import lt.vtmc.komanda.bugdetPlanner.exception.ResourceNotFoundException;
 import lt.vtmc.komanda.bugdetPlanner.model.Expense;
 import lt.vtmc.komanda.bugdetPlanner.model.Income;
@@ -42,6 +43,7 @@ public class IncomeController {
 
 	@Secured({"ROLE_USER" })
 	@GetMapping
+	@ApiOperation(value="Get User's Incomes")
 	public List<Income> getIncomesByUser() {
 		String currentUsername = SecurityContextHolder.getContext().getAuthentication().getName();
 		User user = userRepo.findByUsername(currentUsername);
@@ -78,6 +80,7 @@ public class IncomeController {
 	// GET INCOME BY ID
 	@Secured({"ROLE_USER" })
 	@GetMapping("{id}")
+	@ApiOperation(value="Finds User's Incomes by id")
 	public ResponseEntity<Income> getIncomeById(@PathVariable long id) {
 		Income income = incomeRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException());
 		return ResponseEntity.ok(income);
