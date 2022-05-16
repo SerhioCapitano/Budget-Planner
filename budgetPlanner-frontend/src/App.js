@@ -14,6 +14,7 @@ import "./assets/styles/responsive.css";
 import Table_expenses from "./pages/Table_expenses";
 import { Header } from "antd/lib/layout/layout";
 import UsersTable from "./pages/UsersTable";
+import CategoriesTable from "./pages/CategoriesTable";
 
 function App() {
   return (
@@ -28,7 +29,7 @@ function App() {
           <Route   path="/rtl" element={<Rtl/>} />
           <Route   path="/profile" element={<Profile/>} />
           <Route  path="/vartotojai" element={<UsersTable/>} />
-
+          <Route path="cat" element={<CategoriesTable/>} />
           <Route  exact path="/sign-up" element={<SignUp/>} />
         <Route  path="/sign-in" element={<SignIn/>} />
 

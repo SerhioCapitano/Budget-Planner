@@ -15,13 +15,13 @@ class CategoriesService {
         return axios.post(CATEGORIES_BASE_REST_API_URL, category, { headers: authHeader() })
     }
 
-    deleteCategory(categoryId) {
-        return axios.delete(CATEGORIES_BASE_REST_API_URL + '/' + categoryId, { headers: authHeader() });
+    deleteCategory(name) {
+        return axios.delete(CATEGORIES_BASE_REST_API_URL + '/' + name, { headers: authHeader() });
     }
 
 
     updateCategory(categoryId, category) {
-        return axios.put(CATEGORIES_BASE_REST_API_URL + '/' + categoryId, category), { headers: authHeader() };
+        return axios.put(CATEGORIES_BASE_REST_API_URL + '/' + categoryId, category, { headers: authHeader() })
     }
 
     getCategoryById(categoryId) {

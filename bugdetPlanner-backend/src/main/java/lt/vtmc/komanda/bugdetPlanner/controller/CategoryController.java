@@ -68,16 +68,14 @@ public class CategoryController {
 	
 	
 	@Secured({ "ROLE_ADMIN" })
-	@PutMapping("/{name}")
-	public Category updateCategory(@PathVariable("name") String name, @RequestBody Category categoryDTO) {
+	@PutMapping("/{id}")
+	public Category updateCategory(@PathVariable("id") long id, @RequestBody Category categoryDTO) {
 		
-		Category category = categoryRepo.findByName(name);
-		if(!categoryRepo.existsByName(name)) {
-			throw new ResourceNotFoundException();
-		}
+		Category category = categoryRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException()); 
 			category.setName(categoryDTO.getName());
 			return categoryRepo.save(category);
 	}
+
 	
 	@Secured({ "ROLE_ADMIN" })
 	@DeleteMapping("/{name}")
