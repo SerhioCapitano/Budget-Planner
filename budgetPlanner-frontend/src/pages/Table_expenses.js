@@ -2,10 +2,12 @@ import React, { useState, useEffect, Component } from 'react';
 import { Table, Input, InputNumber, Popconfirm, Form, Typography, Button} from 'antd';
 import { DeleteOutlined } from "@ant-design/icons";
 import ExpensesService from '../services/ExpensesService'
+import CategoryService from '../services/CategoryService'
 import Header from "../components/layout/Header";
 import Sidenav from "../components/layout/Sidenav";
-import Swal from 'sweetalert2'
-
+import Swal from 'sweetalert2';
+import { Menu, Dropdown, Space, message } from 'antd';
+import { DownOutlined } from '@ant-design/icons';
 
 
 
@@ -51,8 +53,10 @@ const EditableTable = () => {
   const [form] = Form.useForm();
   const [expenses, setExpenses] = useState([]);
   const [editingKey, setEditingKey] = useState('');
+  const [categories , setCategory] = useState([]);
 
   useEffect(()=>getAllExpenses(),[]);
+  useEffect(()=> getAllCategories(),[]);
 
   const isEditing = (record) => record.id === editingKey;
 
@@ -84,6 +88,22 @@ const EditableTable = () => {
   }
 
 
+  const getAllCategories = () => {
+    CategoryService.getAllCategories().then((response) => {
+      setCategory(response.data);
+      console.log(response.data);
+    }).catch(error => {
+      console.log(error);
+    })
+  }
+
+
+  const CategoryList = categories.map(
+    category =>
+    <option value={category.name} selected>{category.name}</option>
+  )
+
+
   const getAllExpenses = () => { 
     ExpensesService.getAllExpenses().then((response) => {
       setExpenses(response.data);
@@ -105,7 +125,9 @@ const EditableTable = () => {
   const [item, setItem] = useState(initialTutorialState);
   const handleInputChange = event => {
     const { name, value } = event.target;
+    console.log(value);
     setItem({ ...item, [name]: value });
+
   };
 
 
@@ -114,7 +136,7 @@ const EditableTable = () => {
 
 
   const saveItem = () => {
-    if(item.amount === "" ||   !regExp.test(item.category) || !regExp.test(item.name) || !regExp.test(item.comment)) {
+    if(item.amount === "" ||  !regExp.test(item.name) || !regExp.test(item.comment)) {
       Swal.fire({
         icon: 'error',
         title: 'Klaida!',
@@ -169,12 +191,6 @@ const EditableTable = () => {
     onChange= {handleInputChange}
     />
 
-   <input style={{margin: "10px", borderRadius: '4px'}} type="text"
-    placeholder="Kategorija"
-    name="category"
-    value={item.category}
-    onChange= {handleInputChange}
-    />
 
 <input style={{margin: "10px", borderRadius: '4px'}} type="text"
     placeholder="Pavadinimas"
@@ -182,6 +198,7 @@ const EditableTable = () => {
     value={item.name}
     onChange= {handleInputChange}
     />
+    
 
 <input style={{margin: "10px", borderRadius: '4px'}} type="text"
     placeholder="Komentaras"
@@ -189,10 +206,18 @@ const EditableTable = () => {
     value={item.comment}
     onChange= {handleInputChange}
     />
+
+<select id="language" name="category" onChange={handleInputChange} style={{margin: "10px", borderRadius: '4px'}}>
+    {CategoryList}
+</select>
+
+
     <div>
    <Button style={{marginBottom: "30px", marginLeft: "10px"}} type="primary" onClick={saveItem}>Pridėti išlaidas</Button>
    </div>
+
     </div>
+    
     
   );
 
@@ -220,6 +245,8 @@ const EditableTable = () => {
       console.log('Validate Failed:', errInfo);
     }
   };
+
+
 
   const columns = [
     {

@@ -70,9 +70,9 @@ const EditableTable = () => {
     setEditingKey('');
   };
 
-const onDelete=(record) => {
-  CategoryService.deleteCategory(record.id).then((respone) => {
-    const newData = categories.filter(obj => obj.id !==  record.id);
+const onDelete=(category) => {
+  CategoryService.deleteCategory(category.name).then((respone) => {
+    const newData = categories.filter(obj => obj.name !==  category.name);
     setCategories(newData);
   }).catch(error => {
     console.log(error)
@@ -83,6 +83,7 @@ const onDelete=(record) => {
 const getAllCategories = () => { 
   CategoryService.getAllCategories().then((response) => {
     setCategories(response.data);
+    console.log(response.data)
   }).catch(error => {
     console.log(error);
   })
@@ -91,7 +92,6 @@ const getAllCategories = () => {
 
 
   const initialTutorialState = {
-    id: null,
     name: "",
   };
 
@@ -105,7 +105,7 @@ const getAllCategories = () => {
   var regExp = /[a-zA-Z]/g;
 
   const saveItem = () => {
-    if(item.amount === "" || !regExp.test(item.description)) {
+    if(!regExp.test(item.name)) {
       Swal.fire({
         icon: 'error',
         title: 'Klaida!',
@@ -139,7 +139,7 @@ const getAllCategories = () => {
   
   const content = (
     <div style={{textAlign: "left"}}>
-   <input style={{margin: "10px", borderRadius: '4px'}}  type="number"
+   <input style={{margin: "10px", borderRadius: '4px'}}  type="text"
     placeholder="Kategorija"
     name="name"
     value={item.name}

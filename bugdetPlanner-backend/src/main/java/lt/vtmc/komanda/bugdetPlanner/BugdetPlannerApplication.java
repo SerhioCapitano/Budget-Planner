@@ -9,9 +9,11 @@ import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import lt.vtmc.komanda.bugdetPlanner.model.Category;
 import lt.vtmc.komanda.bugdetPlanner.model.ERole;
 import lt.vtmc.komanda.bugdetPlanner.model.Role;
 import lt.vtmc.komanda.bugdetPlanner.model.User;
+import lt.vtmc.komanda.bugdetPlanner.repository.CategoryRepository;
 import lt.vtmc.komanda.bugdetPlanner.repository.RoleRepository;
 import lt.vtmc.komanda.bugdetPlanner.repository.UserRepository;
 
@@ -21,14 +23,16 @@ public class BugdetPlannerApplication implements CommandLineRunner {
 	public static void main(String[] args) {
 		SpringApplication.run(BugdetPlannerApplication.class, args);
 	}
-
+	
+	
 
 	public void run(String[] args) {
 	
+		
 	}
 	
 	@Bean
-    public CommandLineRunner initialData(RoleRepository roleRepo, UserRepository userRepo, PasswordEncoder encoder) {
+    public CommandLineRunner initialData(RoleRepository roleRepo, UserRepository userRepo, PasswordEncoder encoder, CategoryRepository categoryRepository) {
         return args -> {
             if(roleRepo.findByName(ERole.ROLE_USER).isEmpty()){
                 roleRepo.save(new Role(ERole.ROLE_USER));
@@ -43,6 +47,16 @@ public class BugdetPlannerApplication implements CommandLineRunner {
                 user.setUsername("admin");
                 user.setRoles(Set.of(roleRepo.findByName(ERole.ROLE_ADMIN).get()));
                 userRepo.save(user);
+            	
+        		Category c1 = new Category();
+        		c1.setName("Maistas");
+        		Category c2 = new Category();
+        		c2.setName("Sveikata");
+        		Category c3 = new Category();
+        		c3.setName("Masina");
+        		categoryRepository.save(c1);
+        		categoryRepository.save(c2);
+        		categoryRepository.save(c3);
             }
         };
     }
