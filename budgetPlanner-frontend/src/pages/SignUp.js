@@ -1,5 +1,6 @@
 
 import React, { Component, useState, useRef } from "react";
+import signup from "../assets/images/signup.jpg";
 import {
   Layout,
   Menu,
@@ -8,11 +9,13 @@ import {
   Card,
   Form,
   Input,
+  Row,
+  Col,
   // Checkbox,
 } from "antd";
 
 
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Swal from 'sweetalert2'
 
 // import Form from "react-validation/build/form";
@@ -113,6 +116,7 @@ const template = [
     ></path>
   </svg>,
 ];
+
 const users = [UserService.getAllUsers()];
 function checkEmail(email) {
   users.includes(email);
@@ -168,95 +172,104 @@ const signin = [
     />
   </svg>,
 ];
-export default function SignUp()  {
+export default function SignUp() {
   const navigate = useNavigate();
-    const onFinish = (values) => {
-      if(users.includes(values.email) == false ) {
+  const onFinish = (values) => {
+    if (users.includes(values.email) == false) {
+      Swal.fire({
+        icon: 'error',
+        title: "Neteisingas email",
+        text: "Vartotojas su tokiu email buvo sukurtas"
+      })
+    }
+    AuthService.register(values.username, values.email, values.password).then(
+      (response) => {
+        console.log("Success:", values);
+        navigate("/sign-in");
         Swal.fire({
-          icon : 'error',
-          title: "Neteisingas email",
-          text: "Vartotojas su tokiu email buvo sukurtas"
-        })
-      } 
-      AuthService.register(values.username, values.email, values.password).then(
-        (response) => {
-          console.log("Success:", values);
-          navigate("/sign-in");
-          Swal.fire({
-            icon: 'success',
-            title: values.username,
-            text: "Buvo Sukurtas",
-          },
+          icon: 'success',
+          title: values.username,
+          text: "Buvo Sukurtas",
+        },
           (error) => {
             console.log(error)
           })
-        }
-      )
-     
-      
-    };
+      }
+    )
 
-    const onFinishFailed = (errorInfo) => {
-      console.log("Failed:", errorInfo);
-    };
-    return (
-      <>
-        <div className="layout-default ant-layout layout-sign-up">
-          <Header>
+
+  };
+
+  const onFinishFailed = (errorInfo) => {
+    console.log("Failed:", errorInfo);
+  };
+  return (
+    <>
+      <Layout className="layout-default layout-signin">
+        <Header>
           <div className="brand">
-        
-        <span>.budgeter</span>
-      </div>
-            <div className="header-col header-nav">
-              <Menu mode="horizontal" defaultSelectedKeys={["1"]}>
-                {/* <Menu.Item key="1">
+
+            <span>.budgeter</span>
+          </div>
+          <div className="header-col header-nav">
+            <Menu mode="horizontal" defaultSelectedKeys={["1"]}>
+              {/* <Menu.Item key="1">
                   <Link to="/santrauka">
                     {template}
                     <span> Santrauka</span>
                   </Link>
                 </Menu.Item> */}
-                {/* <Menu.Item key="2">
+              {/* <Menu.Item key="2">
                   <Link to="/profile">
                     {profile}
                     <span>Profile</span>
                   </Link>
                 </Menu.Item> */}
-                {/* <Menu.Item key="3">
+              {/* <Menu.Item key="3">
                   <Link to="/sign-up">
                     {signup}
                     <span> Sign Up</span>
                   </Link>
                 </Menu.Item> */}
-                {/* <Menu.Item key="4">
+              {/* <Menu.Item key="4">
                   <Link to="/sign-in">
                     {signin}
                     <span> Prisijungti</span>
                   </Link>
                 </Menu.Item> */}
-              </Menu>
-            </div>
-            {/* <div className="header-col header-btn">
+            </Menu>
+          </div>
+          {/* <div className="header-col header-btn">
               <Button type="false">FREE DOWNLOAD</Button>
             </div> */}
-          </Header>
+        </Header>
 
-          <Content className="p-0">
-            <div className="sign-up-header">
-              <div className="content">
-                {/* <Title>Registracija</Title> */}
-                {/* <p className="text-lg">
+        <Content className="signin">
+          {/* <div className="sign-up-header"> */}
+          {/* <div className="content"> */}
+          {/* <Title>Registracija</Title> */}
+          {/* <p className="text-lg">
                   Use these awesome forms to login or create new account in your
                   project for free.
                 </p> */}
-              </div>
-            </div>
+          {/* </div> */}
+          {/* </div> */}
 
-            <Card
-              className="card-signup header-solid h-full ant-card pt-0"
-              title={<h5>Registracija</h5>}
-              bordered="false"
+          <Row gutter={[24, 0]} justify="space-around">
+            <Col
+              xs={{ span: 24, offset: 0 }}
+              lg={{ span: 6, offset: 2 }}
+              md={{ span: 12 }}
             >
-              {/* <div className="sign-up-gateways">
+
+              <Title className="mb-15">Registracija</Title>
+
+              {/* <Card
+                className="card-signup header-solid h-full ant-card pt-0"
+                title={<h5>Registracija</h5>}
+                bordered="false"
+              > */}
+                {/* <div className="sign-up-gateways">
                 <Button type="false">
                   <img src={logo1} alt="logo 1" />
                 </Button>
@@ -268,42 +281,42 @@ export default function SignUp()  {
                 </Button>
               </div>
               <p className="text-center my-25 font-semibold text-muted">Or</p> */}
-              <Form
-                name="basic"
-                initialValues={{ remember: true }}
-                onFinish={onFinish}
-                onFinishFailed={onFinishFailed}
-                className="row-col"
-              >
-                <Form.Item
-                  name="username"
-                  rules={[
-                    { required: true, message: "Įveskite vartotojo vardą!" },
-                  ]}
-                  validations={[required, validEmail]}
+                <Form
+                  name="basic"
+                  initialValues={{ remember: true }}
+                  onFinish={onFinish}
+                  onFinishFailed={onFinishFailed}
+                  className="row-col"
                 >
-                  <Input  tipe="text" placeholder="Vartotojo vardas" minLength="5" required />
-                </Form.Item>
-                <Form.Item
-                  name="email"
-                  rules={[
-                    { required: true, message: "Įveskite el. paštą!" },
-                  ]}
-                  validations={[required, validEmail]}
-                >
-                  <Input type="email" placeholder="El. paštas" size="30" />
-                </Form.Item>
-                <Form.Item
-                  name="password"
-                  rules={[
-                    { required: true, message: "Įveskite slaptažodį!" },
-                  ]}
-                  validations={[required, validEmail]}
-                >
-                  <Input type="password" placeholder="Slaptažodis" minLength="6" required />
-                </Form.Item>
+                  <Form.Item
+                    name="username"
+                    rules={[
+                      { required: true, message: "Įveskite  jo vardą!" },
+                    ]}
+                    validations={[required, validEmail]}
+                  >
+                    <Input tipe="text" placeholder="Vartotojo vardas" minLength="5" required />
+                  </Form.Item>
+                  <Form.Item
+                    name="email"
+                    rules={[
+                      { required: true, message: "Įveskite el. paštą!" },
+                    ]}
+                    validations={[required, validEmail]}
+                  >
+                    <Input type="email" placeholder="El. paštas" size="30" />
+                  </Form.Item>
+                  <Form.Item
+                    name="password"
+                    rules={[
+                      { required: true, message: "Įveskite slaptažodį!" },
+                    ]}
+                    validations={[required, validEmail]}
+                  >
+                    <Input type="password" placeholder="Slaptažodis" minLength="6" required />
+                  </Form.Item>
 
-                {/* <Form.Item name="remember" valuePropName="checked">
+                  {/* <Form.Item name="remember" valuePropName="checked">
                   <Checkbox>
                     I agree the{" "}
                     <a href="#pablo" className="font-bold text-dark">
@@ -312,25 +325,36 @@ export default function SignUp()  {
                   </Checkbox>
                 </Form.Item> */}
 
-                <Form.Item>
-                  <Button
-                    style={{ width: "100%" }}
-                    type="primary"
-                    htmlType="submit"
-                  >
-                    REGISTRUOTIS
-                  </Button>
-                </Form.Item>
-              </Form>
-              <p className="font-semibold text-muted text-center">
-                Esi užsiregistravęs?{" "}
-                <Link to="/sign-in" className="font-bold text-dark">
-                  Prisijunk!
-                </Link>
-              </p>
-            </Card>
-          </Content>
-          {/* <Footer>
+                  <Form.Item>
+                    <Button
+                      style={{ width: "100%" }}
+                      type="primary"
+                      htmlType="submit"
+                    >
+                      REGISTRUOTIS
+                    </Button>
+                  </Form.Item>
+                </Form>
+                <p className="font-semibold text-muted text-center">
+                  Esi užsiregistravęs?{" "}
+                  <Link to="/sign-in" className="font-bold text-dark">
+                    Prisijunk!
+                  </Link>
+                </p>
+              {/* </Card> */}
+            </Col>
+            <Col
+              className="sign-img"
+              style={{ padding: 12 }}
+              xs={{ span: 24 }}
+              lg={{ span: 12 }}
+              md={{ span: 12 }}
+            >
+              <img src={signup} alt="" />
+            </Col>
+          </Row>
+        </Content>
+        {/* <Footer>
             <Menu mode="horizontal">
               <Menu.Item>Company</Menu.Item>
               <Menu.Item>About Us</Menu.Item>
@@ -370,8 +394,8 @@ export default function SignUp()  {
               Copyright © 2021 Muse by <a href="#pablo">Creative Tim</a>.{" "}
             </p>
           </Footer> */}
-        </div>
-      </>
-    );
-  }
+       </Layout>
+    </>
+  );
+}
 
