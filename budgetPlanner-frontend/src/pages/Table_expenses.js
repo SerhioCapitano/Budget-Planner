@@ -58,13 +58,13 @@ const EditableTable = () => {
   useEffect(()=>getAllExpenses(),[]);
   useEffect(()=> getAllCategories(),[]);
 
+
   const isEditing = (record) => record.id === editingKey;
 
   const edit = (record) => {
     form.setFieldsValue({
       amount: '',
       date: '',
-      category: '',
       name: '',
       comment: '',
       ...record,
@@ -91,7 +91,6 @@ const EditableTable = () => {
   const getAllCategories = () => {
     CategoryService.getAllCategories().then((response) => {
       setCategory(response.data);
-      console.log(response.data);
     }).catch(error => {
       console.log(error);
     })
@@ -100,7 +99,8 @@ const EditableTable = () => {
 
   const CategoryList = categories.map(
     category =>
-    <option value={category.name} selected>{category.name}</option>
+    <option  value={category.name} selected>{category.name}</option>
+    
   )
 
 
@@ -117,15 +117,21 @@ const EditableTable = () => {
     id: null,
     amount: "",
     date1: "",
-    category: "",
     name:"",
     comment: "",
   };
 
+
+  function listCat() {
+    var mylist = document.getElementById("kategorija");
+    return (mylist.options[mylist.selectedIndex].text);
+
+  }
+
   const [item, setItem] = useState(initialTutorialState);
   const handleInputChange = event => {
     const { name, value } = event.target;
-    console.log(value);
+    console.log(name + " " + value);
     setItem({ ...item, [name]: value });
 
   };
@@ -136,7 +142,7 @@ const EditableTable = () => {
 
 
   const saveItem = () => {
-    if(item.amount === "" ||  !regExp.test(item.name) || !regExp.test(item.comment)) {
+    if(item.amount === ""  ||  !regExp.test(item.name) || !regExp.test(item.comment)) {
       Swal.fire({
         icon: 'error',
         title: 'Klaida!',
@@ -152,7 +158,7 @@ const EditableTable = () => {
     var data = {
       amount: item.amount,
       date1: item.date,
-      category: item.category,
+      category: listCat(),
       name: item.name,
       comment: item.comment
     };
@@ -207,7 +213,7 @@ const EditableTable = () => {
     onChange= {handleInputChange}
     />
 
-<select id="language" name="category" onChange={handleInputChange} style={{margin: "10px", borderRadius: '4px'}}>
+<select id="kategorija"  name="category" onChange={listCat} style={{margin: "10px", borderRadius: '4px'}}>
     {CategoryList}
 </select>
 
@@ -266,6 +272,12 @@ const EditableTable = () => {
       dataIndex: 'category',
       width: '15%',
       editable: true,
+      filters: [
+        {
+          text: "Maistas",
+          value: "Maistas"
+        }
+      ]
     },
     {
       title: 'Pavadinimas',
