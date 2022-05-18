@@ -27,9 +27,9 @@ function App() {
           <Route  path="/islaidos" element={<Main><Table_expenses/></Main>} />
           <Route  path="/billing" element={<Billing/>} />
           <Route   path="/rtl" element={<Rtl/>} />
-          <Route   path="/profile" element={<Profile/>} />
-          <Route  path="/vartotojai" element={<UsersTable/>} />
-          <Route path="cat" element={<CategoriesTable/>} />
+          <Route   path="/profile" element={<Main><Profile/></Main>} />
+          <Route  path="/vartotojai" element={<Main><UsersTable/></Main>} />
+          <Route path="/kategorijas" element={<Main><CategoriesTable/></Main>} />
           <Route  exact path="/sign-up" element={<SignUp/>} />
         <Route  path="/sign-in" element={<SignIn/>} />
 

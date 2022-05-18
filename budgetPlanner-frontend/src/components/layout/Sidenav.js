@@ -10,6 +10,10 @@ function Sidenav({ color }) {
   const { pathname } = useLocation();
   const page = pathname.replace("/", "");
 
+  var user = JSON.parse(localStorage.getItem('user'));
+
+ 
+
   const dashboard = [
     <svg
       width="20"
@@ -32,6 +36,40 @@ function Sidenav({ color }) {
       ></path>
     </svg>,
   ];
+
+  let table = user.username == "admin" ? 
+  <div>
+  <Menu.Item key="4">
+  <NavLink to="/kategorijas">
+    <span
+      className="icon"
+      style={{
+        background: page === "dashboard" ? color : "",
+      }}
+    >
+      {dashboard}
+    </span>
+    <span className="label">Kategorijas</span>
+  </NavLink>
+</Menu.Item>
+
+ <Menu.Item key="5">
+  <NavLink to="/vartotojai">
+    <span
+     className="icon"
+     style={{
+       background: page === "dashboard" ? color : "",
+     }}
+   >
+     {dashboard}
+   </span>
+   <span className="label">Vartotojai</span>
+ </NavLink>
+</Menu.Item>
+</div>
+
+:
+<p></p>;
 
   const tablesIncomes = [
     <svg
@@ -226,6 +264,9 @@ function Sidenav({ color }) {
           </NavLink>
         </Menu.Item>
 
+
+
+        {table}
         {/* <Menu.Item key="1">
           <NavLink to="/vartotojai">
             <span
@@ -241,19 +282,6 @@ function Sidenav({ color }) {
         </Menu.Item> */}
 
 
-        <Menu.Item key="1">
-          <NavLink to="/cat">
-            <span
-              className="icon"
-              style={{
-                background: page === "dashboard" ? color : "",
-              }}
-            >
-              {dashboard}
-            </span>
-            <span className="label">Kategorijas</span>
-          </NavLink>
-        </Menu.Item>
 
               {/* /////////////// GAL BUT NEREIKIA  */} {/* /////////////// GAL BUT NEREIKIA  */} {/* /////////////// GAL BUT NEREIKIA  */}
         {/* <Menu.Item key="3">
