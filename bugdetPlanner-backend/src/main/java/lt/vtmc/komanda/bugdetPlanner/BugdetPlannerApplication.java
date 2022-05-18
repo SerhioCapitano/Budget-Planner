@@ -49,10 +49,28 @@ public class BugdetPlannerApplication implements CommandLineRunner {
             }
             if(!userRepo.existsByEmail("admin@aa.aa")&&!userRepo.existsByUsername("admin")) {
                 User user = new User();
-                user.setEmail("admin@mai.lt");
+                user.setEmail("admin@mail.lt");
                 user.setPassword(encoder.encode("password"));
                 user.setUsername("admin");
                 user.setRoles(Set.of(roleRepo.findByName(ERole.ROLE_ADMIN).get()));
+                userRepo.save(user);
+            	
+        		Category c1 = new Category();
+        		c1.setName("Maistas");
+        		Category c2 = new Category();
+        		c2.setName("Sveikata");
+        		Category c3 = new Category();
+        		c3.setName("Masina");
+        		categoryRepository.save(c1);
+        		categoryRepository.save(c2);
+        		categoryRepository.save(c3);
+            }
+            if(!userRepo.existsByEmail("user@aa.aa")&&!userRepo.existsByUsername("user")) {
+                User user = new User();
+                user.setEmail("user@mail.lt");
+                user.setPassword(encoder.encode("vartotojas"));
+                user.setUsername("user");
+                user.setRoles(Set.of(roleRepo.findByName(ERole.ROLE_USER).get()));
                 userRepo.save(user);
             	
         		Category c1 = new Category();

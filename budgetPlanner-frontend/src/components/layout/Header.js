@@ -28,6 +28,7 @@ import { NavLink, Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import avtar from "../../assets/images/team-2.jpg";
 import './Header.css'
+import userEvent from "@testing-library/user-event";
 
 const ButtonContainer = styled.div`
   .ant-btn-primary {
@@ -49,6 +50,8 @@ const ButtonContainer = styled.div`
     background-color: #1890ff;
   }
 `;
+
+
 
 const bell = [
   <svg
@@ -136,7 +139,22 @@ const clockicon = [
   </svg>,
 ];
 
+const logout = () => {
+  console.log("Success:");
+  AuthService.logout();
+    };
+
+    var user = JSON.parse(localStorage.getItem('user'));
+
 const data = [
+  {
+    title: "El. paštas",
+    description: <>{user.email}</>,
+  },
+  {
+    title: "",
+    description: <>  <NavLink to="/sign-in" onClick={logout}>ATSIJUNGTI</NavLink> </>,
+  },
   {
     title: "New message from Sophie",
     description: <>{clockicon} 2 days ago</>,
@@ -165,7 +183,7 @@ const menu = (
     renderItem={(item) => (
       <List.Item>
         <List.Item.Meta
-          avatar={<Avatar shape="square" src={item.avatar} />}
+          // avatar={<Avatar shape="square" src={item.avatar} />}
           title={item.title}
           description={item.description}
         />
@@ -259,13 +277,6 @@ function Header({
   const showDrawer = () => setVisible(true);
   const hideDrawer = () => setVisible(false);
 
-  const navigate = useNavigate();
-
-    const logout = () => {
-      console.log("Success:");
-      AuthService.logout();
-        };
-
   return (
     <>
       <div className="setting-drwer" onClick={showDrawer}>
@@ -291,22 +302,23 @@ function Header({
           </div>
         </Col>
         <Col span={24} md={18} className="header-control">
-          {/* <Badge size="small" count={4}>
+          {/* <Badge size="small" count={4}> */}
             <Dropdown overlay={menu} trigger={["click"]}>
               <a
                 href="#pablo"
                 className="ant-dropdown-link"
                 onClick={(e) => e.preventDefault()}
+                style={{color:"black"}} 
               >
-                {bell}
+                {user.username}
               </a>
             </Dropdown>
-          </Badge> */}
+          {/* </Badge> */}
           {/* //////////////////////////////// NEREIKIA ///////////////////////////////////// */}
           {/* <Button type="link" onClick={showDrawer}>
             {logsetting}
           </Button> */}
-          <Button
+          {/* <Button
             type="link"
             className="sidebar-toggler"
             onClick={() => onPress()}
@@ -419,10 +431,10 @@ function Header({
                 </div>
               </div>
             </div>
-          </Drawer>
+          </Drawer> */}
 
            {/* //////////////////////////////// NEREIKIA ///////////////////////////////////// */}
-           <a  href="/sign-in" onClick={logout} style={{color:"black"}} >ATSIJUNGTI</a>
+           {/* <a  href="/sign-in" onClick={logout} style={{color:"black"}} >ATSIJUNGTI</a> */}
           {/* <Input
             className="header-search"
             placeholder="Type here..."
