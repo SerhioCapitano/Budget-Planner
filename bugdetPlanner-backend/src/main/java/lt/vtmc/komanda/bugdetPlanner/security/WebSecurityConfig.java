@@ -70,7 +70,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.authorizeRequests().antMatchers("/h2-console/**").permitAll()
 			.antMatchers(PUBLIC_URLS).permitAll()
 			.anyRequest().authenticated()
-			.and().headers().frameOptions().sameOrigin();
+			.and().headers().frameOptions().sameOrigin()
+			.and()
+			.rememberMe();
 		http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
 	}	
 

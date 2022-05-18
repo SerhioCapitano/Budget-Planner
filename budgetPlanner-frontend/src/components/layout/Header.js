@@ -1,5 +1,6 @@
 
 import { useState, useEffect } from "react";
+import AuthService from "../../services/auth.service";
 
 import {
   Row,
@@ -23,7 +24,7 @@ import {
   FacebookFilled,
 } from "@ant-design/icons";
 
-import { NavLink, Link } from "react-router-dom";
+import { NavLink, Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import avtar from "../../assets/images/team-2.jpg";
 import './Header.css'
@@ -258,11 +259,18 @@ function Header({
   const showDrawer = () => setVisible(true);
   const hideDrawer = () => setVisible(false);
 
+  const navigate = useNavigate();
+
+    const logout = () => {
+      console.log("Success:");
+      AuthService.logout();
+        };
+
   return (
     <>
-      {/* <div className="setting-drwer" onClick={showDrawer}>
+      <div className="setting-drwer" onClick={showDrawer}>
         {setting}
-      </div> */}
+      </div>
       <Row gutter={[24, 0]} className="header-row">
         <Col span={24} md={6}>
           {/* <Breadcrumb>
@@ -414,10 +422,7 @@ function Header({
           </Drawer>
 
            {/* //////////////////////////////// NEREIKIA ///////////////////////////////////// */}
-          <Link to="/sign-in" className="btn-sign-in">
-            {profile}
-            <span>Prisijungti</span>
-          </Link>
+           <a  href="/sign-in" onClick={logout} style={{color:"black"}} >ATSIJUNGTI</a>
           {/* <Input
             className="header-search"
             placeholder="Type here..."
