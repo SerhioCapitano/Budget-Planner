@@ -45,6 +45,7 @@ import UserService from "../services/UserService";
 
 //  PRISIJUNGIMAS PRASIDEDA CIA ////////////////////  PRISIJUNGIMAS PRASIDEDA CIA ////////////////////  PRISIJUNGIMAS PRASIDEDA CIA //////////////////
 
+
 const required = (value) => {
   if (!value) {
     return (
@@ -174,41 +175,46 @@ const signin = [
 ];
 export default function SignUp() {
   const navigate = useNavigate();
+
+
   const onFinish = (values) => {
-    if (users.includes(values.email) == false) {
+    if (users.includes(values.email) == true) {
       Swal.fire({
         icon: 'error',
         title: "Neteisingas email",
         text: "Vartotojas su tokiu email buvo sukurtas"
       })
-    }
-    AuthService.register(values.username, values.email, values.password).then(
-      (response) => {
+    } 
+    AuthService.register(values.username, values.email, values.password).then((response) => {
         console.log("Success:", values);
+        console.log(users);
         navigate("/sign-in");
         Swal.fire({
           icon: 'success',
-          title: values.username,
-          text: "Buvo Sukurtas",
-        },
-          (error) => {
-            console.log(error)
+          title: values.username  ,
+          text: "Sekmingai buvo sukurtas"
+        })
+        }).catch(error => {
+            console.log(error);
+            Swal.fire({
+              icon: 'error',
+              title: "Nepavyko",
+              text: "Vartotojas su tokiu email arba vardu buvo sukurtas"
+            })
           })
       }
-    )
-
-
-  };
+  
 
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
+    console.log(users);
+
   };
   return (
     <>
       <Layout className="layout-default layout-signin">
         <Header>
           <div className="brand">
-
             <span>.budgeter</span>
           </div>
           <div className="header-col header-nav">

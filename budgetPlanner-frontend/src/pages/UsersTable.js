@@ -21,6 +21,8 @@ const EditableCell = ({
   
   const inputNode = (inputType === 'text') ? <Input /> :(inputType==='text')?<Input type='text'/>: <Input />;
 
+
+
   return (
 
     
@@ -56,6 +58,16 @@ const EditableTable = () => {
 
 
   useEffect(()=>getAllUsers(),[]);
+
+  
+  let getAdmin =  users.find(obj => {
+    return obj.username === "admin";
+  })
+
+
+
+
+  
  
   const isEditing = (record) => record.id === editingKey;
 
@@ -77,13 +89,18 @@ const EditableTable = () => {
   };
 
   const onDelete=(record) => {
+    if(record.username == "admin") {
+        console.log(getAdmin);
+    } else {
     UserService.deleteUsers(record.username).then((response)=>{
+    
       const newData = users.filter(obj => obj.id !==  record.id);
       setUsers(newData);
     }).catch(error => {
       console.log(error)
     })
   }
+}
 
 
 const getAllUsers = () => { 
@@ -226,18 +243,20 @@ const getAllUsers = () => {
       width: '20%',
       editable: true,
     },
-    {
-      title: 'Slaptažodis',
-      dataIndex: 'password',
-      width: '40%',
-      editable: true,
-    },
+    // {
+    //   title: 'Slaptažodis',
+    //   dataIndex: 'password',
+    //   width: '40%',
+    //   editable: true,
+    // },
+    
     {
       title: 'Veiksmas',
       dataIndex: 'Veiksmas',
       render: (_, record) => {
-        const editable = isEditing(record);
-        return editable ? (
+        const editable = isEditing(record); 
+        
+        return editable   ? (
           <span>
             <Typography.Link
               onClick={() => save(record.id)}
@@ -255,19 +274,21 @@ const getAllUsers = () => {
         ) : 
         (
           <div>
-          <Typography.Link disabled={editingKey !== ''} onClick={() => edit(record)}>
-            Keisti
-          </Typography.Link>
-          <DeleteOutlined
-          onClick={() => {
-            onDelete(record);
-          }}
-          style={{ color: "red", marginLeft: 12 }}
-        />
-        </div>
+        <Typography.Link disabled={editingKey !== ''} onClick={() => edit(record)}>
+          Keisti
+        </Typography.Link>
+        <DeleteOutlined
+        onClick={() => {
+          onDelete(record);
+        }}
+        style={{ color: "red", marginLeft: 12 }}
+      />
+      </div>
          ); 
      },
+     
    },
+   
   ];
  const mergedColumns = columns.map((col) => {
    if (!col.editable) {
