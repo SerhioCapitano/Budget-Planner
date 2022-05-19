@@ -22,27 +22,41 @@ function readUser() {
 }
 
 
-function doSome() {
-  var data  = null;
-  if(readUser() == null  ) {
-    data  =  
+const AuthRoute = ({ children }) => {
+  const user = JSON.parse(localStorage.getItem('user'));
+  if (!user || !user.accessToken) {
+    return <Navigate to="/sign-in" replace />;
+  }
+  return children;
+};
+
+
+const AuthAdminRoute = ({children }) => {
+  const user = JSON.parse(localStorage.getItem('user'));
+  if(user.username !== "admin") {
+    return <Navigate to="/" replace/>
+  }
+  return children;
+} 
+
+
+
+
+
+
+function App() {
+  return (  
+    <div className="App">
     <Routes>
-    <Route  exact path="/sign-up" element={<SignUp/>} />
-    <Route  path="*" element={<Navigate to="/sign-up" replace/>} />
-    <Route  path="/sign-in" element={<SignIn/>} />
-    </Routes> 
-  } else if(readUser().username == "admin") {
-    data  = 
-    <Routes>
-<Route  path="/" element={<Main>Pradinis puslapis</Main>} />
-    <Route  path="/santrauka" element={<Main>Komponentas santrauka</Main>} />
-    <Route  path="/pajamos" element={<Main><Table_incomes/></Main>} />
-    <Route  path="/islaidos" element={<Main><Table_expenses/></Main>} />
-    <Route  path="/billing" element={<Billing/>} />
-    <Route   path="/rtl" element={<Rtl/>} />
-    <Route   path="/profile" element={<Main><Profile/></Main>} />
-    <Route  path="/vartotojai" element={<Main><UsersTable/></Main>} />
-    <Route path="/kategorijas" element={<Main><CategoriesTable/></Main>} />
+<Route  path="/" element={<AuthRoute><Main>Pradinis puslapis</Main></AuthRoute>} />
+    <Route  path="/santrauka" element={<AuthRoute><Main>Komponentas santrauka</Main></AuthRoute>} />
+    <Route  path="/pajamos" element={<AuthRoute><Main><Table_incomes/></Main></AuthRoute>} />
+    <Route  path="/islaidos" element={<AuthRoute><Main><Table_expenses/></Main></AuthRoute>} />
+    <Route  path="/billing" element={<AuthRoute><Billing/></AuthRoute>} />
+    <Route   path="/rtl" element={<AuthRoute><Rtl/></AuthRoute>} />
+    <Route   path="/profile" element={<AuthRoute><Main><Profile/></Main></AuthRoute>} />
+    <Route  path="/vartotojai" element={<AuthRoute><AuthAdminRoute><Main><UsersTable/></Main></AuthAdminRoute></AuthRoute>} />
+    <Route path="/kategorijas" element={<AuthRoute><AuthAdminRoute><Main><CategoriesTable/></Main></AuthAdminRoute></AuthRoute>} />
     <Route  exact path="/sign-up" element={<SignUp/>} />
   <Route  path="/sign-in" element={<SignIn/>} />
 
@@ -50,82 +64,6 @@ function doSome() {
     {/* <Navigate from="/*" to="/suvestinė" /> */}
  
 </Routes>
-  } else {
-    data  = 
-    <Routes>
-<Route  path="/" element={<Main>Pradinis puslapis</Main>} />
-    <Route  path="/santrauka" element={<Main>Komponentas santrauka</Main>} />
-    <Route  path="/pajamos" element={<Main><Table_incomes/></Main>} />
-    <Route  path="/islaidos" element={<Main><Table_expenses/></Main>} />
-    <Route  path="/billing" element={<Billing/>} />
-    <Route   path="/rtl" element={<Rtl/>} />
-    <Route   path="/profile" element={<Main><Profile/></Main>} />
-    <Route  exact path="/sign-up" element={<SignUp/>} />
-  <Route  path="/sign-in" element={<SignIn/>} />
-
-  <Route  path="*" element={<Navigate to="/" replace/>} />
-    {/* <Navigate from="/*" to="/suvestinė" /> */}
- 
-</Routes> 
-  }
-  return data ;
-}
-
-
-
-
-
-
-// let pathForUsers = readUser() === null ?
-// <Routes>
-// <Route  exact path="/sign-up" element={<SignUp/>} />
-// <Route  path="*" element={<Navigate to="/sign-up" replace/>} />
-// <Route  path="/sign-in" element={<SignIn/>} />
-// </Routes>
-
-// : readUser().username == "admin" ?
-// <Routes>
-// <Route  path="/" element={<Main>Pradinis puslapis</Main>} />
-//     <Route  path="/santrauka" element={<Main>Komponentas santrauka</Main>} />
-//     <Route  path="/pajamos" element={<Main><Table_incomes/></Main>} />
-//     <Route  path="/islaidos" element={<Main><Table_expenses/></Main>} />
-//     <Route  path="/billing" element={<Billing/>} />
-//     <Route   path="/rtl" element={<Rtl/>} />
-//     <Route   path="/profile" element={<Main><Profile/></Main>} />
-//     <Route  path="/vartotojai" element={<Main><UsersTable/></Main>} />
-//     <Route path="/kategorijas" element={<Main><CategoriesTable/></Main>} />
-//     <Route  exact path="/sign-up" element={<SignUp/>} />
-//   <Route  path="/sign-in" element={<SignIn/>} />
-
-//   <Route  path="*" element={<Navigate to="/" replace/>} />
-//     {/* <Navigate from="/*" to="/suvestinė" /> */}
- 
-// </Routes>
-// : 
-// <Routes>
-// <Route  path="/" element={<Main>Pradinis puslapis</Main>} />
-//     <Route  path="/santrauka" element={<Main>Komponentas santrauka</Main>} />
-//     <Route  path="/pajamos" element={<Main><Table_incomes/></Main>} />
-//     <Route  path="/islaidos" element={<Main><Table_expenses/></Main>} />
-//     <Route  path="/billing" element={<Billing/>} />
-//     <Route   path="/rtl" element={<Rtl/>} />
-//     <Route   path="/profile" element={<Main><Profile/></Main>} />
-//     <Route  exact path="/sign-up" element={<SignUp/>} />
-//   <Route  path="/sign-in" element={<SignIn/>} />
-
-//   <Route  path="*" element={<Navigate to="/" replace/>} />
-//     {/* <Navigate from="/*" to="/suvestinė" /> */}
- 
-// </Routes> 
-
-
-function App() {
-  useEffect(()=> { readUser() });
-  useEffect(()=> { doSome() });
-
-  return (  
-    <div className="App">
-      {doSome()}
     </div>
   );
 }
