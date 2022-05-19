@@ -30,6 +30,17 @@ import avtar from "../../assets/images/team-2.jpg";
 import './Header.css'
 import userEvent from "@testing-library/user-event";
 
+function Header({
+  placement,
+  name,
+  subName,
+  onPress,
+  handleSidenavColor,
+  handleSidenavType,
+  handleFixedNavbar,
+}) {
+const [user, setUser]=useState('');
+
 const ButtonContainer = styled.div`
   .ant-btn-primary {
     background-color: #1890ff;
@@ -144,34 +155,32 @@ const logout = () => {
   AuthService.logout();
     };
 
-    var user = JSON.parse(localStorage.getItem('user'));
-
 const data = [
   {
-    title: "El. paštas",
-    description: <>{user.email}</>,
+    // title: "El. paštas",
+    description: <>{user.email} </>,
   },
   {
     title: "",
     description: <>  <NavLink to="/sign-in" onClick={logout}>ATSIJUNGTI</NavLink> </>,
   },
-  {
-    title: "New message from Sophie",
-    description: <>{clockicon} 2 days ago</>,
+  // {
+  //   title: "New message from Sophie",
+  //   description: <>{clockicon} 2 days ago</>,
 
-    avatar: avtar,
-  },
-  {
-    title: "New album by Travis Scott",
-    description: <>{clockicon} 2 days ago</>,
+  //   avatar: avtar,
+  // },
+  // {
+  //   title: "New album by Travis Scott",
+  //   description: <>{clockicon} 2 days ago</>,
 
-    avatar: <Avatar shape="square">{wifi}</Avatar>,
-  },
-  {
-    title: "Payment completed",
-    description: <>{clockicon} 2 days ago</>,
-    avatar: <Avatar shape="square">{credit}</Avatar>,
-  },
+  //   avatar: <Avatar shape="square">{wifi}</Avatar>,
+  // },
+  // {
+  //   title: "Payment completed",
+  //   description: <>{clockicon} 2 days ago</>,
+  //   avatar: <Avatar shape="square">{credit}</Avatar>,
+  // },
 ];
 
 const menu = (
@@ -258,21 +267,16 @@ const setting = [
   </svg>,
 ];
 
-function Header({
-  placement,
-  name,
-  subName,
-  onPress,
-  handleSidenavColor,
-  handleSidenavType,
-  handleFixedNavbar,
-}) {
+
   const { Title, Text } = Typography;
 
   const [visible, setVisible] = useState(false);
   const [sidenavType, setSidenavType] = useState("transparent");
 
-  useEffect(() => window.scrollTo(0, 0));
+  useEffect(() => {
+  window.scrollTo(0, 0);
+  setUser(JSON.parse(localStorage.getItem('user')));
+})
 
   const showDrawer = () => setVisible(true);
   const hideDrawer = () => setVisible(false);
@@ -309,8 +313,9 @@ function Header({
                 className="ant-dropdown-link"
                 onClick={(e) => e.preventDefault()}
                 style={{color:"black"}} 
+
               >
-                {user.username}
+                {user.username} 
               </a>
             </Dropdown>
           {/* </Badge> */}
