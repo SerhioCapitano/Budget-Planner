@@ -267,7 +267,6 @@ const setting = [
   </svg>,
 ];
 
-
   const { Title, Text } = Typography;
 
   const [visible, setVisible] = useState(false);
