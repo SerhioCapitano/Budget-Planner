@@ -49,7 +49,7 @@ function App() {
     <div className="App">
     <Routes>
 <Route  path="/" element={<AuthRoute><Main>Pradinis puslapis</Main></AuthRoute>} />
-    <Route  path="/santrauka" element={<AuthRoute><Main>Komponentas santrauka</Main></AuthRoute>} />
+    <Route  path="/santrauka" element={<AuthRoute><Main><Rtl/></Main></AuthRoute>} />
     <Route  path="/pajamos" element={<AuthRoute><Main><Table_incomes/></Main></AuthRoute>} />
     <Route  path="/islaidos" element={<AuthRoute><Main><Table_expenses/></Main></AuthRoute>} />
     <Route  path="/billing" element={<AuthRoute><Billing/></AuthRoute>} />

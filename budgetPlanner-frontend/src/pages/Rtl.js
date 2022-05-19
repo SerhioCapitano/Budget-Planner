@@ -357,7 +357,7 @@ function Home() {
                     <Col xs={18}>
                       <span>{c.today}</span>
                       <Title level={3}>
-                        SALLAMAALEJMUK   <small className={c.bnb}>BLAID GDE ETO</small>
+                      <small className={c.bnb}></small>
                       </Title>
                     </Col>
                     <Col xs={6}>

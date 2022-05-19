@@ -1,10 +1,10 @@
 
-import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { Layout, Drawer, Affix } from "antd";
 import Sidenav from "./Sidenav";
 import Header from "./Header";
 import Footer from "./Footer";
+import React, { useState, useEffect, } from 'react';
 
 const { Header: AntHeader, Content, Sider } = Layout;
 
@@ -19,6 +19,10 @@ function Main({ children }) {
   const handleSidenavType = (type) => setSidenavType(type);
   const handleSidenavColor = (color) => setSidenavColor(color);
   const handleFixedNavbar = (type) => setFixed(type);
+
+  const [reverse, setReverse] = useState(false);
+
+
 
   let { pathname } = useLocation();
   pathname = pathname.replace("/", "");
