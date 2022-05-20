@@ -30,17 +30,6 @@ import avtar from "../../assets/images/team-2.jpg";
 import './Header.css'
 import userEvent from "@testing-library/user-event";
 
-function Header({
-  placement,
-  name,
-  subName,
-  onPress,
-  handleSidenavColor,
-  handleSidenavType,
-  handleFixedNavbar,
-}) {
-const [user, setUser]=useState('');
-
 const ButtonContainer = styled.div`
   .ant-btn-primary {
     background-color: #1890ff;
@@ -62,6 +51,16 @@ const ButtonContainer = styled.div`
   }
 `;
 
+function Header({
+  placement,
+  name,
+  subName,
+  onPress,
+  handleSidenavColor,
+  handleSidenavType,
+  handleFixedNavbar,
+}) {
+const [user, setUser]=useState('');
 
 
 const bell = [
@@ -275,7 +274,7 @@ const setting = [
   useEffect(() => {
   window.scrollTo(0, 0);
   setUser(JSON.parse(localStorage.getItem('user')));
-})
+},[])
 
   const showDrawer = () => setVisible(true);
   const hideDrawer = () => setVisible(false);
