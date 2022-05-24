@@ -281,9 +281,9 @@ const setting = [
 
   return (
     <>
-      <div className="setting-drwer" onClick={showDrawer}>
+      {/* <div className="setting-drwer" onClick={showDrawer}>
         {setting}
-      </div>
+      </div> */}
       <Row gutter={[24, 0]} className="header-row">
         <Col span={24} md={6}>
           {/* <Breadcrumb>
