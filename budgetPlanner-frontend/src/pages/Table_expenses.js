@@ -306,7 +306,9 @@ const EditableTable = () => {
             >
               Saugoti
             </Typography.Link>
-            <Popconfirm title="Norite atšaukti?" onConfirm={cancel}>
+            <Popconfirm title="Norite atšaukti?" onConfirm={cancel}
+              okText="Yes"
+              cancelText="No">
               <a>Atšaukti</a>
             </Popconfirm>
           </span>
@@ -315,13 +317,16 @@ const EditableTable = () => {
           <div>
           <Typography.Link disabled={editingKey !== ''} onClick={() => edit(record)}>
             Keisti
-          </Typography.Link>
-          <DeleteOutlined
-          onClick={() => {
-            onDelete(record);
-          }}
-          style={{ color: "red", marginLeft: 12 }}
-        />
+              </Typography.Link>
+              <Popconfirm title="Norite istrinti" onConfirm={() => { onDelete(record) }} onCancel={cancel}
+              okText="Yes"
+              cancelText="No">
+              <a href="#">
+              <DeleteOutlined
+              style={{ color: "red", marginLeft: 12 }}
+                />
+              </a>
+            </Popconfirm>
         </div>
         );
       },
