@@ -26,6 +26,10 @@ class ExpensesService {
         return axios.get(EXPENSES_BASE_REST_API_URL + '/' + expenseId, { headers: authHeader() });
     }
 
+    getExpenseByCategory(category) {
+        return axios.get(EXPENSES_BASE_REST_API_URL + '/'  + category, { headers : authHeader()});
+    }
+
 
 
 
