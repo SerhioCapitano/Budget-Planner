@@ -3,6 +3,8 @@ package lt.vtmc.komanda.bugdetPlanner;
 import java.util.Collections;
 import java.util.Set;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -16,7 +18,6 @@ import lt.vtmc.komanda.bugdetPlanner.model.User;
 import lt.vtmc.komanda.bugdetPlanner.repository.CategoryRepository;
 import lt.vtmc.komanda.bugdetPlanner.repository.RoleRepository;
 import lt.vtmc.komanda.bugdetPlanner.repository.UserRepository;
-import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.ApiInfo;
 import springfox.documentation.spi.DocumentationType;
@@ -26,10 +27,14 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @SpringBootApplication
 @EnableSwagger2
 public class BugdetPlannerApplication implements CommandLineRunner {
-
+	
+	private static final Logger logger = LogManager.getLogger(BugdetPlannerApplication.class);
+	
 	public static void main(String[] args) {
 		SpringApplication.run(BugdetPlannerApplication.class, args);
 	}
+	
+	
 	
 	
 
@@ -41,6 +46,7 @@ public class BugdetPlannerApplication implements CommandLineRunner {
 	@Bean
     public CommandLineRunner initialData(RoleRepository roleRepo, UserRepository userRepo, PasswordEncoder encoder, CategoryRepository categoryRepository) {
         return args -> {
+            logger.debug("Hello from log4j 2 ");
             if(roleRepo.findByName(ERole.ROLE_USER).isEmpty()){
                 roleRepo.save(new Role(ERole.ROLE_USER));
             }
@@ -72,16 +78,9 @@ public class BugdetPlannerApplication implements CommandLineRunner {
                 user.setUsername("user");
                 user.setRoles(Set.of(roleRepo.findByName(ERole.ROLE_USER).get()));
                 userRepo.save(user);
+            
             	
-        		Category c1 = new Category();
-        		c1.setName("Maistas");
-        		Category c2 = new Category();
-        		c2.setName("Sveikata");
-        		Category c3 = new Category();
-        		c3.setName("Masina");
-        		categoryRepository.save(c1);
-        		categoryRepository.save(c2);
-        		categoryRepository.save(c3);
+        	
             }
         };
     }

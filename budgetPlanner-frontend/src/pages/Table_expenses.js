@@ -1,7 +1,7 @@
 import React, { useState, useEffect, Component } from 'react';
 import { Table, Input, InputNumber, Popconfirm, Form, Typography, Button} from 'antd';
 import { DeleteOutlined } from "@ant-design/icons";
-import ExpensesService from '../services/ExpensesService'
+import ExpensesService from '../services/ExpensesService';
 import CategoryService from '../services/CategoryService'
 import Header from "../components/layout/Header";
 import Sidenav from "../components/layout/Sidenav";
@@ -99,7 +99,7 @@ const EditableTable = () => {
 
   const CategoryList = categories.map(
     category =>
-    <option  value={category.name} selected>{category.name}</option>
+    <option  value={category.name} >{category.name}</option>
     
   )
 
@@ -110,6 +110,20 @@ const EditableTable = () => {
     }).catch(error => {
       console.log(error);
     })
+  }
+
+
+  const filterByCategory = () => {
+    const category = item.filter;
+    ExpensesService.getExpenseByCategory(category).then((response) => {
+      setExpenses(response.data);
+    }).catch(error => {
+      console.log(error);
+    })
+  }
+
+  const doSome = () => {
+    console.log(item.filter);
   }
 
 
@@ -218,6 +232,17 @@ const EditableTable = () => {
 </select>
 
 
+<div>
+<label for="filter">Filter By Category</label>
+<select id="filter"  name="filter" onChange={handleInputChange} style={{margin: "10px", borderRadius: '4px'}}>
+    <option selected="filter">filter by Category</option>
+    {CategoryList}
+</select>
+</div>
+    <div>
+   <Button style={{marginBottom: "30px", marginLeft: "10px"}} type="primary" onClick={filterByCategory}>Filter By Category</Button>
+   </div>
+   
     <div>
    <Button style={{marginBottom: "30px", marginLeft: "10px"}} type="primary" onClick={saveItem}>Pridėti išlaidas</Button>
    </div>
