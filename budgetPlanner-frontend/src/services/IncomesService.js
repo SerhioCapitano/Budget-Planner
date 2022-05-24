@@ -21,7 +21,7 @@ class IncomesService {
 
 
     updateIncome(incomeId,income) {
-        return axios.put(INCOMES_BASE_REST_API_URL + '/' + incomeId,income), { headers: authHeader() };
+        return axios.put(INCOMES_BASE_REST_API_URL + '/' + incomeId,income, { headers: authHeader()});
     }
 
     getIncomeById(incomeId) {
