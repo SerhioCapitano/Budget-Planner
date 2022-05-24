@@ -9,18 +9,18 @@ function LineChart() {
   const [data, setData] = useState([]);
 
   let months = [
-    "sausis",
-    "vasaris",
-    "kovas",
-    "balandis",
-    "gegužė",
-    "birželis",
-    "liepa",
-    "rugpjūtis",
-    "rugsėjis",
-    "spalis",
-    "lapkritis",
-    "gruodis",
+    "Sausis",
+    "Vasaris",
+    "Kovas",
+    "Balandis",
+    "Gegužė",
+    "Birželis",
+    "Liepa",
+    "Rugpjūtis",
+    "Rugsėjis",
+    "Spalis",
+    "Lapkritis",
+    "Gruodis",
   ];
 
   const [category, setCategory] = useState({

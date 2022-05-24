@@ -233,14 +233,14 @@ const EditableTable = () => {
 
 
 <div>
-<label for="filter">Filter By Category</label>
+<label for="filter">Ieškoti pagal kategoriją: </label>
 <select id="filter"  name="filter" onChange={handleInputChange} style={{margin: "10px", borderRadius: '4px'}}>
-    <option selected="filter">filter by Category</option>
+    <option selected="filter">Kategorijos</option>
     {CategoryList}
 </select>
 </div>
     <div>
-   <Button style={{marginBottom: "30px", marginLeft: "10px"}} type="primary" onClick={filterByCategory}>Filter By Category</Button>
+   <Button style={{marginBottom: "30px", marginLeft: "10px"}} type="primary" onClick={filterByCategory}>Ieškoti</Button>
    </div>
    
     <div>
