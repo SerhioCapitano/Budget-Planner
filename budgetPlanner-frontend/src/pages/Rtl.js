@@ -25,7 +25,7 @@ import {
 } from "@ant-design/icons";
 import Paragraph from "antd/lib/typography/Paragraph";
 
-import Echart from "../components/chart/EChart";
+//import Echart from "../components/chart/EChart";
 import LineChart from "../components/chart/LineChart";
 
 import ava1 from "../assets/images/logo-shopify.svg";
@@ -373,8 +373,37 @@ function Home() {
 
         <Row gutter={[24, 0]}>
           <Col xs={24} sm={24} md={12} lg={12} xl={10} className="mb-24">
-            <Card bordered={false} className="criclebox h-full">
-              <Echart />
+            {/* <Card bordered={false} className="criclebox h-full">
+              <LineChart />
+            </Card> */}
+              <Card bordered={false} className="criclebox h-full">
+              <div className="timeline-box">
+                <Title level={5}>Islaidu Istorija</Title>
+                <Paragraph className="lastweek" style={{ marginBottom: 24 }}>
+                  <span className="bnb2"></span>
+                </Paragraph>
+
+                <Timeline
+                  pending="Recording..."
+                  className="timelinelist"
+                  reverse={reverse}
+                >
+                  {expenses.map((t, index) => (
+                    <Timeline.Item color={t.color} key={index}>
+                      <Title level={5}>{t.amount}</Title>
+                      <Text>{t.name}</Text><br/>
+                      <Text>{t.date1}</Text>
+                    </Timeline.Item>
+                  ))}
+                </Timeline>
+                <Button
+                  type="primary"
+                  className="width-100"
+                  onClick={() => setReverse(!reverse)}
+                >
+                  {<MenuUnfoldOutlined />} REVERSE
+                </Button>
+              </div>
             </Card>
           </Col>
           <Col xs={24} sm={24} md={12} lg={12} xl={14} className="mb-24">
@@ -385,7 +414,7 @@ function Home() {
         </Row>
         
 
-        <Row gutter={[24, 0]}>
+        {/* <Row gutter={[24, 0]}> */}
           {/* <Col xs={24} sm={24} md={12} lg={12} xl={16} className="mb-24"> */}
             {/* <Card bordered={false} className="criclebox cardbody h-full"> */}
               {/* <div className="project-ant"> */}
@@ -455,7 +484,7 @@ function Home() {
               </div> */}
             {/* </Card> */}
           {/* </Col> */}
-          <Col xs={24} sm={24} md={12} lg={12} xl={8} className="mb-24">
+          {/* <Col xs={24} sm={24} md={12} lg={12} xl={8} className="mb-24">
             <Card bordered={false} className="criclebox h-full">
               <div className="timeline-box">
                 <Title level={5}>Islaidu Istorija</Title>
@@ -497,7 +526,7 @@ function Home() {
     <Statistic title="Liko Pinigu" value={CountDifference()} />
       </Col>
     </Card>
-        </Row>
+        </Row> */}
 
 
         {/* <Row gutter={[24, 0]}>
