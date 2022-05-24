@@ -25,7 +25,7 @@ import {
 } from "@ant-design/icons";
 import Paragraph from "antd/lib/typography/Paragraph";
 
-//import Echart from "../components/chart/EChart";
+import EChart from "../components/chart/EChart";
 import LineChart from "../components/chart/LineChart";
 
 import ava1 from "../assets/images/logo-shopify.svg";
@@ -372,13 +372,10 @@ function Home() {
         </Row>
 
         <Row gutter={[24, 0]}>
-          <Col xs={24} sm={24} md={12} lg={12} xl={10} className="mb-24">
-            {/* <Card bordered={false} className="criclebox h-full">
-              <LineChart />
-            </Card> */}
-              <Card bordered={false} className="criclebox h-full">
-              <div className="timeline-box">
-                <Title level={5}>Islaidu Istorija</Title>
+          <Col xs={24} sm={24} md={12} lg={12} xl={6} className="mb-24">
+            <Card bordered={false} className="criclebox h-full">
+            <div className="timeline-box">
+                <Title level={5}>Išlaidu Istorija</Title>
                 <Paragraph className="lastweek" style={{ marginBottom: 24 }}>
                   <span className="bnb2"></span>
                 </Paragraph>
@@ -406,8 +403,22 @@ function Home() {
               </div>
             </Card>
           </Col>
+          <Card>
+        <Col span={12} >
+      <Statistic title="Pajamos" value={CountIncomesSum()} />
+    </Col>
+    <Col span={12}>
+      <Statistic title="Išlaidos" value={CountExpensesSum()} />
+    </Col>
+    <Col>
+    <Statistic title="Pinigų likutis" value={CountDifference()} />
+      </Col>
+    </Card>
+
+            
+          {/* </Col> */}
           <Col xs={24} sm={24} md={12} lg={12} xl={14} className="mb-24">
-            <Card bordered={false} className="criclebox h-full">
+            <Card bordered={false} className="criclebox">
               <LineChart />
             </Card>
           </Col>
@@ -528,72 +539,6 @@ function Home() {
     </Card>
         </Row> */}
 
-
-        {/* <Row gutter={[24, 0]}>
-          <Col xs={24} md={12} sm={24} lg={12} xl={14} className="mb-24">
-            <Card bordered={false} className="criclebox h-full">
-              <Row gutter>
-                <Col
-                  xs={24}
-                  md={12}
-                  sm={24}
-                  lg={12}
-                  xl={14}
-                  className="mobile-24"
-                >
-                  <div className="h-full col-content p-20">
-                    <div className="ant-muse">
-                      <Text>Built by developers</Text>
-                      <Title level={5}>Muse Dashboard for Ant Design</Title>
-                      <Paragraph className="lastweek mb-36">
-                        From colors, cards, typography to complex elements, you
-                        will find the full documentation.
-                      </Paragraph>
-                    </div>
-                    <div className="card-footer">
-                      <a className="icon-move-right" href="#pablo">
-                        Read More
-                        {<RightOutlined />}
-                      </a>
-                    </div>
-                  </div>
-                </Col>
-                <Col
-                  xs={24}
-                  md={12}
-                  sm={24}
-                  lg={12}
-                  xl={10}
-                  className="col-img"
-                >
-                  <div className="ant-cret" style={{ textAlign: "left" }}>
-                    <img src={card} alt="" className="border10" />
-                  </div>
-                </Col>
-              </Row>
-            </Card>
-          </Col>
-
-          <Col xs={24} md={12} sm={24} lg={12} xl={10} className="mb-24">
-            <Card bordered={false} className="criclebox card-info-2 h-full">
-              <div className="gradent h-full col-content">
-                <div className="card-content">
-                  <Title level={5}>Work with the best</Title>
-                  <p>
-                    Wealth creation is an evolutionarily recent positive-sum
-                    game. It is all about who take the opportunity first.
-                  </p>
-                </div>
-                <div className="card-footer">
-                  <a className="icon-move-right" href="#pablo">
-                    Read More
-                    <RightOutlined />
-                  </a>
-                </div>
-              </div>
-            </Card>
-          </Col>
-        </Row> */}
       </div>
     </>
   );

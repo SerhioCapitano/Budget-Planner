@@ -49,7 +49,7 @@ function Sidenav({ color }) {
     >
       {dashboard}
     </span>
-    <span className="label">Kategorijas</span>
+    <span className="label">Kategorijos</span>
   </NavLink>
 </Menu.Item>
 
@@ -245,7 +245,7 @@ function Sidenav({ color }) {
             >
               {tablesExpenses}
             </span>
-            <span className="label">Islaidos</span>
+            <span className="label">Išlaidos</span>
           </NavLink>
         </Menu.Item> 
 
