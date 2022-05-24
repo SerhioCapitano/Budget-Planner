@@ -92,6 +92,9 @@ function LineChart() {
         if (new Date(d.date1).getMonth() === index) {
           sum += Number(d.amount);
         }
+        if (new Date(d.timeStamp).getMonth() === index) {
+          sum += Number(d.amount);
+        }
       });
       sumByMonth = [...sumByMonth, sum];
     });
@@ -107,9 +110,9 @@ function LineChart() {
         console.log(error);
       });
 
-    IncomesService.getAllIncomes()
+  IncomesService.getAllIncomes()
       .then((response) => {
-        setIncomes(response.data);
+     setIncomes(response.data)
       })
       .catch((error) => {
         console.log(error);
