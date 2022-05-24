@@ -1,12 +1,12 @@
-import React, { useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import IncomesService from '../services/IncomesService'
-import { Table, Input, InputNumber, Popconfirm, Form, Typography, Button} from 'antd';
+import { Table, Input, InputNumber, Popconfirm, Form, Typography, Button } from 'antd';
 import { DeleteOutlined } from "@ant-design/icons";
 import Swal from 'sweetalert2'
- 
+
 
 const EditableCell = ({
-  
+
   editing,
   dataIndex,
   title,
@@ -16,11 +16,11 @@ const EditableCell = ({
   children,
   ...restProps
 }) => {
-  
-  const inputNode = (inputType === 'number') ? <InputNumber /> :(inputType==='date')?<Input type='date'/>: <Input />;
+
+  const inputNode = (inputType === 'number') ? <InputNumber /> : (inputType === 'date') ? <Input type='date' /> : <Input />;
 
   return (
-    
+
     <td {...restProps}>
       {editing ? (
         <Form.Item
@@ -51,12 +51,12 @@ const EditableTable = () => {
   const [editingKey, setEditingKey] = useState('');
 
 
-  useEffect(()=>getAllIncome(),[]);
- 
+  useEffect(() => getAllIncome(), []);
+
   const isEditing = (record) => record.id === editingKey;
 
   const edit = (record) => {
-    
+
     form.setFieldsValue({
       amount: '',
       date: '',
@@ -72,30 +72,30 @@ const EditableTable = () => {
     setEditingKey('');
   };
 
-const onDelete=(record) => {
-  IncomesService.deleteIncome(record.id).then((respone) => {
-    const newData = incomes.filter(obj => obj.id !==  record.id);
-    setIncomes(newData);
-  }).catch(error => {
-    console.log(error)
-  })
- 
-}
+  const onDelete = (record) => {
+    IncomesService.deleteIncome(record.id).then((respone) => {
+      const newData = incomes.filter(obj => obj.id !== record.id);
+      setIncomes(newData);
+    }).catch(error => {
+      console.log(error)
+    })
 
-const getAllIncome = () => { 
-  IncomesService.getAllIncomes().then((response) => {
-    setIncomes(response.data);
-  }).catch(error => {
-    console.log(error);
-  })
-}
+  }
+
+  const getAllIncome = () => {
+    IncomesService.getAllIncomes().then((response) => {
+      setIncomes(response.data);
+    }).catch(error => {
+      console.log(error);
+    })
+  }
 
 
 
   const initialTutorialState = {
     id: null,
     amount: "",
-  timeStamp: "",
+    timeStamp: "",
     description: "",
   };
 
@@ -109,74 +109,74 @@ const getAllIncome = () => {
   var regExp = /[a-zA-Z]/g;
 
   const saveItem = () => {
-    if(item.amount === "" || !regExp.test(item.description)) {
+    if (item.amount === "" || !regExp.test(item.description)) {
       Swal.fire({
         icon: 'error',
         title: 'Klaida!',
         text: 'Nepalikite tuščių laukų!',
       })
-    } else if(item.amount <= 0) {
+    } else if (item.amount <= 0) {
       Swal.fire({
         icon: "error",
         title: "Klaida",
         text: "Suma negali but neigiama arba nulis!"
       })
     } else {
-    var data = {
-      amount: item.amount,
-      timeStamp: item.date,
-      description: item.description
-    };
-    IncomesService.createIncome(data)
-      .then(response => {
-        setItem({
-          amount: response.data.amount,
-          timeStamp: response.data.date,
-          description: response.data.description,
-        }); 
-        getAllIncome();
-        setItem(initialTutorialState)
+      var data = {
+        amount: item.amount,
+        timeStamp: item.date,
+        description: item.description
+      };
+      IncomesService.createIncome(data)
+        .then(response => {
+          setItem({
+            amount: response.data.amount,
+            timeStamp: response.data.date,
+            description: response.data.description,
+          });
+          getAllIncome();
+          setItem(initialTutorialState)
 
-      })
-      .catch(e => {
-        console.log(e);
-      });
-  };
+        })
+        .catch(e => {
+          console.log(e);
+        });
+    };
   }
 
 
-  
+
   const content = (
-    <div style={{textAlign: "left"}}>
-   <input style={{margin: "10px", borderRadius: '4px'}}  type="number"
-    placeholder="Suma"
-    name="amount"
-    value={item.amount}
-    onChange= {handleInputChange}
-    />
+    <div style={{ textAlign: "left" }}>
+      <input style={{ margin: "10px", borderRadius: '4px' }} type="number"
+        placeholder="Suma"
+        name="amount"
+        value={item.amount}
+        onChange={handleInputChange}
+      />
 
-     <input style={{margin: "10px", borderRadius: '4px'}}  type="date"
-    placeholder="Data"
-    name="date"
-    value={item.date}
-    onChange= {handleInputChange}
-    />
+      <input style={{ margin: "10px", borderRadius: '4px' }} type="date"
+        placeholder="Data"
+        name="date"
+        value={item.date}
+        onChange={handleInputChange}
+      />
 
-   <input style={{margin: "10px", borderRadius: '4px'}} type="text"
-    placeholder="Komentaras"
-    name="description"
-    value={item.description}
-    minLength="4"
-    onChange= {handleInputChange}
-    />
+      <input style={{ margin: "10px", borderRadius: '4px' }} type="text"
+        placeholder="Komentaras"
+        name="description"
+        value={item.description}
+        minLength="4"
+        onChange={handleInputChange}
+      />
 
 
-<div>
-   <Button style={{marginBottom: "30px", marginLeft: "10px"}} type="primary" onClick={saveItem}>Pridėti pajamas</Button>
-   {/* <Button type="primary" onClick={getAllIncome}>Submit</Button> */}
-   </div>
+      <div>
+        <Button style={{ marginBottom: "30px", marginLeft: "10px" }} type="primary" onClick={saveItem}>Pridėti pajamas</Button>
+        {/* <Button type="primary" onClick={getAllIncome}>Submit</Button> */}
+      </div>
     </div>
-    
+
   );
 
 
@@ -190,18 +190,18 @@ const getAllIncome = () => {
         newData.splice(index, 1, { ...item, ...row });
         const obj = newData.find(income => income.id === id);
         setIncomes(newData);
-        IncomesService.updateIncome(id,obj).then((response) => {
-        }).catch(error => { 
+        IncomesService.updateIncome(id, obj).then((response) => {
+        }).catch(error => {
           console.log(error);
-        }); 
-         setEditingKey('');
-        
+        });
+        setEditingKey('');
+
       } else {
         newData.push(row);
         setIncomes(newData);
- 
+
         setEditingKey('');
-        
+
       }
     } catch (errInfo) {
       console.log('Validate Failed:', errInfo);
@@ -242,38 +242,46 @@ const getAllIncome = () => {
             >
               Saugoti
             </Typography.Link>
-            <Popconfirm title="Norite atšaukti?" onConfirm={cancel}>
+
+           <Popconfirm title="Norite atšaukti?" onConfirm={cancel}
+              okText="Yes"
+              cancelText="No">
               <a>Atšaukti</a>
-            </Popconfirm>
+            </Popconfirm> 
           </span>
-          
-        ) : 
-        (
-          <div>
-          <Typography.Link disabled={editingKey !== ''} onClick={() => edit(record)}>
-            Keisti
-          </Typography.Link>
-          <DeleteOutlined
-          onClick={() => {
-            onDelete(record);
-          }}
-          style={{ color: "red", marginLeft: 12 }}
-        />
-        </div>
-         ); 
-     },
-   },
+
+        ) :
+          (
+            <div>
+              <Typography.Link disabled={editingKey !== ''} onClick={() => edit(record)}>
+                Keisti
+              </Typography.Link>
+
+              <Popconfirm title="Norite istrinti?" onConfirm={() => { onDelete(record) }} onCancel={cancel}
+                okText="Yes"
+                cancelText="No">
+                <a href="#">
+                  <DeleteOutlined
+                    style={{ color: "red", marginLeft: 12 }}
+                  />
+                </a>
+              </Popconfirm>
+
+            </div>
+          );
+      },
+    },
   ];
- const mergedColumns = columns.map((col) => {
-   if (!col.editable) {
-       return col;
-     } 
+  const mergedColumns = columns.map((col) => {
+    if (!col.editable) {
+      return col;
+    }
     return {
-      
+
       ...col,
       onCell: (record) => ({
         record,
-        inputType: col.dataIndex === 'amount' ? 'number' : (col.dataIndex === 'timeStamp') ?'date' :'text',
+        inputType: col.dataIndex === 'amount' ? 'number' : (col.dataIndex === 'timeStamp') ? 'date' : 'text',
         dataIndex: col.dataIndex,
         title: col.title,
         editing: isEditing(record),
@@ -281,8 +289,8 @@ const getAllIncome = () => {
     };
   });
   return (
-<Form form={form} >
-{content} 
+    <Form form={form} >
+      {content}
       <Table
         components={{
           body: {
@@ -296,11 +304,11 @@ const getAllIncome = () => {
         pagination={{
           onChange: cancel,
         }}
-        
+
       />
-     
+
     </Form>
-    
+
   );
 };
 
