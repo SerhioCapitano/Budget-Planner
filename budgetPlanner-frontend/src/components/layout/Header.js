@@ -321,14 +321,14 @@ const setting = [
           {/* <Button type="link" onClick={showDrawer}>
             {logsetting}
           </Button> */}
-          {/* <Button
+          <Button
             type="link"
             className="sidebar-toggler"
             onClick={() => onPress()}
           >
             {toggler}
           </Button>
-          <Drawer
+          {/* <Drawer
             className="settings-drawer"
             mask={true}
             width={360}
