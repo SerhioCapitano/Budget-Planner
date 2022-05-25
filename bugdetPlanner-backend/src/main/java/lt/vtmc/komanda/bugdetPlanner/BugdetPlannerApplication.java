@@ -28,7 +28,6 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableSwagger2
 public class BugdetPlannerApplication implements CommandLineRunner {
 	
-	private static final Logger logger = LogManager.getLogger(BugdetPlannerApplication.class);
 	
 	public static void main(String[] args) {
 		SpringApplication.run(BugdetPlannerApplication.class, args);
@@ -46,7 +45,7 @@ public class BugdetPlannerApplication implements CommandLineRunner {
 	@Bean
     public CommandLineRunner initialData(RoleRepository roleRepo, UserRepository userRepo, PasswordEncoder encoder, CategoryRepository categoryRepository) {
         return args -> {
-            logger.debug("Hello from log4j 2 ");
+       
             if(roleRepo.findByName(ERole.ROLE_USER).isEmpty()){
                 roleRepo.save(new Role(ERole.ROLE_USER));
             }
