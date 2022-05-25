@@ -1,0 +1,47 @@
+<configuration>
+	<property name="LOG_FILE" value="LogFile" />
+
+	<appender name="JsonConsole" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder class="net.logstash.logback.encoder.LogstashEncoder">
+			<fieldNames>
+				<timestamp>timestamp</timestamp>
+				<thread>[ignore]</thread>
+				<version>[ignore]</version>
+				<stackTrace>exception</stackTrace>
+			</fieldNames>
+		</encoder>
+	</appender>
+
+	<appender name="JsonRollingFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>C:\logs\application.log</file>
+
+		<encoder class="net.logstash.logback.encoder.LogstashEncoder">
+			<fieldNames>
+				<timestamp>timestamp</timestamp>
+				<thread>[ignore]</thread>
+				<version>[ignore]</version>
+				<stackTrace>exception</stackTrace>
+			</fieldNames>
+		</encoder>
+
+		<rollingPolicy
+			class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<!-- daily rollover -->
+			<fileNamePattern>${LOG_FILE}.%d{yyyy-MM-dd}.gz</fileNamePattern>
+			<!-- keep 30 days' worth of history capped at 3GB total size -->
+			<maxHistory>30</maxHistory>
+			<totalSizeCap>3GB</totalSizeCap>
+		</rollingPolicy>
+
+		<triggeringPolicy
+			class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+			<maxFileSize>3GB</maxFileSize>
+		</triggeringPolicy>
+	</appender>
+
+	<root level="DEBUG">
+		<appender-ref ref="JsonConsole" />
+		<appender-ref ref="JsonRollingFile" />
+	</root>
+
+</configuration>
