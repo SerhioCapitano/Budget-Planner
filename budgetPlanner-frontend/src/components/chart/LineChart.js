@@ -163,12 +163,12 @@ function LineChart() {
     setData([
       {
         name: "Išlaidos",
-        data: sumByMonth(expenses),
+        data: sumByMonth(expenses.filter(y => y.date1.includes(new Date().getFullYear()))),
         offsetY: 0,
       },
       {
         name: "Pajamos",
-        data: sumByMonth(incomes),
+         data: sumByMonth(incomes.filter(y => y.timeStamp.includes(new Date().getFullYear()))),
         offsetY: 0,
       },
     ]);
