@@ -391,7 +391,9 @@ function Home() {
                       <Text>{t.name}</Text><br/>
                       <Text>{t.date1}</Text>
                     </Timeline.Item>
+                  
                   ))}
+                  
                 </Timeline>
                 <Button
                   type="primary"

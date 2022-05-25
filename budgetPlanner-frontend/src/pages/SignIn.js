@@ -231,14 +231,14 @@ export default function SignIn()  {
                     <Input type="password" placeholder="Slaptažodis" minLength="6" required  />
                   </Form.Item>
 
-                  <Form.Item
+                  {/* <Form.Item
                     name="remember"
                     className="aligin-center"
                     valuePropName="checked"
                   >
                     <Switch defaultChecked onChange={onChange} />
                     Prisiminti
-                  </Form.Item>
+                  </Form.Item> */}
 
                   <Form.Item>
                     <Button
