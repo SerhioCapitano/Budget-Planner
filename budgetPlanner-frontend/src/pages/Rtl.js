@@ -377,11 +377,9 @@ function Home() {
           <Col xs={24} sm={24} md={12} lg={12} xl={6} className="mb-24">
             <Card bordered={false} className="criclebox h-full">
             <div className="timeline-box">
-<<<<<<< Updated upstream
-                <Title level={5}>Išlaidu Istorija</Title>
-=======
+
+
                 <Title level={5}>Paskutinių Išlaidų Istorija</Title>
->>>>>>> Stashed changes
                 <Paragraph className="lastweek" style={{ marginBottom: 24 }}>
                   <span className="bnb2"></span>
                 </Paragraph>
@@ -391,12 +389,9 @@ function Home() {
                   className="timelinelist"
                   reverse={reverse}
                 >
-<<<<<<< Updated upstream
-                  {expenses.map((t, index) => (
-=======
                   {expenses.slice(Math.max(expenses.length - 3, 0))                
     .map((t, index) => (
->>>>>>> Stashed changes
+
                     <Timeline.Item color={t.color} key={index}>
                       <Title level={5}>{t.amount}</Title>
                       <Text>{t.name}</Text><br/>
