@@ -341,14 +341,14 @@ function Home() {
     
     <>
       <div className="layout-content">
-        <Row className="rowgap-vbox" gutter={[24, 0]}>
+        <Row className="rowgap-vbox" gutter={24} type="flex">
           {count.map((c, index) => (
             <Col
               key={index}
               xs={24}
               sm={24}
               md={12}
-              lg={6}
+              lg={12}
               xl={6}
               className="mb-24"
             >
@@ -369,11 +369,11 @@ function Home() {
               </Card> */}
             </Col>
           ))}
-        </Row>
+        {/* </Row> */}
 
 
 
-        <Row gutter={[24, 0]}>
+        {/* <Row gutter={[24, 0]}> */}
           <Col xs={24} sm={24} md={12} lg={12} xl={6} className="mb-24">
             <Card bordered={false} className="criclebox h-full">
             <div className="timeline-box">
@@ -389,7 +389,7 @@ function Home() {
                   className="timelinelist"
                   reverse={reverse}
                 >
-                  {expenses.slice(Math.max(expenses.length - 3, 0))                
+                  {expenses.slice(Math.max(expenses.length - 4, 0))                
     .map((t, index) => (
 
                     <Timeline.Item color={t.color} key={index}>
@@ -401,17 +401,24 @@ function Home() {
                   ))}
                   
                 </Timeline>
-                <Button
+                {/* <Button
                   type="primary"
                   className="width-100"
                   onClick={() => setReverse(!reverse)}
                 >
                   {<MenuUnfoldOutlined />} REVERSE
-                </Button>
+                </Button> */}
               </div>
             </Card>
           </Col>
-          <Card>
+
+          <Col xs={24} sm={24} md={12} lg={12} xl={15} className="criclebox h-full">
+            <Card bordered={false} className="criclebox">
+              <LineChart />
+            </Card>
+          </Col>
+
+          <Card className="criclebox h-full">
         <Col span={12} >
       <Statistic title="Pajamos" value={CountIncomesSum()} />
     </Col>
@@ -425,11 +432,7 @@ function Home() {
 
             
           {/* </Col> */}
-          <Col xs={24} sm={24} md={12} lg={12} xl={14} className="mb-24">
-            <Card bordered={false} className="criclebox">
-              <LineChart />
-            </Card>
-          </Col>
+        
         </Row>
         
 
