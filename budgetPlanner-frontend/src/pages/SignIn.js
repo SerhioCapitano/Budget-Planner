@@ -217,7 +217,7 @@ export default function SignIn()  {
                     name="password"    
                     rules={[
                       {
-                        required: true,
+                       // required: true,
                         message: "Įveskite slaptažodį!",
                       },
                     ]}

@@ -68,7 +68,7 @@ const vusername = (value) => {
   if (value.length < 3 || value.length > 20) {
     return (
       <div className="alert alert-danger" role="alert">
-        The username must be between 3 and 20 characters.
+        Vartotojo vardą turi sudaryti nuo 3 iki 20 simbolių.
       </div>
     );
   }
@@ -77,7 +77,7 @@ const vpassword = (value) => {
   if (value.length < 6 || value.length > 40) {
     return (
       <div className="alert alert-danger" role="alert">
-        The password must be between 6 and 40 characters.
+        Slaptažodį turi sudaryti nuo 6 iki 40 simbolių.
       </div>
     );
   }

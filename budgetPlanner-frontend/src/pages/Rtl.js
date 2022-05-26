@@ -340,8 +340,9 @@ function Home() {
   return (
     
     <>
-      <div className="layout-content">
-        <Row className="rowgap-vbox" gutter={24} type="flex">
+   
+      <div className="layout-content" >
+        <Row className="rowgap-vbox" gutter={24}>
           {count.map((c, index) => (
             <Col
               key={index}
@@ -375,7 +376,7 @@ function Home() {
 
         {/* <Row gutter={[24, 0]}> */}
           <Col xs={24} sm={24} md={12} lg={12} xl={6} className="mb-24">
-            <Card bordered={false} className="criclebox h-full">
+            <Card bordered={false} className="criclebox ">
             <div className="timeline-box">
 
 
@@ -412,13 +413,13 @@ function Home() {
             </Card>
           </Col>
 
-          <Col xs={24} sm={24} md={12} lg={12} xl={15} className="criclebox h-full">
+          <Col xs={24} sm={24} md={12} lg={12} xl={15} className="criclebox" >
             <Card bordered={false} className="criclebox">
               <LineChart />
             </Card>
           </Col>
 
-          <Card className="criclebox h-full">
+          <Card className="criclebox">
         <Col span={12} >
       <Statistic title="Pajamos" value={CountIncomesSum()} />
     </Col>
