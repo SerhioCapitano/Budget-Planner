@@ -5,6 +5,7 @@ import { DeleteOutlined } from "@ant-design/icons";
 import Swal from 'sweetalert2';
 import { Link, useNavigate, Redirect  } from "react-router-dom";
 import { Row, Col, Space} from "antd";
+import {EditOutlined } from "@ant-design/icons";
  
 
 const EditableCell = ({
@@ -136,7 +137,16 @@ const getAllUsers = () => {
         title: 'Klaida!',
         text: 'Nepalikite tuščių laukų!',
       })
-    }  else {
+    } else if (findInArray(item.username) == true) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Klaida!',
+        text: 'Vartotojas su tokiu vardu jau yra',
+      })
+      console.log(item.name)
+      console.log(findInArray(item))
+    } 
+    else {
     var data = {
       username: item.username,
       email: item.email,
@@ -201,6 +211,16 @@ const getAllUsers = () => {
   );
 
 
+  function findInArray(row) {
+    let flag = false;
+    for(let i = 0; i < users.length; i++) {
+      if(users[i].username === row) {
+        flag = true;
+      }
+    }
+    return flag;
+   }
+
   const save = async (id) => {
     try {
       const row = await form.validateFields();
@@ -210,6 +230,13 @@ const getAllUsers = () => {
         const item = newData[index];
         newData.splice(index, 1, { ...item, ...row });
         const obj = newData.find(user => user.id === id);
+        if(findInArray(row.username) == true) {
+          Swal.fire({
+            icon: "error",
+            title: "Klaida",
+            text: "Toks vartotojas jau egzestuoja!"
+          })
+        } else {
         setUsers(newData);
         UserService.updateUsers(item.username, obj).then((response) => {
           console.log(obj);
@@ -220,6 +247,7 @@ const getAllUsers = () => {
           console.log(obj.username);
         }); 
           setEditingKey('');
+      }
       } else {
         newData.push(row);
         setUsers(newData);
@@ -275,7 +303,7 @@ const getAllUsers = () => {
         (
           <div>
         <Typography.Link disabled={editingKey !== ''} onClick={() => edit(record)}>
-          Keisti
+        <EditOutlined/>
         </Typography.Link>
         <DeleteOutlined
         onClick={() => {

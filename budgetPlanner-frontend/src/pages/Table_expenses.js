@@ -8,6 +8,8 @@ import Sidenav from "../components/layout/Sidenav";
 import Swal from 'sweetalert2';
 import { Menu, Dropdown, Space, message } from 'antd';
 import { DownOutlined } from '@ant-design/icons';
+import {EditOutlined } from "@ant-design/icons";
+
 
 
 
@@ -340,7 +342,7 @@ const EditableTable = () => {
         ) : (
           <div>
           <Typography.Link disabled={editingKey !== ''} onClick={() => edit(record)}>
-            Keisti
+          <EditOutlined/>
               </Typography.Link>
               <Popconfirm title="Norite istrinti" onConfirm={() => { onDelete(record) }} onCancel={cancel}
               okText="Yes"

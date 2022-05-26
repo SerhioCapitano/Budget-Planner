@@ -2,7 +2,7 @@
 import React, { Component } from "react";
 import { Link, useNavigate, Redirect  } from "react-router-dom";
 import AuthService from "../services/auth.service";
-import Swal from 'sweetalert2'
+
 
 import {
   Layout,
@@ -115,7 +115,7 @@ const signin = [
   
 ];
 
-let element = user === null ?  <Link to="/sign-in"> {signin} </Link> : <Link to="/santrauka">
+let element = user === null ?  <p></p> : <Link to="/profile">
 {profile}
 <span>Profilis</span>
 </Link> ;
@@ -130,16 +130,11 @@ export default function SignIn()  {
       console.log("Success:", values);
       AuthService.login(values.username, values.password).then(
         (r) => {
-          navigate("/santrauka")
+          navigate("/")
           console.log("Gavom:", r);
-        }).catch(error => {
-          console.log(error);
-          Swal.fire({
-            icon: 'error',
-            title: "Nepavyko",
-            text: "Toks vartotojas neegzistuoja"
-          })
-        })
+
+        }
+      );
     };
    
 
@@ -164,15 +159,15 @@ export default function SignIn()  {
                     <span> Santrauka</span>
                   </Link> */}
                 </Menu.Item>
-                {/* <Menu.Item key="2">
+                <Menu.Item key="2">
                   {element} 
-                </Menu.Item> */}
-                {/* <Menu.Item key="3">
+                </Menu.Item>
+                <Menu.Item key="3">
                   <Link to="/sign-up">
                     {signup}
                     <span> Registracija</span>
                   </Link>
-                </Menu.Item> */}
+                </Menu.Item>
                 {/* <Menu.Item key="4">
                   <Link to="/sign-in">
                     {signin}
@@ -228,17 +223,17 @@ export default function SignIn()  {
                     ]}
                   >
                     
-                    <Input type="password" placeholder="Slaptažodis" minLength="6"  />
+                    <Input type="password" placeholder="Slaptažodis" minLength="6" required  />
                   </Form.Item>
 
-                  {/* <Form.Item
+                  <Form.Item
                     name="remember"
                     className="aligin-center"
                     valuePropName="checked"
                   >
                     <Switch defaultChecked onChange={onChange} />
                     Prisiminti
-                  </Form.Item> */}
+                  </Form.Item>
 
                   <Form.Item>
                     <Button
@@ -249,12 +244,12 @@ export default function SignIn()  {
                       PRISIJUNGTI
                     </Button>
                   </Form.Item>
-                  <p className="font-semibold text-muted">
+                  {/* <p className="font-semibold text-muted">
                     Neturi paskyros?{" "}
                     <Link to="/sign-up" className="text-dark font-bold">
                       Užsiregistruok!
                     </Link>
-                  </p>
+                  </p> */}
                 </Form>
               </Col>
               <Col
