@@ -228,7 +228,7 @@ export default function SignIn()  {
                     ]}
                   >
                     
-                    <Input type="password" placeholder="Slaptažodis" minLength="6" required  />
+                    <Input type="password" placeholder="Slaptažodis" minLength="6"  />
                   </Form.Item>
 
                   {/* <Form.Item

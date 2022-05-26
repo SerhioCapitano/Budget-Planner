@@ -171,10 +171,10 @@ const EditableTable = () => {
       />
 
 
-      <div>
+      {/* <div> */}
         <Button style={{ marginBottom: "30px", marginLeft: "10px" }} type="primary" onClick={saveItem}>Pridėti pajamas</Button>
         {/* <Button type="primary" onClick={getAllIncome}>Submit</Button> */}
-      </div>
+      {/* </div> */}
     </div>
 
   );

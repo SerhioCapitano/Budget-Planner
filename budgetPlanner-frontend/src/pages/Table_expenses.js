@@ -36,7 +36,7 @@ const EditableCell = ({
           rules={[
             {
               required: true,
-              message: `Privaloma įvesti ${title} !`,
+              message: `Privaloma įvesti!`,
             },
           ]}
         >
@@ -231,6 +231,8 @@ const EditableTable = () => {
     {CategoryList}
 </select>
 
+<Button style={{marginBottom: "30px", marginLeft: "10px"}} type="primary" onClick={saveItem}>Pridėti išlaidas</Button>
+
 
 <div>
 <label for="filter">Ieškoti pagal kategoriją: </label>
@@ -238,13 +240,10 @@ const EditableTable = () => {
     <option selected="filter">Kategorijos</option>
     {CategoryList}
 </select>
-</div>
-    <div>
+
+
    <Button style={{marginBottom: "30px", marginLeft: "10px"}} type="primary" onClick={filterByCategory}>Ieškoti</Button>
-   </div>
-   
-    <div>
-   <Button style={{marginBottom: "30px", marginLeft: "10px"}} type="primary" onClick={saveItem}>Pridėti išlaidas</Button>
+
    </div>
 
     </div>
