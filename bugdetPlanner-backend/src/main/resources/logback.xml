@@ -39,7 +39,7 @@
 		</triggeringPolicy>
 	</appender>
 
-	<root level="DEBUG">
+	<root level="FATAL">
 		<appender-ref ref="JsonConsole" />
 		<appender-ref ref="JsonRollingFile" />
 	</root>
