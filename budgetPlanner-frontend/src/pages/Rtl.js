@@ -47,6 +47,7 @@ function Home() {
 
   const [reverse, setReverse] = useState(false);
  
+  
 
   useEffect(()=> getAllExpenses(),[]);
   useEffect(()=>getAllIncome(),[]);
@@ -92,7 +93,6 @@ function Home() {
   function CountDifference() {
     return CountIncomesSum() - CountExpensesSum();
   }
-
 
 
 
@@ -371,21 +371,27 @@ function Home() {
           ))}
         </Row>
 
+
+
         <Row gutter={[24, 0]}>
           <Col xs={24} sm={24} md={12} lg={12} xl={6} className="mb-24">
             <Card bordered={false} className="criclebox h-full">
             <div className="timeline-box">
-                <Title level={5}>Išlaidu Istorija</Title>
+
+
+                <Title level={5}>Paskutinių Išlaidų Istorija</Title>
                 <Paragraph className="lastweek" style={{ marginBottom: 24 }}>
                   <span className="bnb2"></span>
                 </Paragraph>
 
                 <Timeline
-                  pending="Recording..."
+                  // pending="Recording..."
                   className="timelinelist"
                   reverse={reverse}
                 >
-                  {expenses.map((t, index) => (
+                  {expenses.slice(Math.max(expenses.length - 3, 0))                
+    .map((t, index) => (
+
                     <Timeline.Item color={t.color} key={index}>
                       <Title level={5}>{t.amount}</Title>
                       <Text>{t.name}</Text><br/>
