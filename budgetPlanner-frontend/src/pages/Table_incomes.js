@@ -31,7 +31,7 @@ const EditableCell = ({
           rules={[
             {
               required: true,
-              message: `Please Input ${title}!`,
+              message: `Iveskite ${title}!`,
             },
           ]}
         >
@@ -148,8 +148,8 @@ const EditableTable = () => {
 
   const content = (
     <div style={{ textAlign: "left" }}>
-      <input style={{ margin: "10px", borderRadius: '4px' }} type="number"
-        placeholder="Suma"
+      <input  style={{ margin: "10px", borderRadius: '4px',  }} type="number" 
+        placeholder="Suma" 
         name="amount"
         value={item.amount}
         onChange={handleInputChange}
@@ -166,7 +166,7 @@ const EditableTable = () => {
         placeholder="Komentaras"
         name="description"
         value={item.description}
-        minLength="4"
+        minLength={4}
         onChange={handleInputChange}
       />
 

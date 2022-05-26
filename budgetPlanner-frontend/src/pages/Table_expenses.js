@@ -313,7 +313,7 @@ const EditableTable = () => {
     {
       title: 'Komentaras',
       dataIndex: 'comment',
-      width: '20%',
+      width: '15%',
       editable: true,
     },
     {
