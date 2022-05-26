@@ -48,7 +48,6 @@ function App() {
   return (  
     <div className="App">
     <Routes>
-<Route  path="/" element={<AuthRoute><Main>Pradinis puslapis</Main></AuthRoute>} />
     <Route  path="/santrauka" element={<AuthRoute><Main><Rtl/></Main></AuthRoute>} />
     <Route  path="/pajamos" element={<AuthRoute><Main><Table_incomes/></Main></AuthRoute>} />
     <Route  path="/islaidos" element={<AuthRoute><Main><Table_expenses/></Main></AuthRoute>} />
@@ -60,7 +59,7 @@ function App() {
     <Route  exact path="/sign-up" element={<SignUp/>} />
   <Route  path="/sign-in" element={<SignIn/>} />
 
-  <Route  path="*" element={<Navigate to="/" replace/>} />
+  <Route  path="*" element={<Navigate to="/santrauka" replace/>} />
     {/* <Navigate from="/*" to="/suvestinė" /> */}
  
 </Routes>

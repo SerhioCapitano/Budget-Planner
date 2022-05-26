@@ -2,6 +2,7 @@ import React, { useState, useEffect} from 'react';
 import CategoryService from '../services/CategoryService'
 import { Table, Input, InputNumber, Popconfirm, Form, Typography, Button} from 'antd';
 import { DeleteOutlined } from "@ant-design/icons";
+import {EditOutlined } from "@ant-design/icons";
 import Swal from 'sweetalert2'
  
 
@@ -70,6 +71,9 @@ const EditableTable = () => {
     setEditingKey('');
   };
 
+
+  
+  
 const onDelete=(category) => {
   CategoryService.deleteCategory(category.name).then((respone) => {
     const newData = categories.filter(obj => obj.name !==  category.name);
@@ -102,6 +106,7 @@ const getAllCategories = () => {
   };
 
 
+
   var regExp = /[a-zA-Z]/g;
 
   const saveItem = () => {
@@ -111,11 +116,11 @@ const getAllCategories = () => {
         title: 'Klaida!',
         text: 'Nepalikite tuščių laukų!',
       })
-    } else if(item.amount <= 0) {
+    } else if(findInArray(item)) {
       Swal.fire({
         icon: "error",
         title: "Klaida",
-        text: "Suma negali but neigiama arba nulis!"
+        text: "Tokia kategorija jau yra!"
       })
     } else {
     var data = {
@@ -154,6 +159,16 @@ const getAllCategories = () => {
     
   );
 
+  function findInArray(row) {
+     let flag = false;
+     for(let i = 0; i < categories.length; i++) {
+       if(categories[i].name === row.name) {
+         flag = true;
+       }
+     }
+     return flag;
+    }
+
 
   const save = async (id) => {
     try {
@@ -164,13 +179,20 @@ const getAllCategories = () => {
         const item = newData[index];
         newData.splice(index, 1, { ...item, ...row });
         const obj = newData.find(category => category.id === id);
+        if(findInArray(row) == true) {
+          Swal.fire({
+            icon: "error",
+            title: "Klaida",
+            text: "Tokia kategorija jau yra!"
+          })
+        } else {
         setCategories(newData);
         CategoryService.updateCategory(id,obj).then((response) => {
         }).catch(error => { 
           console.log(error);
         }); 
          setEditingKey('');
-        
+        }
       } else {
         newData.push(row);
         setCategories(newData);
@@ -215,7 +237,8 @@ const getAllCategories = () => {
         ) : (
           <div>
           <Typography.Link disabled={editingKey !== ''} onClick={() => edit(record)}>
-            Keisti
+
+                <EditOutlined />
               </Typography.Link>
               <Popconfirm title="Norite istrinti" onConfirm={() => { onDelete(record) }} onCancel={cancel}
               okText="Yes"

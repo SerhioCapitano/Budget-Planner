@@ -40,7 +40,6 @@ public class IncomeController {
 	@Autowired
 	private UserRepository userRepo;
 	
-	private static final Logger LOGGER = LogManager.getLogger(IncomeController.class);
 
 	public IncomeController(IncomeRepository incomeRepository) {
 		this.incomeRepository = incomeRepository;

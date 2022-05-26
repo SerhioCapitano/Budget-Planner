@@ -3,7 +3,7 @@ import IncomesService from '../services/IncomesService'
 import { Table, Input, InputNumber, Popconfirm, Form, Typography, Button } from 'antd';
 import { DeleteOutlined } from "@ant-design/icons";
 import Swal from 'sweetalert2'
-
+import {EditOutlined } from "@ant-design/icons";
 
 const EditableCell = ({
 
@@ -254,7 +254,7 @@ const EditableTable = () => {
           (
             <div>
               <Typography.Link disabled={editingKey !== ''} onClick={() => edit(record)}>
-                Keisti
+              <EditOutlined/>
               </Typography.Link>
 
               <Popconfirm title="Norite istrinti?" onConfirm={() => { onDelete(record) }} onCancel={cancel}

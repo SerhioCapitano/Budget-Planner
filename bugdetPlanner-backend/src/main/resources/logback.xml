@@ -1,4 +1,4 @@
-<configuration>
+ <configuration>
 	<property name="LOG_FILE" value="LogFile" />
 
 	<appender name="JsonConsole" class="ch.qos.logback.core.ConsoleAppender">
@@ -10,7 +10,7 @@
 				<stackTrace>exception</stackTrace>
 			</fieldNames>
 		</encoder>
-	</appender>
+	</appender>a
 
 	<appender name="JsonRollingFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
 		<file>C:\logs\application.log</file>
@@ -26,9 +26,9 @@
 
 		<rollingPolicy
 			class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-			<!-- daily rollover -->
+			daily rollover
 			<fileNamePattern>${LOG_FILE}.%d{yyyy-MM-dd}.gz</fileNamePattern>
-			<!-- keep 30 days' worth of history capped at 3GB total size -->
+			keep 30 days' worth of history capped at 3GB total size
 			<maxHistory>30</maxHistory>
 			<totalSizeCap>3GB</totalSizeCap>
 		</rollingPolicy>
@@ -39,9 +39,8 @@
 		</triggeringPolicy>
 	</appender>
 
-	<root level="FATAL">
-		<appender-ref ref="JsonConsole" />
-		<appender-ref ref="JsonRollingFile" />
+	<root level="OFF">
+		
 	</root>
 
-</configuration>
+</configuration> 
